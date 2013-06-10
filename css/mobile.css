@@ -1,0 +1,59 @@
+@media screen and (max-width: 600px) {
+    #logo-gc {
+        padding-left: 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    body {
+        padding: 0;
+    }
+    
+    section#main {
+        margin: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    article.film {
+        margin: 0;
+    }
+    
+    footer {
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #logo-cinetoile {
+        margin-left: 3px;
+        margin-right: 1px;
+    }
+    
+    #logo-gc {
+        margin-left: 1px;
+        margin-right: 3px;
+    }
+    
+    #contenu-footer {
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+    
+    .film .synopsis {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    section#tableFilms {
+        overflow-x: scroll;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    section#tableMembres {
+        overflow-x: scroll;
+    }
+}

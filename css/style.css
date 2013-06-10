@@ -1,0 +1,415 @@
+html {
+    background-color:steelblue;
+}
+
+body {
+    min-width: 300px;
+    margin: auto;
+    padding: 10px;
+    background-color:azure;
+    font-family: arial;
+    text-align: center;
+    z-index: 0;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    height: 119px;
+    background-color:#d3d3d3;
+    clear: both;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+footer {
+    position: relative;
+    width: 100%;
+    height:50px;
+    background-color:#d3d3d3;
+    clear: both;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+    font-size: 17px;
+}
+
+section#main {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10%;
+    padding-right: 10%; 
+    text-align: center;   
+}
+
+@media screen and (max-width: 900px) {
+    section#main {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+} 
+
+.gauche {
+    position: relative;
+    float: left;
+    display: inline-block;
+}
+.centre {
+    position: relative;
+    text-align: center;
+    display: inline-block;
+}
+.droite {
+    position: relative;
+    float: right;
+    display: inline-block;
+}
+
+#titre {
+    display: block;
+    line-height: 25px;
+    width: 100%;
+    top: 0;
+}
+
+header nav {
+    position: relative;
+    left: 0;
+    height: 26px;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+header nav ul {
+    position: relative;
+    margin: 0;
+    clear: both;
+}
+
+#links-header {
+    top: 0;
+}
+#links-nav {
+    bottom: 0;
+}
+
+header nav li {
+    position: relative;
+}    
+
+header nav ul#links-nav > li {
+    float: left;
+    margin-left: 0.1%;
+    margin-right: 0.1%;
+}
+
+@media screen and (max-width: 350px) {
+    header nav {
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+    
+    header a {
+        font-size: smaller;
+    }
+}
+
+@media screen and (min-width: 470px) {
+    header nav ul#links-nav > li {
+        width: 24.8%;
+    }
+}
+
+header nav li a {
+    display:block;
+}
+
+header a {
+    border-style:solid;
+    text-decoration: none;
+    color: black;
+}
+header a:hover {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header span.menu {
+    border: black double 1px;
+    border-collapse: collapse;
+    width: 24.5%;
+}
+
+footer img {
+    height:50px;
+}
+footer span.texte {
+    height:100%;
+}
+
+a {
+    color:black;
+}
+
+table a {
+    text-decoration: none;
+    
+}
+table a:hover {
+    text-decoration: underline;
+}
+table a:visited {
+    color:black;
+}
+
+img.logo {
+    box-shadow: 5px 5px 15px black;
+}
+
+.logos {
+    display: inline-block;
+    float : left;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+
+ul.logos > li {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#logo-cinetoile {
+    display: inline-block;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#logo-gc {
+    display: inline-block;
+    float: right;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 64px; /** pour avoir #contenu-footer centré **/
+}
+
+#contenu-footer {
+    display: inline-block;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#lightbox {
+    position: fixed;
+    display: none;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    left: 0;
+    background-color: rgba(180,180,180,0.8);
+}
+
+#lightbox.visible {
+    display: block;
+}
+
+#lightbox > * {
+    position: relative;
+    padding: 10px;
+    background-color:#eee;
+    border: 2px solid #666;
+}
+
+#lightbox > img {
+    height: 80%;
+    top: 10%;
+}
+
+#lightbox > div {
+    width: 100%;
+    top: 5%;
+}
+
+#lightbox > div.conteneur-lightbox {
+    width: 50%;
+    top: 25%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+#lightbox > div.bande-annonce-lightbox {
+    width: 100%;
+    top: 15%;
+}
+
+.texte-cinetoile {
+    color: green;
+}
+
+.texte-prenom {
+    color: red;
+}
+        
+table {
+    width: 100%;
+    max-width: 100%;
+    border-style:inset;
+    border-spacing: 1px;
+    border-collapse:collapse;
+    overflow:auto;
+}
+
+caption {
+    margin-bottom: 10px;
+    font-size:large;
+    font-weight: bold;
+    color: darkred;
+}
+
+form table.table_membre  {
+    width: 95%;
+    right: 5%;
+}
+
+th, td {
+    border-style:solid;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    padding: 1px;
+}
+th {
+    border-bottom-width: 2px;
+    font-size:small;
+}
+td {
+    border-top-width: 1px;
+    font-size:small;
+}
+tr:hover {
+    background-color:blanchedalmond;
+}
+td:hover {
+    background-color:orangered;
+    font-weight: bold;
+}
+
+table div.buttons {
+    text-align: center;
+}
+
+form.formulaire {
+    position: relative;
+    left: 18%;
+    right: 18%;
+    width: 61%;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    text-align: left;
+}
+
+form fieldset {
+    text-align: center;
+}
+
+form #boutons {
+    text-align: center;
+}
+
+form :required {
+    border-color:orangered;
+}
+
+form :required:focus {
+    border-color: red;
+}
+
+table form {
+    position: relative;
+    left: 0%;
+    right: 0%;
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+div.options {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+div.options div {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+td.lien {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+ul{
+    list-style: none;
+    padding-left: 0px;
+}
+
+.overlay {
+    position: fixed;
+    left:40%;
+    right:40%;
+    top:40%;
+    bottom:40%;
+    z-index: 100;
+    border: 20px;
+    padding:20px;
+}
+
+.buttons {
+    position: relative;
+    margin-left: 0%;
+    margin-right: 0%;
+    text-align: center;
+    border-style: none;
+}
+
+table.buttons th {
+    width:50%;
+    border-style: none;
+}
+
+.hidden {
+    visibility: hidden;
+}
+tr:hover .hidden, article:hover .hidden {
+    visibility: visible;
+}
+
+.hidden > form {
+    display: inline;
+}
+
+div.inline {
+    display: inline;
+}
+
+div.social {
+    visibility:hidden;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

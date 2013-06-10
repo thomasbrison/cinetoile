@@ -1,0 +1,139 @@
+/** Table des films **/
+
+section#tableFilms table {
+    min-width: 900px;
+}
+
+.films .numero {
+    width: 2%;
+}
+  
+.admin .titre {
+    width: 9%;
+}
+.membre .titre {
+    width: 11%;
+}    
+        
+.admin .realisateur {
+    width: 10%;
+}
+.membre .realisateur {
+    width: 10%;
+}
+
+.admin .annee {
+    width: 6%;
+}
+.membre .annee {
+    width: 6%;
+}
+
+.admin .pays {
+    width: 9%;
+}
+.membre .pays {
+    width: 10%;
+}
+
+.admin .acteurs {
+    width: 10%;
+}
+.membre .acteurs {
+    width: 12%;
+}
+
+.admin .genre {
+    width: 7%;
+}
+.membre .genre {
+    width: 10%;
+}
+
+.admin .synopsis {
+    width: 9%;
+}
+.membre .synopsis {
+    width: 12%;
+}
+
+.admin .synopsis > p, .membre .synopsis > p {
+    display: none;
+}
+
+.admin .affiche {
+    width: 7%;
+}
+.membre .affiche {
+    width: 12%;
+}
+
+.admin .bande-annonce {
+    width: 7%;
+}
+.membre .bande-annonce {
+    width: 12%;
+}
+
+.admin .bande-annonce > div, .membre .bande-annonce > div {
+    display: none;
+}
+
+.films .support {
+    width: 7%;
+}
+
+.films .duree {
+    width: 5%;
+}
+
+.films .modif-suppr {
+    width: 16%;
+}
+
+.films .vote {
+    width: 5%;
+}
+
+
+/** Table des membres **/
+
+section#tableMembres table {
+    min-width: 750px;
+}
+
+.membres .numero {
+    width: 2%;
+}
+
+.membres .login {
+    width: 11%;
+}
+
+.membres .prenom {
+    width: 9%;
+}
+
+.membres .nom {
+    width: 11%;
+}
+
+.membres .coordonnees {
+    width: 26%;
+}
+
+.membres .ecole {
+    width: 8%;
+}
+
+.membres .annee {
+    width: 6%;
+}
+
+.membres .droits {
+    width: 11%;
+}
+
+.membres .modif-suppr {
+    width: 16%;
+}
