@@ -16,20 +16,20 @@ require_once 'Lib/dates.php';
 
     <?php
     $array = array_reverse($array);
-    foreach ($array as $numero => $row) :
+    foreach ($diffusions as $numero => $diffusion) :
         $numero++;
-        $datetime = $row['date_diffusion'];
+        $datetime = $diffusion->getDate();
         $dateAndHourArray = format_date($datetime);
         $date = $dateAndHourArray['date'];
         $heure = $dateAndHourArray['heure'];
-        $id_film = $row['id_film'];
-        $cycle = $row['cycle'];
-        $affiche = $row['affiche'];
-        $commentaire = $row['commentaire'];
-        if (isset($films)) {
-            $infos_film = $films->getAttributes($id_film);
-            $titre = $infos_film['titre'];
-            $realisateur = $infos_film['realisateur'];
+        $idFilm = $diffusion->getIdFilm();
+        $cycle = $diffusion->getCycle();
+        $affiche = $diffusion->getAffiche();
+        $commentaire = $diffusion->getCommentaire();
+        if (isset($tableFilm)) {
+            $infosFilm = $tableFilm->getAttributes($idFilm);
+            $titre = $infosFilm['titre'];
+            $realisateur = $infosFilm['realisateur'];
         }
     
         include 'Templates/diffusion.php';

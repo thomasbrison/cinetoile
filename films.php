@@ -6,6 +6,7 @@
 
 require_once('def.php');
 require_once('Models/Tables/TableFilm.php');
+require_once('Models/Beans/Film.class.php');
 
 class filmsController extends Controller {
 
@@ -24,12 +25,12 @@ class filmsController extends Controller {
         $droits = $_SESSION['droits'];
         if ($this->checkRights($droits, 1, 2)) {
             if ($droits == 2) {
-                $array = $this->tableFilm->consult();
+                $films = $this->tableFilm->consult();
             } else if ($droits == 1) {
-                $array = $this->tableFilm->consultAsAMember();
+                $films = $this->tableFilm->consultAsAMember();
             }
             $titre_page = "Films";
-            $this->render('Films/films', array('index', 'lightbox', 'style'), compact('array', 'droits', 'titre_page'));
+            $this->render('Films/films', array('index', 'lightbox', 'style'), compact('films', 'droits', 'titre_page'));
         }
     }
 

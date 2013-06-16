@@ -23,26 +23,26 @@
         </thead>
 
         <tbody>
-            <?php foreach ($array as $numero => $row) :
+            <?php foreach ($membres as $numero => $membre) :
                 $numero = $numero + 1;
-                $login = $row['login'];
-                $prenom = $row['prenom'];
-                $nom = $row['nom'];
-                $email = $row['email'];
-                $tel = $row['telephone'];
+                $login = $membre->getLogin();
+                $prenom = $membre->getPrenom();
+                $nom = $membre->getNom();
+                $email = $membre->getEmail();
+                $tel = $membre->getTelephone();
                 if ($tel) {
                     $tel = substr($tel, 0, 2) . '.' . substr($tel, 2, 2) . '.' . substr($tel, 4, 2)
                             . '.' . substr($tel, 6, 2) . '.' . substr($tel, 8, 2);
                 }
-                $ecole = $row['ecole'];
+                $ecole = $membre->getEcole();
                 if (isset($ecole) && $ecole == "Ense3") {
                     $ecole = "Ense<sup>3</sup>";
                 }
-                $annee = $row['annee'];
+                $annee = $membre->getAnnee();
                 if ($annee && $annee != "Autre") {
                     $annee = $annee . "A";
                 }
-                $droits = $row['droits'];
+                $droits = $membre->getDroits();
                 switch ($droits) {
                     case "1":
                         $droit = "Membre";

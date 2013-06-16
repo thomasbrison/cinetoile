@@ -1,2 +1,6 @@
+votes
 case commentaire "des anciens"
 chercher par genre ou par mot-clé
+présélection pour les votes
+lien envoyer un mail à tous les membres
+clics pour fermer la lightbox

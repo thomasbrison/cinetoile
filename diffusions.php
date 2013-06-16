@@ -7,6 +7,8 @@
 require_once('def.php');
 require_once('Models/Tables/TableFilm.php');
 require_once('Models/Tables/TableDiffusion.php');
+require_once('Models/Beans/Film.class.php');
+require_once('Models/Beans/Diffusion.class.php');
 
 class diffusionsController extends Controller {
 
@@ -25,9 +27,9 @@ class diffusionsController extends Controller {
 
     public function consulter() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            $array = $this->tableDiffusion->consult();
-            $films = $this->tableFilm;
-            $this->render('Diffusions/diffusions', array('index', 'style'), compact('array', 'films'));
+            $diffusions = $this->tableDiffusion->consult();
+            $tableFilm = $this->tableFilm;
+            $this->render('Diffusions/diffusions', array('index', 'style'), compact('diffusions', 'tableFilm'));
         }
     }
 
@@ -45,8 +47,8 @@ class diffusionsController extends Controller {
                 $this->tableDiffusion->add($date, $id_film, $cycle, $commentaire, $affiche);
                 header('Location: ' . root . '/diffusions.php');
             } else {
-                $liste_films = $this->tableFilm->consultAsAMember();
-                $this->render('Diffusions/ajout_diffusion', array(), compact('liste_films'));
+                $films = $this->tableFilm->consultAsAMember();
+                $this->render('Diffusions/ajout_diffusion', array(), compact('films'));
             }
         }
     }
@@ -67,8 +69,8 @@ class diffusionsController extends Controller {
                 $commentaire = $row['commentaire'];
                 $affiche = $row['affiche'];
                 $_SESSION['affiche'] = $affiche;
-                $liste_films = $this->tableFilm->consultAsAMember();
-                $this->render('Diffusions/modification_diffusion', array('style'), compact('date', 'id_film', 'cycle', 'commentaire', 'affiche', 'liste_films'));
+                $films = $this->tableFilm->consultAsAMember();
+                $this->render('Diffusions/modification_diffusion', array('style'), compact('date', 'id_film', 'cycle', 'commentaire', 'affiche', 'films'));
             } else {
                 header('Location: ' . root . '/diffusions.php');
             }

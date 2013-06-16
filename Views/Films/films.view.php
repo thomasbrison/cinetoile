@@ -47,20 +47,20 @@ function taille($droits, $width_admin, $width_membre) {
         </thead>
 
         <tbody>
-        <?php foreach ($array as $numero => $row) :
+        <?php foreach ($films as $numero => $film) :
             $numero = $numero + 1;
-            $id = $row['id'];
-            $titre = $row['titre'];
-            $realisateur = $row['realisateur'];
-            $annee = $row['annee'];
-            $pays = $row['pays'];
-            $acteurs = $row['acteurs'];
-            $genre = $row['genre'];
-            $support = $row['support'];
-            $duree = substr($row['duree'], 0, 5);
-            $synopsis = $row['synopsis'];
-            $affiche = $row['affiche'];
-            $bande_annonce = $row['bande_annonce'];
+            $id = $film->getId();
+            $titre = $film->getTitre();
+            $realisateur = $film->getRealisateur();
+            $annee = $film->getAnnee();
+            $pays = $film->getPays();
+            $acteurs = $film->getActeurs();
+            $genre = $film->getGenre();
+            $support = $film->getSupport();
+            $duree = substr($film->getDuree(), 0, 5);
+            $synopsis = $film->getSynopsis();
+            $affiche = $film->getAffiche();
+            $bande_annonce = $film->getBandeAnnonce();
             ?>
             <tr id="<?php echo $numero; ?>">
             <?php if ($droits == 2) : ?>

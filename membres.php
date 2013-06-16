@@ -6,6 +6,7 @@
 
 require_once('def.php');
 require_once('Models/Tables/TableMembre.php');
+require_once('Models/Beans/Membre.class.php');
 
 class membresController extends Controller {
 
@@ -22,9 +23,9 @@ class membresController extends Controller {
 
     public function consulter() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            $array = $this->tableMembre->consult();
+            $membres = $this->tableMembre->consult();
             $titre_page = "Membres";
-            $this->render('Membres/membres', array('index', 'style'), compact('array', 'titre_page'));
+            $this->render('Membres/membres', array('index', 'style'), compact('membres', 'titre_page'));
         }
     }
 

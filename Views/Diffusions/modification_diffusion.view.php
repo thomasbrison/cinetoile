@@ -12,14 +12,15 @@
         <p>
             <label>Film :  </label>
             <select name="id_film">
-            <?php foreach ($liste_films as $row) :
-                $id = $row['id'];
-                $titre = $row['titre'];
-                $realisateur = $row['realisateur'];
-                ?>
-                <option value="<?php echo $id; ?>" <?php if ($id == $id_film) echo "selected"; ?>>
-                    <?php echo "$titre  de  $realisateur"; ?>
-                </option>
+                <?php
+                foreach ($films as $film) :
+                    $id = $film->getId();
+                    $titre = $film->getTitre();
+                    $realisateur = $film->getRealisateur();
+                    ?>
+                    <option value="<?php echo $id; ?>" <?php if ($id == $id_film) echo "selected"; ?>>
+                        <?php echo "$titre  de  $realisateur"; ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
         </p>
@@ -37,16 +38,18 @@
             <label>Affiche : </label>
             <input type="hidden" name="MAX_FILE_SIZE" value="100000"/>
             <?php if ($affiche) : ?>
-            <br/>
-            <img class="affiche" name="affiche" src="<?php echo $affiche; ?>" alt=""/>
-            <br/>
-            <span id="buttons">
-                <input type="hidden" name="etat_affiche" value="0"/>
-                <button onclick="modifier_affiche(); return false;">Modifier l'affiche</button>
-                <button onclick="supprimer_affiche(); return false;">Supprimer l'affiche</button>
-            </span>
+                <br/>
+                <img class="affiche" name="affiche" src="<?php echo $affiche; ?>" alt=""/>
+                <br/>
+                <span id="buttons">
+                    <input type="hidden" name="etat_affiche" value="0"/>
+                    <button onclick="modifier_affiche();
+                            return false;">Modifier l'affiche</button>
+                    <button onclick="supprimer_affiche();
+                            return false;">Supprimer l'affiche</button>
+                </span>
             <?php else : ?>
-            <input type="file" name="affiche"/>
+                <input type="file" name="affiche"/>
             <?php endif; ?>
         </p>
     </fieldset>

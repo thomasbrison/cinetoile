@@ -23,38 +23,39 @@ require_once 'Lib/dates.php';
                 </select>
                 <select name="mois_diffusion">
                     <option value=NULL>Mois</option>
-                    <?php for ($i = 1; $i <= 12; $i++) :
+                    <?php
+                    for ($i = 1; $i <= 12; $i++) :
                         $mois = format_month($i);
                         ?>
-                    <option value="<?php echo $i; ?>">
-                        <?php echo $mois; ?>
-                    </option>
+                        <option value="<?php echo $i; ?>">
+                            <?php echo $mois; ?>
+                        </option>
                     <?php endfor; ?>
                 </select>
                 <select name="annee_diffusion">
                     <option value=NULL>Annee</option>
                     <?php for ($i = 2012; $i <= 2020; $i++) : ?>
-                    <option value="<?php echo $i; ?>">
-                        <?php echo $i; ?>
-                    </option>
+                        <option value="<?php echo $i; ?>">
+                            <?php echo $i; ?>
+                        </option>
                     <?php endfor; ?>
                 </select>
                 &nbsp;
                 <select name="heure_diffusion">
                     <option value=NULL>Heure</option>
                     <?php for ($i = 0; $i <= 23; $i++) : ?>
-                    <option value="<?php echo $i; ?>">
-                        <?php echo $i; ?>
-                    </option>
+                        <option value="<?php echo $i; ?>">
+                            <?php echo $i; ?>
+                        </option>
                     <?php endfor; ?>
                 </select>
                 :
                 <select name="minute_diffusion">
                     <option value=NULL>Minutes</option>
-                    <?php for ($i = 0; $i <= 59; $i = $i+5) : ?>
-                    <option value="<?php echo $i; ?>">
-                        <?php echo $i; ?>
-                    </option>
+                    <?php for ($i = 0; $i <= 59; $i = $i + 5) : ?>
+                        <option value="<?php echo $i; ?>">
+                            <?php echo $i; ?>
+                        </option>
                     <?php endfor; ?>
                 </select>
             </span>
@@ -62,14 +63,15 @@ require_once 'Lib/dates.php';
         <p>
             <label>Film :  </label><br/>
             <select name="id_film">
-                <?php foreach ($liste_films as $row) :
-                    $id=$row['id'];
-                    $titre=$row['titre'];
-                    $realisateur=$row['realisateur'];
+                <?php
+                foreach ($films as $film) :
+                    $id = $film->getId();
+                    $titre = $film->getTitre();
+                    $realisateur = $film->getRealisateur();
                     ?>
-                <option value="<?php echo $id; ?>">
-                    <?php echo "$titre  de  $realisateur"; ?>
-                </option>
+                    <option value="<?php echo $id; ?>">
+                        <?php echo "$titre  de  $realisateur"; ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
         </p> 
@@ -79,7 +81,7 @@ require_once 'Lib/dates.php';
         </p>
         <p>
             <label>Commentaire : </label><br/>
-            <textarea name="commentaire" rows="5" cols="40" maxlength="256" onfocus="this.innerHTML='';">Commentaires ici...</textarea>
+            <textarea name="commentaire" rows="5" cols="40" maxlength="256" onfocus="this.innerHTML = '';">Commentaires ici...</textarea>
         </p>
         <p>
             <label>Affiche : </label>
@@ -87,7 +89,7 @@ require_once 'Lib/dates.php';
             <input type="file" name="affiche"/>
         </p>
     </fieldset>
-    
+
     <p id="boutons">
         <input type="submit" name="ajouter" value="Valider" />
         <input type="reset" name="reset" value="Reset"/>

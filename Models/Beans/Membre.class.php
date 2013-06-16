@@ -5,7 +5,7 @@
  *
  * @author thomas
  */
-class membre {
+class Membre {
 
     private $login;
     private $password;
@@ -13,18 +13,18 @@ class membre {
     protected $prenom;
     protected $nom;
     protected $email;
-    protected $tel;
+    protected $telephone;
     protected $ecole;
     protected $annee;
 
-    function __construct($login, $password, $prenom, $droits = 1, $nom = null, $email = null, $tel = null, $ecole = null, $annee = null) {
+    function __construct($login, $password = null, $droits = 1, $prenom = null, $nom = null, $email = null, $telephone = null, $ecole = null, $annee = null) {
         $this->login = $login;
         $this->password = $password;
         $this->droits = $droits;
         $this->prenom = $prenom;
         $this->nom = $nom;
         $this->email = $email;
-        $this->tel = $tel;
+        $this->telephone = $telephone;
         $this->ecole = $ecole;
         $this->annee = $annee;
     }
@@ -77,12 +77,12 @@ class membre {
         $this->email = $email;
     }
 
-    public function getTel() {
-        return $this->tel;
+    public function getTelephone() {
+        return $this->telephone;
     }
 
-    public function setTel($tel) {
-        $this->tel = $tel;
+    public function setTelephone($telephone) {
+        $this->telephone = $telephone;
     }
 
     public function getEcole() {

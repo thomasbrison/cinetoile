@@ -8,8 +8,11 @@ require_once('Table.php');
 
 class TableFilm extends Table {
 
+    static $name = 'Film';
+    static $primaryKey = 'id';
+
     public function __construct() {
-        parent::__construct('Film', 'id');
+        parent::__construct(self::$name, self::$primaryKey);
     }
 
     public function consult() {
@@ -18,9 +21,22 @@ class TableFilm extends Table {
             Order By titre;";
         $result = mysql_query($query);
         while ($row = mysql_fetch_assoc($result)) {
-            $array[] = $row;
+            $id = $row['id'];
+            $titre = $row['titre'];
+            $realisateur = $row['realisateur'];
+            $annee = $row['annee'];
+            $pays = $row['pays'];
+            $acteurs = $row['acteurs'];
+            $genre = $row['genre'];
+            $support = $row['support'];
+            $duree = $row['duree'];
+            $synopsis = $row['synopsis'];
+            $affiche = $row['affiche'];
+            $bandeAnnonce = $row['bande_annonce'];
+            $film = new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bandeAnnonce);
+            $films[] = $film;
         }
-        return $array;
+        return $films;
     }
 
     public function consultAsAMember() {
@@ -29,9 +45,20 @@ class TableFilm extends Table {
             Order By titre;";
         $result = mysql_query($query);
         while ($row = mysql_fetch_assoc($result)) {
-            $array[] = $row;
+            $id = $row['id'];
+            $titre = $row['titre'];
+            $realisateur = $row['realisateur'];
+            $annee = $row['annee'];
+            $pays = $row['pays'];
+            $acteurs = $row['acteurs'];
+            $genre = $row['genre'];
+            $synopsis = $row['synopsis'];
+            $affiche = $row['affiche'];
+            $bandeAnnonce = $row['bande_annonce'];
+            $film = new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, null, null, $synopsis, $affiche, $bandeAnnonce);
+            $films[] = $film;
         }
-        return $array;
+        return $films;
     }
 
     public function add($titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce) {

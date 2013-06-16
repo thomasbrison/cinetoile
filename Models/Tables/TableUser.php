@@ -8,8 +8,11 @@ require_once('Table.php');
 
 class TableUser extends Table {
 
+    static $name = 'Membre';
+    static $primaryKey = 'login';
+
     public function __construct() {
-        parent::__construct('Membre', 'login');
+        parent::__construct(self::$name, self::$primaryKey);
     }
 
     public function consult() {
@@ -17,9 +20,18 @@ class TableUser extends Table {
             From Membre;";
         $result = mysql_query($query);
         while ($row = mysql_fetch_assoc($result)) {
-            $array[] = $row;
+            $login = $row['login'];
+            $prenom = $row['prenom'];
+            $nom = $row['nom'];
+            $email = $row['email'];
+            $telephone = $row['telephone'];
+            $ecole = $row['ecole'];
+            $annee = $row['annee'];
+            $droits = $row['droits'];
+            $membre = new Membre($login, null, $droits, $prenom, $nom, $email, $telephone, $ecole, $annee);
+            $membres[] = $membre;
         }
-        return $array;
+        return $membres;
     }
 
     public function add($login, $password, $droits, $prenom, $nom, $email, $tel, $ecole, $annee) {
