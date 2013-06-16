@@ -27,7 +27,7 @@ class diffusionsController extends Controller {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             $array = $this->_diffusion->consult();
             $films = $this->_film;
-            $this->render('diffusions', array('index', 'style'), compact('array', 'films'));
+            $this->render('Diffusions/diffusions', array('index', 'style'), compact('array', 'films'));
         }
     }
 
@@ -46,7 +46,7 @@ class diffusionsController extends Controller {
                 header('Location: ' . root . '/diffusions.php');
             } else {
                 $liste_films= $this->_film->consultAsAMember();
-                $this->render('ajout_diffusion', array(), compact('liste_films'));
+                $this->render('Diffusions/ajout_diffusion', array(), compact('liste_films'));
             }
         }
     }
@@ -68,7 +68,7 @@ class diffusionsController extends Controller {
                 $affiche = $row['affiche'];
                 $_SESSION['affiche'] = $affiche;
                 $liste_films = $this->_film->consultAsAMember();
-                $this->render('modification_diffusion', array('style'), 
+                $this->render('Diffusions/modification_diffusion', array('style'), 
                         compact('date', 'id_film', 'cycle', 'commentaire', 'affiche', 'liste_films'));
             } else {
                 header('Location: ' . root . '/diffusions.php');
@@ -83,7 +83,7 @@ class diffusionsController extends Controller {
                 $this->_diffusion->remove($date);
                 header('Location: ' . root . '/diffusions.php');
             } else {
-                $this->render('diffusions');
+                $this->render('Diffusions/diffusions');
             }
         }
     }
@@ -101,10 +101,11 @@ class diffusionsController extends Controller {
                 $affiche = $_SESSION['affiche'];
                 break;
             case "1" : // Affiche modifiée
+                require_once 'Lib/uploadFile.php';
                 $sizemax = 100000;
                 $extensions_valides = array('jpg','jpeg','gif','png');
                 $final_dir = "Images/Affiches/";
-                $upload = $this->upload_file('affiche', $sizemax, $extensions_valides, $final_dir);
+                $upload = uploadFile('affiche', $sizemax, $extensions_valides, $final_dir);
                 $envoi_ok = $upload['success'];
                 $message = $upload['message'];
                 if ($envoi_ok) {

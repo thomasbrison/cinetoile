@@ -24,7 +24,7 @@ class membresController extends Controller {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             $array = $this->_membre->consult();
             $titre_page = "Membres";
-            $this->render('membres', array('index','style'), compact('array','titre_page'));
+            $this->render('Membres/membres', array('index','style'), compact('array','titre_page'));
         }
     }
 
@@ -37,7 +37,7 @@ class membresController extends Controller {
                 $this->_membre->add($login, $password, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
                 header('Location: ' . root . '/membres.php');
             } else {
-                $this->render('ajout_membre');
+                $this->render('Membres/ajout_membre');
             }
         }
     }
@@ -64,7 +64,7 @@ class membresController extends Controller {
                 $ecole = $row['ecole'];
                 $annee = $row['annee'];
                 $droits = $row['droits'];
-                $this->render('modification_membre', array(), 
+                $this->render('Membres/modification_membre', array(), 
                         compact('login', 'prenom', 'nom', 'email', 'tel1', 'tel2', 'tel3', 'tel4', 'tel5',
                                 'ecole', 'annee', 'droits'));
             }
@@ -87,7 +87,7 @@ class membresController extends Controller {
                 $this->_membre->remove($login);
                 header('Location: ' . root . '/membres.php');
             } else {
-                $this->render('membres');
+                $this->render('Membres/membres');
             }
         }
     }

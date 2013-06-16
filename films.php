@@ -29,7 +29,7 @@ class filmsController extends Controller {
                 $array = $this->_film->consultAsAMember();
             }
             $titre_page = "Films";
-            $this->render('films', array('index', 'lightbox', 'style'), compact('array', 'droits', 'titre_page'));
+            $this->render('Films/films', array('index', 'lightbox', 'style'), compact('array', 'droits', 'titre_page'));
         }
     }
 
@@ -41,7 +41,7 @@ class filmsController extends Controller {
                 $this->_film->add($titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
                 header('Location: ' . root . '/films.php');
             } else {
-                $this->render('ajout_film');
+                $this->render('Films/ajout_film');
             }
         }
     }
@@ -73,7 +73,7 @@ class filmsController extends Controller {
                 $affiche = $row['affiche'];
                 $_SESSION['affiche'] = $affiche;
                 $bande_annonce = $row['bande_annonce'];
-                $this->render('modification_film', array('style'), 
+                $this->render('Films/modification_film', array('style'), 
                         compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 
                                 'heures_duree', 'minutes_duree', 'synopsis', 'affiche', 'bande_annonce'));
             }
@@ -90,7 +90,7 @@ class filmsController extends Controller {
                 $this->_film->remove($id);
                 header('Location: ' . root . '/films.php');
             } else {
-                $this->render('films');
+                $this->render('Films/films');
             }
         }
     }
@@ -102,7 +102,7 @@ class filmsController extends Controller {
                 $this->_film->vote($id);
                 // Indiquer à l'utilisateur que son vote a bien été pris en compte
             } else {
-                $this->render('films');
+                $this->render('Films/films');
             }
         }
     }
@@ -127,10 +127,11 @@ class filmsController extends Controller {
                 $affiche = $_SESSION['affiche'];
                 break;
             case "1" : // Affiche modifiée
+                require_once 'Lib/uploadFile.php';
                 $sizemax = 100000;
                 $extensions_valides = array('jpg','jpeg','gif','png');
                 $final_dir = "Images/Affiches/";
-                $upload = $this->upload_file('affiche', $sizemax, $extensions_valides, $final_dir);
+                $upload = uploadFile('affiche', $sizemax, $extensions_valides, $final_dir);
                 $envoi_ok = $upload['success'];
                 $message = $upload['message'];
                 if ($envoi_ok) {

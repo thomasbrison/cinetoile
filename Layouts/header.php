@@ -34,11 +34,11 @@ if (!isset($titre_page)) {
                         <a href="">Accueil</a>
                     </li>
                     <li class="droite">
-                    <?php if (isset($_SESSION['login'])) : ?>
+                        <?php if (isset($_SESSION['login'])) : ?>
                         <a href="index.php/deconnexion">D&eacute;connexion</a>
-                    <?php else : ?>
+                        <?php else : ?>
                         <a href="index.php/connexion">Connexion</a>
-                    <?php endif; ?>
+                        <?php endif; ?>
                     </li>
                 </ul>
             </nav>
@@ -51,7 +51,7 @@ if (!isset($titre_page)) {
                     <li>
                         <a href="films.php">Films</a>
                     </li>
-                        <?php if ($_SESSION['droits'] == 2) : ?>
+                    <?php if ($_SESSION['droits'] == 2) : ?>
                     <li>
                         <a href="membres.php">Membres</a>
                     </li>

@@ -19,13 +19,13 @@ class indexController extends Controller {
     }
 
     public function defaultAction() {
-        $liste_diffusions=$this->_diffusion->consult();
-        $films=$this->_film;
+        $liste_diffusions = $this->_diffusion->consult();
+        $films = $this->_film;
         if (isset($_SESSION['login'])) {
             $prenom = $this->_user->getFirstName($_SESSION['login']);
         }
-        $js_array=array('index','affiche','video','style');
-        $var_array=compact('prenom','liste_diffusions', 'films');
+        $js_array = array('index','affiche','video','style');
+        $var_array = compact('prenom','liste_diffusions', 'films');
         $this->render('index', $js_array, $var_array);
     }
 

@@ -3,7 +3,7 @@
  * Vue pour l'ajout d'une diffusion
  */
 
-require_once 'Models/tools.php';
+require_once 'Lib/dates.php';
 ?>
 
 <form class="formulaire" name="ajout_diffusion" method="post" action="diffusions.php/ajouter" enctype="multipart/form-data">

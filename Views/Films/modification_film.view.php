@@ -52,8 +52,8 @@
             <label>Support : </label>
             <select name="support">
                 <option value=NULL  <?php if (!$support) echo "selected"; ?>>Choisir le support</option>
-                <option value="DVD" <?php if ($support==DVD) echo "selected"; ?>>DVD</option>
-                <option value="VHS" <?php if ($support==VHS) echo "selected"; ?>>VHS</option>
+                <option value="DVD" <?php if ($support == "DVD") echo "selected"; ?>>DVD</option>
+                <option value="VHS" <?php if ($support == "VHS") echo "selected"; ?>>VHS</option>
             </select>
         </p>
         <p>
@@ -62,16 +62,16 @@
                 <select name="heures_duree">
                     <option value=NULL  <?php if (!$heures_duree) echo "selected"; ?>>Heures</option>
                     <?php for ($i = 0; $i <= 3; $i++) : ?>
-                    <option value="<?php echo $i; ?>" <?php if ($i==$heures_duree) echo "selected"; ?>>
+                    <option value="<?php echo $i; ?>" <?php if ($i == $heures_duree) echo "selected"; ?>>
                         <?php echo $i; ?>
                     </option>
                         <?php endfor; ?>
                 </select>
                 :
                 <select name="minutes_duree">
-                    <option value=NULL  <?php if ($i==$minutes_duree) echo "selected"; ?>>Minutes</option>
+                    <option value=NULL  <?php if ($i == $minutes_duree) echo "selected"; ?>>Minutes</option>
                     <?php for ($i = 0; $i <= 59; $i++) : ?>
-                    <option value="<?php echo $i; ?>" <?php if ($i==$minutes_duree) echo "selected"; ?>>
+                    <option value="<?php echo $i; ?>" <?php if ($i == $minutes_duree) echo "selected"; ?>>
                         <?php echo $i; ?>
                     </option>
                     <?php endfor; ?>

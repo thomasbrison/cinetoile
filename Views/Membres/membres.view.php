@@ -31,7 +31,8 @@
                 $email = $row['email'];
                 $tel = $row['telephone'];
                 if ($tel) {
-                    $tel=substr($tel,0,2).'.'.substr($tel,2,2).'.'.substr($tel,4,2).'.'.substr($tel,6,2).'.'.substr($tel,8,2);
+                    $tel = substr($tel, 0, 2) . '.' . substr($tel, 2, 2) . '.' . substr($tel, 4, 2)
+                            . '.' . substr($tel, 6, 2) . '.' . substr($tel, 8, 2);
                 }
                 $ecole = $row['ecole'];
                 if (isset($ecole) && $ecole == "Ense3") {
