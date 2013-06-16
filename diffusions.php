@@ -42,9 +42,8 @@ class DiffusionsController extends Controller {
                 $heure = $_POST['heure_diffusion'];
                 $minute = $_POST['minute_diffusion'];
                 $date = "$annee-$mois-$jour $heure:$minute";
-                $vars = $this->getInfos();
-                extract($vars);
-                $this->tableDiffusion->add($date, $id_film, $cycle, $commentaire, $affiche);
+                $diffusion = $this->getInfos($date);
+                $this->tableDiffusion->add($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche());
                 header('Location: ' . root . '/diffusions.php');
             } else {
                 $films = $this->tableFilm->consultAsAMember();
@@ -57,9 +56,8 @@ class DiffusionsController extends Controller {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             if (isset($_POST['modifier'])) {
                 $date = $_POST['date'];
-                $vars = $this->getInfos();
-                extract($vars);
-                $this->tableDiffusion->modify($date, $id_film, $cycle, $commentaire, $affiche);
+                $diffusion = $this->getInfos($date);
+                $this->tableDiffusion->modify($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche());
                 header('Location: ' . root . '/diffusions.php');
             } elseif (isset($_GET['modifier_diffusion'])) {
                 $date = $_GET['date'];
@@ -89,7 +87,7 @@ class DiffusionsController extends Controller {
         }
     }
 
-    private function getInfos() {
+    private function getInfos($date) {
         $id_film = $_POST['id_film'];
         $cycle = $_POST['cycle'];
         $commentaire = addslashes($_POST['commentaire']);
@@ -125,8 +123,8 @@ class DiffusionsController extends Controller {
             default :
                 die("Etat de l'affiche non autorisé.");
         endswitch;
-        $var_array = compact('id_film', 'cycle', 'commentaire', 'affiche');
-        return $var_array;
+        $diffusion = new Diffusion($date, $id_film, $cycle, $commentaire, $affiche);
+        return $diffusion;
     }
 
 }

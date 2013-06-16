@@ -33,9 +33,9 @@ class MembresController extends Controller {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             if (isset($_POST['ajouter'])) {
                 $password = htmlentities(($_POST['password']));
-                $vars = $this->getInfos();
-                extract($vars);
-                $this->tableMembre->add($login, $password, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
+                $membre = $this->getInfos();
+                extract($membre);
+                $this->tableMembre->add($membre->getLogin(), $password, $membre->getDroits(), $membre->getPrenom(), $membre->getNom(), $membre->getEmail(), $membre->getTelephone(), $membre->getEcole(), $membre->getAnnee());
                 header('Location: ' . root . '/membres.php');
             } else {
                 $this->render('Membres/ajout_membre');
@@ -46,9 +46,8 @@ class MembresController extends Controller {
     public function modifier() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             if (isset($_POST['modifier'])) {
-                $vars = $this->getInfos();
-                extract($vars);
-                $this->tableMembre->modify($login, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
+                $membre = $this->getInfos();
+                $this->tableMembre->modify($membre->getLogin(), $membre->getDroits(), $membre->getPrenom(), $membre->getNom(), $membre->getEmail(), $membre->getTelephone(), $membre->getEcole(), $membre->getAnnee());
                 header('Location: ' . root . '/membres.php');
             } else if (isset($_GET['modifier_membre'])) {
                 $login = htmlentities(utf8_decode($_GET['login']));
@@ -109,8 +108,8 @@ class MembresController extends Controller {
         }
         $ecole = htmlentities($_POST['ecole']);
         $annee = htmlentities($_POST['annee']);
-        $var_array = compact('login', 'prenom', 'nom', 'email', 'tel', 'ecole', 'annee', 'droits');
-        return $var_array;
+        $membre = new Membre($login, null, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
+        return $membre;
     }
 
 }

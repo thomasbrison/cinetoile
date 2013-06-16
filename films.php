@@ -37,9 +37,8 @@ class FilmsController extends Controller {
     public function ajouter() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             if (isset($_POST['ajouter'])) {
-                $vars = $this->getInfos();
-                extract($vars);
-                $this->tableFilm->add($titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
+                $film = $this->getInfos(null);
+                $this->tableFilm->add($film->getTitre(), $film->getRealisateur(), $film->getAnnee(), $film->getPays(), $film->getActeurs(), $film->getGenre(), $film->getSupport(), $film->getDuree(), $film->getSynopsis(), $film->getAffiche(), $film->getBandeAnnonce());
                 header('Location: ' . root . '/films.php');
             } else {
                 $this->render('Films/ajout_film');
@@ -51,9 +50,8 @@ class FilmsController extends Controller {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             if (isset($_POST['modifier'])) {
                 $id = htmlentities(utf8_decode($_POST['id']));
-                $vars = $this->getInfos();
-                extract($vars);
-                $this->tableFilm->modify($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
+                $film = $this->getInfos($id);
+                $this->tableFilm->modify($id, $film->getTitre(), $film->getRealisateur(), $film->getAnnee(), $film->getPays(), $film->getActeurs(), $film->getGenre(), $film->getSupport(), $film->getDuree(), $film->getSynopsis(), $film->getAffiche(), $film->getBandeAnnonce());
                 header('Location: ' . root . '/films.php');
             } elseif (isset($_GET['modifier_film'])) {
                 $id = htmlentities(utf8_decode($_GET['id']));
@@ -105,7 +103,7 @@ class FilmsController extends Controller {
         }
     }
 
-    private function getInfos() {
+    private function getInfos($id) {
         $titre = htmlentities(utf8_decode($_POST['titre']));
         $realisateur = htmlentities(utf8_decode($_POST['realisateur']));
         $annee = htmlentities(utf8_decode($_POST['annee']));
@@ -148,8 +146,8 @@ class FilmsController extends Controller {
             default :
                 die("Etat de l'affiche non autorisé.");
         endswitch;
-        $var_array = compact('titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'duree', 'synopsis', 'affiche', 'bande_annonce');
-        return $var_array;
+        $film = new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
+        return $film;
     }
 
 }

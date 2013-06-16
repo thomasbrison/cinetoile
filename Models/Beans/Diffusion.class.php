@@ -13,9 +13,9 @@ class Diffusion {
     protected $commentaire;
     protected $affiche;
 
-    function __construct($date, $idFilm, $cycle = null, $commentaire = null, $affiche = null) {
+    function __construct($date, $id_film, $cycle = null, $commentaire = null, $affiche = null) {
         $this->date = $date;
-        $this->idFilm = $idFilm;
+        $this->idFilm = $id_film;
         $this->cycle = $cycle;
         $this->commentaire = $commentaire;
         $this->affiche = $affiche;
@@ -33,8 +33,8 @@ class Diffusion {
         return $this->idFilm;
     }
 
-    public function setIdFilm($idFilm) {
-        $this->idFilm = $idFilm;
+    public function setIdFilm($id_film) {
+        $this->idFilm = $id_film;
     }
 
     public function getCycle() {

@@ -20,7 +20,7 @@ class Film {
     private $affiche;
     protected $bandeAnnonce;
 
-    function __construct($id, $titre, $realisateur, $annee = null, $pays = null, $acteurs = null, $genre = null, $support = null, $duree = null, $synopsis = null, $affiche = null, $bandeAnnonce = null) {
+    function __construct($id, $titre, $realisateur, $annee = null, $pays = null, $acteurs = null, $genre = null, $support = null, $duree = null, $synopsis = null, $affiche = null, $bande_annonce = null) {
         $this->id = $id;
         $this->titre = $titre;
         $this->realisateur = $realisateur;
@@ -32,7 +32,7 @@ class Film {
         $this->duree = $duree;
         $this->synopsis = $synopsis;
         $this->affiche = $affiche;
-        $this->bandeAnnonce = $bandeAnnonce;
+        $this->bandeAnnonce = $bande_annonce;
     }
 
     public function getId() {
@@ -127,8 +127,8 @@ class Film {
         return $this->bandeAnnonce;
     }
 
-    public function setBandeAnnonce($bandeAnnonce) {
-        $this->bandeAnnonce = $bandeAnnonce;
+    public function setBandeAnnonce($bande_annonce) {
+        $this->bandeAnnonce = $bande_annonce;
     }
 
 }
