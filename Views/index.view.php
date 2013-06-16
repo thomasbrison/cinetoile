@@ -14,19 +14,19 @@ require_once 'Lib/dates.php';
 <!--La section correspond à plusieurs films à venir-->
 <section id="main">
     <?php
-    $liste_diffusions = array_reverse($liste_diffusions); 
-    foreach ($liste_diffusions as $numero => $row) :
+    $diffusions = array_reverse($diffusions); 
+    foreach ($diffusions as $numero => $diffusion) :
         $numero++;
-        $datetime = $row['date_diffusion'];
-        $dateAndHourArray = format_date($datetime);
-        $date = $dateAndHourArray['date'];
-        $heure = $dateAndHourArray['heure'];
-        $id_film = $row['id_film'];
-        $cycle = $row['cycle'];
-        $affiche = $row['affiche'];
-        $commentaire = $row['commentaire'];
-        if (isset($films)) {
-            $infos_film = $films->getAttributes($id_film);
+        $datetime = $diffusion->getDate();
+        $date_and_hour_array = date_format_to_string($datetime);
+        $date = $date_and_hour_array['date'];
+        $heure = $date_and_hour_array['heure'];
+        $id_film = $diffusion->getIdFilm();
+        $cycle = $diffusion->getCycle();
+        $affiche = $diffusion->getAffiche();
+        $commentaire = $diffusion->getCommentaire();
+        if (isset($table_film)) {
+            $infos_film = $table_film->getAttributes($id_film);
             $titre = $infos_film['titre'];
             $realisateur = $infos_film['realisateur'];
             $synopsis = $infos_film['synopsis'];

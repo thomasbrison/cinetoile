@@ -1,9 +1,9 @@
 <?php
 
-require_once('def.php');
+require_once('Controller.php');
 require_once('Models/Tables/TableUser.php');
 
-class adminController extends Controller {
+class AdminController extends Controller {
 
     private $tableUser;
 
@@ -21,6 +21,6 @@ class adminController extends Controller {
 
 }
 
-new adminController();
+new AdminController();
 ?>
 

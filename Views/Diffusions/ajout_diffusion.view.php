@@ -25,7 +25,7 @@ require_once 'Lib/dates.php';
                     <option value=NULL>Mois</option>
                     <?php
                     for ($i = 1; $i <= 12; $i++) :
-                        $mois = format_month($i);
+                        $mois = date_format_month_to_string($i);
                         ?>
                         <option value="<?php echo $i; ?>">
                             <?php echo $mois; ?>

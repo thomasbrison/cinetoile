@@ -1,11 +1,12 @@
 <?php
 
-require_once('def.php');
+require_once('Controller.php');
 require_once('Models/Tables/TableUser.php');
 require_once('Models/Tables/TableFilm.php');
 require_once('Models/Tables/TableDiffusion.php');
+require_once('Models/Beans/Diffusion.class.php');
 
-class indexController extends Controller {
+class IndexController extends Controller {
 
     private $tableUser;
     private $tableFilm;
@@ -19,13 +20,13 @@ class indexController extends Controller {
     }
 
     public function defaultAction() {
-        $liste_diffusions = $this->tableDiffusion->consult();
-        $films = $this->tableFilm;
+        $diffusions = $this->tableDiffusion->consult();
+        $table_film = $this->tableFilm;
         if (isset($_SESSION['login'])) {
             $prenom = $this->tableUser->getFirstName($_SESSION['login']);
         }
         $js_array = array('index', 'affiche', 'video', 'style');
-        $var_array = compact('prenom', 'liste_diffusions', 'films');
+        $var_array = compact('prenom', 'diffusions', 'table_film');
         $this->render('index', $js_array, $var_array);
     }
 
@@ -67,5 +68,5 @@ class indexController extends Controller {
 
 }
 
-new indexController();
+new IndexController();
 ?>

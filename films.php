@@ -4,11 +4,11 @@
  * Controlleur des films
  */
 
-require_once('def.php');
+require_once('Controller.php');
 require_once('Models/Tables/TableFilm.php');
 require_once('Models/Beans/Film.class.php');
 
-class filmsController extends Controller {
+class FilmsController extends Controller {
 
     private $tableFilm;
 
@@ -125,15 +125,18 @@ class filmsController extends Controller {
                 $affiche = $_SESSION['affiche'];
                 break;
             case "1" : // Affiche modifiée
-                require_once 'Lib/uploadFile.php';
+                require_once 'Lib/files.php';
                 $sizemax = 100000;
-                $extensions_valides = array('jpg', 'jpeg', 'gif', 'png');
+                $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
                 $final_dir = "Images/Affiches/";
-                $upload = uploadFile('affiche', $sizemax, $extensions_valides, $final_dir);
-                $envoi_ok = $upload['success'];
+                $upload = file_upload('affiche', $sizemax, $valid_extensions, $final_dir);
+                $success = $upload['success'];
+                $error = $upload['error'];
                 $message = $upload['message'];
-                if ($envoi_ok) {
+                if ($success) {
                     $affiche = $final_dir . $upload['file_name'];
+                } elseif ($error == UPLOAD_ERR_NO_FILE) {
+                    $affiche = null;
                 } else {
                     $affiche = null;
                     die($message);
@@ -151,5 +154,5 @@ class filmsController extends Controller {
 
 }
 
-new filmsController();
+new FilmsController();
 ?>

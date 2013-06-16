@@ -95,9 +95,9 @@ function taille($droits, $width_admin, $width_membre) {
                     </div>
                     <div class="inline hidden" id="suppr<?php echo $numero ?>">
                         <form name="supprimer_film" method="GET" action="films.php/supprimer">
-                            <input type="hidden" name="id" value="<?php echo $numero; ?>"/>
+                            <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                             <input type="button" name="confirmer_suppression" value="Supprimer" id="confirme_suppr<?php echo $numero; ?>" onclick="confirme_suppression(<?php echo $numero; ?>);"/>
-                            <input type="hidden" name="supprimer" value="Oui" id="supprimer<?php echo $numero; ?>"  onclick="document.getElementById('input-modif').setAttribute('value', <?php echo $id;?>);"/>
+                            <input type="hidden" name="supprimer" value="Oui" id="supprimer<?php echo $numero; ?>"/>
                             <input type="hidden" name="annuler" value="Non" id="annuler_suppr<?php echo $numero; ?>"/>
                         </form>
                     </div>

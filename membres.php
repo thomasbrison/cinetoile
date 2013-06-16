@@ -4,11 +4,11 @@
  * Controlleur des membres
  */
 
-require_once('def.php');
+require_once('Controller.php');
 require_once('Models/Tables/TableMembre.php');
 require_once('Models/Beans/Membre.class.php');
 
-class membresController extends Controller {
+class MembresController extends Controller {
 
     private $tableMembre;
 
@@ -70,7 +70,7 @@ class membresController extends Controller {
         }
     }
 
-    public function modifier_droits() {
+    public function modifierDroits() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             $login = htmlentities(utf8_decode($_GET['login']));
             $droits = htmlentities($_GET['droits']);
@@ -115,5 +115,5 @@ class membresController extends Controller {
 
 }
 
-new membresController();
+new MembresController();
 ?>

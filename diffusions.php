@@ -4,13 +4,13 @@
  * Controlleur des diffusions
  */
 
-require_once('def.php');
+require_once('Controller.php');
 require_once('Models/Tables/TableFilm.php');
 require_once('Models/Tables/TableDiffusion.php');
 require_once('Models/Beans/Film.class.php');
 require_once('Models/Beans/Diffusion.class.php');
 
-class diffusionsController extends Controller {
+class DiffusionsController extends Controller {
 
     private $tableDiffusion;
     private $tableFilm;
@@ -28,8 +28,8 @@ class diffusionsController extends Controller {
     public function consulter() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             $diffusions = $this->tableDiffusion->consult();
-            $tableFilm = $this->tableFilm;
-            $this->render('Diffusions/diffusions', array('index', 'style'), compact('diffusions', 'tableFilm'));
+            $table_film = $this->tableFilm;
+            $this->render('Diffusions/diffusions', array('index', 'style'), compact('diffusions', 'table_film'));
         }
     }
 
@@ -102,15 +102,18 @@ class diffusionsController extends Controller {
                 $affiche = $_SESSION['affiche'];
                 break;
             case "1" : // Affiche modifiée
-                require_once 'Lib/uploadFile.php';
+                require_once 'Lib/files.php';
                 $sizemax = 100000;
-                $extensions_valides = array('jpg', 'jpeg', 'gif', 'png');
+                $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
                 $final_dir = "Images/Affiches/";
-                $upload = uploadFile('affiche', $sizemax, $extensions_valides, $final_dir);
-                $envoi_ok = $upload['success'];
+                $upload = file_upload('affiche', $sizemax, $valid_extensions, $final_dir);
+                $success = $upload['success'];
+                $error = $upload['error'];
                 $message = $upload['message'];
-                if ($envoi_ok) {
+                if ($success) {
                     $affiche = $final_dir . $upload['file_name'];
+                } elseif ($error == UPLOAD_ERR_NO_FILE) {
+                    $affiche = null;
                 } else {
                     $affiche = null;
                     die($message);
@@ -122,11 +125,11 @@ class diffusionsController extends Controller {
             default :
                 die("Etat de l'affiche non autorisé.");
         endswitch;
-        $var_array = compact('id_film', 'cycle', 'commentaire', 'affiche', 'liste_films');
+        $var_array = compact('id_film', 'cycle', 'commentaire', 'affiche');
         return $var_array;
     }
 
 }
 
-new diffusionsController();
+new DiffusionsController();
 ?>

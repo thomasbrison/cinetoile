@@ -1,6 +1,6 @@
 <?php
 
-function format_month($month_number) {
+function date_format_month_to_string($month_number) {
     switch ($month_number) {
         case 1 :
             $month = "Janvier";
@@ -42,10 +42,10 @@ function format_month($month_number) {
     return $month;
 }
 
-function format_date($datetime) {
+function date_format_to_string($datetime) {
     $date_diff = date("d m Y H i", strtotime($datetime));
     $numero_mois = substr($datetime, 3, 2);
-    $mois = format_month($numero_mois);
+    $mois = date_format_month_to_string($numero_mois);
     $date_format = substr_replace($date_diff, 'H', 13, 1);
     $date_sans_mois = substr($date_format, 0, 10);
     $heure = substr($date_format, 11, 5);

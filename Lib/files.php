@@ -1,8 +1,8 @@
 <?php
 
-function uploadFile($file, $sizemax, $extensions_valides, $final_dir) {
+function file_upload($file, $sizemax, $extensions_valides, $final_dir) {
     $final_dir = "/var/www" . root . "/" . $final_dir;
-    $envoi_ok = false;
+    $success = false;
     $array_file = $_FILES[$file];
     $file_name = $array_file['name'];
     $file_name_without_accents = strtr($file_name, 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
@@ -14,11 +14,11 @@ function uploadFile($file, $sizemax, $extensions_valides, $final_dir) {
             $extension_upload = $infos_fichier['extension'];
             if (in_array($extension_upload, $extensions_valides)) {
                 if (file_exists($final_dir . $formated_file_name)) {
-                    $envoi_ok = true;
+                    $success = true;
                 } else {
-                    $envoi_ok = move_uploaded_file($array_file['tmp_name'], $final_dir . $formated_file_name);
+                    $success = move_uploaded_file($array_file['tmp_name'], $final_dir . $formated_file_name);
                 }
-                if ($envoi_ok) {
+                if ($success) {
                     $message = "L'envoi du fichier $formated_file_name a bien été effectué !";
                 } else {
                     $message = "Erreur lors de l'écriture du fichier $formated_file_name. Le répertoire $final_dir n'est peut-être pas libre en écriture.";
@@ -56,7 +56,8 @@ function uploadFile($file, $sizemax, $extensions_valides, $final_dir) {
         }
     }
     $upload = array(
-        'success' => $envoi_ok,
+        'success' => $success,
+        'error' => $array_file['error'],
         'message' => utf8_decode($message),
         'file_name' => $formated_file_name
     );
