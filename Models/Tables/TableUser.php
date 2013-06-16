@@ -4,9 +4,9 @@
  * Definition d'un utilisateur
  */
 
-require_once('table.php');
+require_once('Table.php');
 
-class User extends Table {
+class TableUser extends Table {
 
     public function __construct() {
         parent::__construct('Membre', 'login');

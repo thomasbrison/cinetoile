@@ -4,9 +4,9 @@
  * Modèle pour les membres
  */
 
-require_once('user.php');
+require_once('TableUser.php');
 
-class Membre extends User {
+class TableMembre extends TableUser {
 
     public function modifyInformation($login, $prenom, $nom, $email, $tel, $ecole, $annee) {
         $query = "Update Membre

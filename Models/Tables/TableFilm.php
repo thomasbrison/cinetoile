@@ -4,9 +4,9 @@
  * Modèle pour les films
  */
 
-require_once('table.php');
+require_once('Table.php');
 
-class Film extends Table {
+class TableFilm extends Table {
 
     public function __construct() {
         parent::__construct('Film', 'id');

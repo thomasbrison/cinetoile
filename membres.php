@@ -5,14 +5,14 @@
  */
 
 require_once('def.php');
-require_once('Models/membre.php');
+require_once('Models/Tables/TableMembre.php');
 
 class membresController extends Controller {
-    
-    private $_membre;
-    
+
+    private $tableMembre;
+
     public function __construct() {
-        $this->_membre = new Membre();
+        $this->tableMembre = new TableMembre();
         parent::__construct();
     }
 
@@ -22,9 +22,9 @@ class membresController extends Controller {
 
     public function consulter() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            $array = $this->_membre->consult();
+            $array = $this->tableMembre->consult();
             $titre_page = "Membres";
-            $this->render('Membres/membres', array('index','style'), compact('array','titre_page'));
+            $this->render('Membres/membres', array('index', 'style'), compact('array', 'titre_page'));
         }
     }
 
@@ -34,24 +34,24 @@ class membresController extends Controller {
                 $password = htmlentities(($_POST['password']));
                 $vars = $this->getInfos();
                 extract($vars);
-                $this->_membre->add($login, $password, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
+                $this->tableMembre->add($login, $password, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
                 header('Location: ' . root . '/membres.php');
             } else {
                 $this->render('Membres/ajout_membre');
             }
         }
     }
-    
+
     public function modifier() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             if (isset($_POST['modifier'])) {
                 $vars = $this->getInfos();
                 extract($vars);
-                $this->_membre->modify($login, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
+                $this->tableMembre->modify($login, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
                 header('Location: ' . root . '/membres.php');
-            } else if (isset($_GET['modifier_membre'])){
+            } else if (isset($_GET['modifier_membre'])) {
                 $login = htmlentities(utf8_decode($_GET['login']));
-                $row=$this->_membre->getAttributes($login);
+                $row = $this->tableMembre->getAttributes($login);
                 $prenom = $row['prenom'];
                 $nom = $row['nom'];
                 $email = $row['email'];
@@ -64,34 +64,32 @@ class membresController extends Controller {
                 $ecole = $row['ecole'];
                 $annee = $row['annee'];
                 $droits = $row['droits'];
-                $this->render('Membres/modification_membre', array(), 
-                        compact('login', 'prenom', 'nom', 'email', 'tel1', 'tel2', 'tel3', 'tel4', 'tel5',
-                                'ecole', 'annee', 'droits'));
+                $this->render('Membres/modification_membre', array(), compact('login', 'prenom', 'nom', 'email', 'tel1', 'tel2', 'tel3', 'tel4', 'tel5', 'ecole', 'annee', 'droits'));
             }
         }
     }
-    
+
     public function modifier_droits() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             $login = htmlentities(utf8_decode($_GET['login']));
             $droits = htmlentities($_GET['droits']);
-            $this->_membre->modifyRights($login, $droits);
+            $this->tableMembre->modifyRights($login, $droits);
             header('Location: ' . root . '/membres.php');
         }
     }
-    
+
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             if (isset($_GET['supprimer'])) {
                 $login = htmlentities(utf8_decode($_GET['login']));
-                $this->_membre->remove($login);
+                $this->tableMembre->remove($login);
                 header('Location: ' . root . '/membres.php');
             } else {
                 $this->render('Membres/membres');
             }
         }
     }
-    
+
     private function getInfos() {
         $login = htmlentities(utf8_decode($_POST['login']));
         $droits = htmlentities($_POST['droits']);

@@ -5,14 +5,14 @@
  */
 
 require_once('def.php');
-require_once('Models/film.php');
+require_once('Models/Tables/TableFilm.php');
 
 class filmsController extends Controller {
 
-    private $_film;
+    private $tableFilm;
 
     public function __construct() {
-        $this->_film = new Film();
+        $this->tableFilm = new TableFilm();
         parent::__construct();
     }
 
@@ -24,9 +24,9 @@ class filmsController extends Controller {
         $droits = $_SESSION['droits'];
         if ($this->checkRights($droits, 1, 2)) {
             if ($droits == 2) {
-                $array = $this->_film->consult();
+                $array = $this->tableFilm->consult();
             } else if ($droits == 1) {
-                $array = $this->_film->consultAsAMember();
+                $array = $this->tableFilm->consultAsAMember();
             }
             $titre_page = "Films";
             $this->render('Films/films', array('index', 'lightbox', 'style'), compact('array', 'droits', 'titre_page'));
@@ -38,7 +38,7 @@ class filmsController extends Controller {
             if (isset($_POST['ajouter'])) {
                 $vars = $this->getInfos();
                 extract($vars);
-                $this->_film->add($titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
+                $this->tableFilm->add($titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
                 header('Location: ' . root . '/films.php');
             } else {
                 $this->render('Films/ajout_film');
@@ -52,11 +52,11 @@ class filmsController extends Controller {
                 $id = htmlentities(utf8_decode($_POST['id']));
                 $vars = $this->getInfos();
                 extract($vars);
-                $this->_film->modify($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
+                $this->tableFilm->modify($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
                 header('Location: ' . root . '/films.php');
             } elseif (isset($_GET['modifier_film'])) {
                 $id = htmlentities(utf8_decode($_GET['id']));
-                $row = $this->_film->getAttributes($id);
+                $row = $this->tableFilm->getAttributes($id);
                 $titre = $row['titre'];
                 $realisateur = $row['realisateur'];
                 $annee = $row['annee'];
@@ -73,11 +73,8 @@ class filmsController extends Controller {
                 $affiche = $row['affiche'];
                 $_SESSION['affiche'] = $affiche;
                 $bande_annonce = $row['bande_annonce'];
-                $this->render('Films/modification_film', array('style'), 
-                        compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 
-                                'heures_duree', 'minutes_duree', 'synopsis', 'affiche', 'bande_annonce'));
-            }
-            else {
+                $this->render('Films/modification_film', array('style'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'heures_duree', 'minutes_duree', 'synopsis', 'affiche', 'bande_annonce'));
+            } else {
                 header('Location: ' . root . '/films.php');
             }
         }
@@ -87,26 +84,26 @@ class filmsController extends Controller {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             if (isset($_GET['supprimer'])) {
                 $id = htmlentities(utf8_decode($_GET['id']));
-                $this->_film->remove($id);
+                $this->tableFilm->remove($id);
                 header('Location: ' . root . '/films.php');
             } else {
                 $this->render('Films/films');
             }
         }
     }
-    
+
     public function voter() {
         if ($this->checkRights($_SESSION['droits'], 1, 1)) {
             if (isset($_POST['voter'])) {
                 $id = htmlentities(utf8_decode($_GET['id']));
-                $this->_film->vote($id);
+                $this->tableFilm->vote($id);
                 // Indiquer à l'utilisateur que son vote a bien été pris en compte
             } else {
                 $this->render('Films/films');
             }
         }
     }
-    
+
     private function getInfos() {
         $titre = htmlentities(utf8_decode($_POST['titre']));
         $realisateur = htmlentities(utf8_decode($_POST['realisateur']));
@@ -129,13 +126,13 @@ class filmsController extends Controller {
             case "1" : // Affiche modifiée
                 require_once 'Lib/uploadFile.php';
                 $sizemax = 100000;
-                $extensions_valides = array('jpg','jpeg','gif','png');
+                $extensions_valides = array('jpg', 'jpeg', 'gif', 'png');
                 $final_dir = "Images/Affiches/";
                 $upload = uploadFile('affiche', $sizemax, $extensions_valides, $final_dir);
                 $envoi_ok = $upload['success'];
                 $message = $upload['message'];
                 if ($envoi_ok) {
-                    $affiche = $final_dir.$upload['file_name'];
+                    $affiche = $final_dir . $upload['file_name'];
                 } else {
                     $affiche = null;
                     die($message);
@@ -147,8 +144,7 @@ class filmsController extends Controller {
             default :
                 die("Etat de l'affiche non autorisé.");
         endswitch;
-        $var_array = compact('titre', 'realisateur', 'annee', 'pays', 'acteurs',
-                'genre', 'support', 'duree', 'synopsis', 'affiche', 'bande_annonce');
+        $var_array = compact('titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'duree', 'synopsis', 'affiche', 'bande_annonce');
         return $var_array;
     }
 

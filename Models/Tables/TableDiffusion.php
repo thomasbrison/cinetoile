@@ -4,9 +4,9 @@
  * Modèle pour les diffusions
  */
 
-require_once('table.php');
+require_once('Table.php');
 
-class Diffusion extends Table {
+class TableDiffusion extends Table {
 
     public function __construct() {
         parent::__construct('Diffusion', 'date_diffusion');
