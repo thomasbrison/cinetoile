@@ -42,4 +42,15 @@ function format_month($month_number) {
     return $month;
 }
 
+function format_date($datetime) {
+    $date_diff = date("d m Y H i", strtotime($datetime));
+    $numero_mois = substr($datetime, 3, 2);
+    $mois = format_month($numero_mois);
+    $date_format = substr_replace($date_diff, 'H', 13, 1);
+    $date_sans_mois = substr($date_format, 0, 10);
+    $heure = substr($date_format, 11, 5);
+    $date = substr_replace($date_sans_mois, $mois, 3, 2);
+    return array('date' => $date, 'heure' => $heure);
+}
+
 ?>
