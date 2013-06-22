@@ -1,8 +1,8 @@
 <?php
 
 require_once 'Controller.class.php';
-require_once 'Models/Tables/TableFilm.php';
-require_once 'Models/Beans/Film.class.php';
+require_once 'Beans/Film.class.php';
+require_once 'Tables/TableFilm.php';
 
 class FilmsController extends Controller {
 

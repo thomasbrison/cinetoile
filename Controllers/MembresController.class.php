@@ -1,8 +1,8 @@
 <?php
 
 require_once 'Controller.class.php';
-require_once 'Models/Tables/TableMembre.php';
-require_once 'Models/Beans/Membre.class.php';
+require_once 'Beans/Membre.class.php';
+require_once 'Tables/TableMembre.php';
 
 class MembresController extends Controller {
 

@@ -1,7 +1,7 @@
 <?php
 
 require_once 'Controller.class.php';
-require_once 'Models/Tables/TableUser.php';
+require_once 'Tables/TableUser.php';
 
 class AdminController extends Controller {
 

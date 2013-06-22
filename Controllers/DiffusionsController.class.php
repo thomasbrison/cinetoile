@@ -1,10 +1,10 @@
 <?php
 
 require_once 'Controller.class.php';
-require_once 'Models/Tables/TableFilm.php';
-require_once 'Models/Tables/TableDiffusion.php';
-require_once 'Models/Beans/Film.class.php';
-require_once 'Models/Beans/Diffusion.class.php';
+require_once 'Beans/Film.class.php';
+require_once 'Beans/Diffusion.class.php';
+require_once 'Tables/TableFilm.php';
+require_once 'Tables/TableDiffusion.php';
 
 class DiffusionsController extends Controller {
 
