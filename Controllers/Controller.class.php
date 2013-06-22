@@ -10,7 +10,7 @@ abstract class Controller {
     }
 
     private function root() {
-        return dirname(__FILE__);
+        return dirname(__FILE__) . '/..';
     }
 
     protected function setRootWebApp() {
