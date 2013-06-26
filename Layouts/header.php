@@ -31,13 +31,13 @@ if (!isset($titre_page)) {
             <nav>
                 <ul id="links-header">
                     <li class="gauche">
-                        <a href="">Accueil</a>
+                        <a class="button" href="">Accueil</a>
                     </li>
                     <li class="droite">
                         <?php if (isset($_SESSION['login'])) : ?>
-                        <a href="index.php/deconnexion">D&eacute;connexion</a>
+                        <a class="button" href="index.php/deconnexion">D&eacute;connexion</a>
                         <?php else : ?>
-                        <a href="index.php/connexion">Connexion</a>
+                        <a class="button" href="index.php/connexion">Connexion</a>
                         <?php endif; ?>
                     </li>
                 </ul>
@@ -49,17 +49,17 @@ if (!isset($titre_page)) {
             <nav>
                 <ul id="links-nav">
                     <li>
-                        <a href="films.php">Films</a>
+                        <a class="button" href="films.php">Films</a>
                     </li>
                     <?php if ($_SESSION['droits'] == 2) : ?>
                     <li>
-                        <a href="membres.php">Membres</a>
+                        <a class="button" href="membres.php">Membres</a>
                     </li>
                     <li>
-                        <a href="diffusions.php">Diffusions</a>
+                        <a class="button" href="diffusions.php">Diffusions</a>
                     </li>
                     <li>
-                        <a href="admin.php">Administration</a>
+                        <a class="button" href="admin.php">Administration</a>
                     </li>
                     <?php endif; ?>
                 </ul>

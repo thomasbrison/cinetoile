@@ -27,6 +27,12 @@ abstract class Controller {
         include($this->root() . '/Layouts/header.php');
         require($this->root() . '/Views/' . $file_name . '.view.php');
         include($this->root() . '/Layouts/footer.php');
+        }
+    
+    protected function renderAjax($file_name, $var_array = null) {
+        if ($var_array)
+            extract($var_array);
+        require($this->root() . '/Views/' . $file_name . '.php');
     }
 
     abstract function defaultAction();

@@ -1,64 +1,74 @@
-<article class="film" id="film<?php echo $numero; ?>">
+<?php
+require_once 'Lib/dates.php';
+require_once 'Lib/durees.php';
 
-    <div class="annonce">
-        Le <?php echo "$jour"; ?> 
-        <time class="date" datetime="<?php echo "$datetime"; ?>">
-            <?php echo "$date"; ?>
-        </time> 
-        à 
-        <span class="heure">
-            <?php echo "$heure"; ?>
-        </span>
-        <br/>
+$diffusion = $diffusions[$page];
+$datetime = $diffusion->getDate();
+$date_and_hour_array = date_format_to_string($datetime);
+$date = $date_and_hour_array['date'];
+$heure = $date_and_hour_array['heure'];
+$id_film = $diffusion->getIdFilm();
+$cycle = $diffusion->getCycle();
 
-        <?php if ($cycle) : ?>
-            <?php echo "Pour le cycle "; ?>                	    
-            <span class="cycle">
-                <?php echo "$cycle"; ?>
-            </span> 
-            :
-            <br/> 
-        <?php endif; ?>
-        <span class="titre">
-            <?php echo "$titre" ?>
-        </span> 
-        de 
-        <span class="realisateur">
-            <?php echo "$realisateur"; ?>
-        </span>
-    </div>
+$affiche = $diffusion->getAffiche();
+$commentaire = $diffusion->getCommentaire();
+if (isset($table_film)) {
+    $infos_film = $table_film->getAttributes($id_film);
+    $titre = $infos_film['titre'];
+    $realisateur = $infos_film['realisateur'];
+    $genre = $infos_film['genre'];
+    $annee = $infos_film['annee'];
+    $pays = $infos_film['pays'];
+    $acteurs = $infos_film['acteurs'];
+    $synopsis = $infos_film['synopsis'];
+    $duree = duree_format_duree($infos_film['duree']);
+    $bande_annonce = $infos_film['bande_annonce'];
+}
+?>
 
-    <?php if ($commentaire) : ?>
-        <div class="commentaire">
-            <?php echo "$commentaire"; ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if ($affiche && $_SESSION['droits'] > 0) : ?>
-        <div>
-            <img class="affiche" name="affiche" src="<?php echo $affiche; ?>"
-                 title="<?php echo $titre; ?>" alt="Affiche introuvable."/>
-        </div>
-    <?php endif; ?>
-
-    <?php if ($bande_annonce && $_SESSION['droits'] > 0) : ?>
-        <div class="bande-annonce">
-            <div class="dispVid" id="disp<?php echo $numero; ?>" onclick="affichage_video('<?php echo $numero; ?>');">
-                Voir la bande-annonce
-            </div>
-            <div class="video" id="vid<?php echo $numero; ?>">
-                <?php echo $bande_annonce; ?>
-            </div>
-        </div>
-    <?php endif; ?>
-
-    <?php if ($synopsis) : ?>
-        <!--<div class="annonce" style="font-weight: bold;">Synopsis</div>-->
-        <div class="synopsis"><?php echo "$synopsis"; ?></div>
-    <?php endif; ?>
+<article class="film page" id="seance<?php echo $page; ?>">
 
         <!--<div class="social" id="social<?php /* echo $numero; */ ?>">
             <div class="fb-like" data-href="http://www.google.fr" data-send="true" data-width="450" data-show-faces="true" data-action="recommend"></div>        
         </div>-->
+
+    <h2 style="color: white; text-shadow: black -1px 1px 1px;">
+        <?php echo $date . ' : ' . $titre; ?>
+    </h2>
+
+    <div class="semi column">
+        <img style="width: 100%;" src="<?php echo $affiche; ?>" title="<?php echo $titre; ?>" alt="Affiche introuvable."/>
+    </div>
+    <div class="semi column">
+        <p>
+            Date de sortie : <?php echo $annee; ?>
+        </p>
+        <p>
+            Durée : <?php echo $duree; ?>
+        </p>
+        <p>
+            Réalisé par <?php echo $realisateur; ?>
+        </p>
+        <p>
+            Avec <?php echo $acteurs; ?>
+        </p>
+        <p>
+            Genre : <?php echo $genre; ?>
+        </p>
+        <p>
+            Nationalité : <?php echo $pays; ?>
+        </p>
+        <br/>
+        <p>
+            <?php echo $synopsis; ?>
+        </p>
+    </div>
+
+    <?php if ($page > 0) : ?>
+        <button type="button" class="arrow-left" onclick="loadPage(<?php echo $page . "," . ($page - 1) . "," . $nb_pages; ?>);"></button>
+    <?php endif; ?>
+    <?php if ($page < $nb_pages - 1) : ?>
+        <button type="button" class="arrow-right" onclick="loadPage(<?php echo $page . "," . ($page + 1) . "," . $nb_pages; ?>);"></button>
+    <?php endif; ?>
 
 </article>

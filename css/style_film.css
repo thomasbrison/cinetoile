@@ -4,12 +4,17 @@ article.film {
     margin-left: 5%;
     margin-right: 5%;
     padding: 10px;
-    border: solid;
-    background-color: white;
-    transition:box-shadow 3s;
-    -webkit-transition:box-shadow 3s;
-    -moz-transition:box-shadow 3s;
-    -o-transition:box-shadow 3s;
+    border: solid 2px;
+    background-image: -webkit-linear-gradient(#e7e7e7 0%, #f0c79b 100%);
+    border-radius: 10px;
+    transition: box-shadow 3s;
+    -webkit-transition: box-shadow 3s;
+    -moz-transition: box-shadow 3s;
+    -o-transition: box-shadow 3s;
+    transition: right 700ms linear;
+    -webkit-transition: right 700ms linear;
+    -moz-transition: right 700ms linear;
+    -o-transition: right 700ms linear;
     box-shadow: none;
 }
 
@@ -121,4 +126,24 @@ article.film:hover {
     text-align: justify;
     border-style: solid;
     border-width: 2px;
+}
+
+article.film:before, article.film:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+ article.film div.semi.column {
+    padding-left: 10px; 
+    padding-right: 10px;
+ }
+ 
+article.film div.semi.column:last-of-type { 
+    font-size: 12px; 
+    text-align: left;
+}
+
+article.film p {
+    margin: 0;
 }
