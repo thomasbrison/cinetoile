@@ -36,32 +36,56 @@ if (isset($table_film)) {
         <?php echo $date . ' : ' . $titre; ?>
     </h2>
 
-    <div class="semi column">
+    <?php if ($affiche) : ?>
+    <div class="semi colonne">
         <img style="width: 100%;" src="<?php echo $affiche; ?>" title="<?php echo $titre; ?>" alt="Affiche introuvable."/>
     </div>
-    <div class="semi column">
+    <div class="semi colonne description">
+    <?php else : ?>
+    <div class="description">
+    <?php endif; ?>
+        <?php if ($annee) : ?>
         <p>
             Date de sortie : <?php echo $annee; ?>
         </p>
+        <?php endif; ?>
+        <?php if ($duree) : ?>
         <p>
             Durée : <?php echo $duree; ?>
         </p>
+        <?php endif; ?>
+        <?php if ($realisateur) : ?>
         <p>
             Réalisé par <?php echo $realisateur; ?>
         </p>
+        <?php endif; ?>
+        <?php if ($acteurs) : ?>
         <p>
             Avec <?php echo $acteurs; ?>
         </p>
+        <?php endif; ?>
+        <?php if ($genre) : ?>
         <p>
             Genre : <?php echo $genre; ?>
         </p>
+        <?php endif; ?>
+        <?php if ($pays) : ?>
         <p>
             Nationalité : <?php echo $pays; ?>
         </p>
+        <?php endif; ?>
+        <?php if ($synopsis) : ?>
         <br/>
         <p>
             <?php echo $synopsis; ?>
         </p>
+        <?php endif; ?>
+        <?php if ($bande_annonce) : ?>
+        <br/>
+        <p>
+            <a href="#" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir la bande-annonce </a>
+        </p>
+        <?php endif; ?>
     </div>
 
     <?php if ($page > 0) : ?>

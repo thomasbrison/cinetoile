@@ -62,38 +62,36 @@ function taille($droits, $width_admin, $width_membre) {
             $affiche = $film->getAffiche();
             $bande_annonce = $film->getBandeAnnonce();
             ?>
-            <tr id="<?php echo $numero; ?>">
+            <tr>
             <?php if ($droits == 2) : ?>
-                <td class="numero" id="num<?php echo $numero ?>"> <?php echo $numero; ?> </td>
+                <td class="numero"> <?php echo $numero; ?> </td>
             <?php endif; ?>
-                <td class="titre" id="titre<?php echo $numero ?>"> <?php echo $titre; ?> </td>
-                <td class="realisateur" id="realisateur<?php echo $numero ?>"> <?php echo $realisateur; ?> </td>
-                <td class="annee" id="annee<?php echo $numero ?>"> <?php echo $annee; ?> </td>
-                <td class="pays" id="pays<?php echo $numero ?>"> <?php echo $pays; ?> </td>
-                <td class="acteurs" id="acteurs<?php echo $numero ?>"> <?php echo $acteurs; ?> </td>
-                <td class="genre" id="genre<?php echo $numero ?>"> <?php echo $genre; ?> </td>
-                <td class="synopsis" id="synopsis<?php echo $numero ?>">
-                    <a href="films.php#" onclick="afficheSynopsis(<?php echo $numero ?>);">Voir</a>
-                    <p><?php echo $synopsis; ?></p>
+                <td class="titre"> <?php echo $titre; ?> </td>
+                <td class="realisateur"> <?php echo $realisateur; ?> </td>
+                <td class="annee"> <?php echo $annee; ?> </td>
+                <td class="pays"> <?php echo $pays; ?> </td>
+                <td class="acteurs"> <?php echo $acteurs; ?> </td>
+                <td class="genre"> <?php echo $genre; ?> </td>
+                <td class="synopsis">
+                    <a href="films.php#" onclick="afficheSynopsis(this);" data-syn="<?php echo $synopsis; ?>">Voir</a>
                 </td>
-                <td class="affiche" id="affiche<?php echo $numero ?>">
-                    <a href="films.php#" data-href="<?php echo $affiche; ?>" onclick="afficheAffiche(<?php echo $numero ?>);">Voir</a>
+                <td class="affiche">
+                    <a href="films.php#" data-href="<?php echo $affiche; ?>" onclick="afficheAffiche(this);">Voir</a>
                 </td>
-                <td class="bande-annonce" id="bande_annonce<?php echo $numero ?>">
-                    <a href="films.php#" onclick="afficheBandeAnnonce(<?php echo $numero ?>);"> Voir </a>
-                    <div><?php echo $bande_annonce; ?></div>
+                <td class="bande-annonce">
+                    <a href="films.php#" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir </a>
                 </td>
                 <?php if ($droits == 2) : ?>
-                <td class="support" id="support<?php echo $numero ?>"> <?php echo $support; ?> </td>
-                <td class="duree" id="duree<?php echo $numero ?>"> <?php echo $duree; ?> </td>
+                <td class="support"> <?php echo $support; ?> </td>
+                <td class="duree"> <?php echo $duree; ?> </td>
                 <td class="modif-suppr">
-                    <div class="inline hidden" id="modif<?php echo $numero ?>">
+                    <div class="inline hidden">
                     <form name="modifier_film" method="GET" action="films.php/modifier">
                         <input type="hidden" name="id" value="<?php echo $id;?>"/>
                         <input type="submit" name="modifier_film" value="Modifier"/>
                     </form>
                     </div>
-                    <div class="inline hidden" id="suppr<?php echo $numero ?>">
+                    <div class="inline hidden">
                         <form name="supprimer_film" method="GET" action="films.php/supprimer">
                             <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                             <input type="button" name="confirmer_suppression" value="Supprimer" id="confirme_suppr<?php echo $numero; ?>" onclick="confirme_suppression(<?php echo $numero; ?>);"/>
@@ -103,8 +101,8 @@ function taille($droits, $width_admin, $width_membre) {
                     </div>
                 </td>
                 <?php elseif ($droits == 1) : ?>
-                <td class="vote" onclick="voter('vote<?php echo $numero ?>');">
-                    <input type="radio" name="id" value="<?php echo $id; ?>" id="vote<?php echo $numero ?>"/>
+                <td class="vote" onclick="voter(this);">
+                    <input type="radio" name="id" value="<?php echo $id; ?>"/>
                 </td>
                 <?php endif; ?>
             </tr>

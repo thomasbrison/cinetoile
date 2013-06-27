@@ -31,10 +31,9 @@ var lightbox = {
     }        
 };
 
-function afficheAffiche(numeroLigne) {
+function afficheAffiche(el) {
     var box = lightbox.getBox();
-    var elAffiche = document.getElementById("affiche" + numeroLigne);
-    var cheminAffiche = elAffiche.getElementsByTagName('a')[0].getAttribute('data-href');
+    var cheminAffiche = el.getAttribute('data-href');
     
     if (!cheminAffiche || cheminAffiche === "") {
         var div = document.createElement('div');
@@ -57,10 +56,9 @@ function afficheAffiche(numeroLigne) {
     lightbox.display();
 } 
 
-function afficheSynopsis(numeroLigne) {
+function afficheSynopsis(el) {
     var box = lightbox.getBox();
-    var elSynopsis = document.getElementById("synopsis" + numeroLigne);
-    var synopsis = elSynopsis.getElementsByTagName('p')[0].innerHTML;
+    var synopsis = el.getAttribute('data-syn');
     var div = document.createElement('div');
     var p = document.createElement('p');
     
@@ -78,13 +76,12 @@ function afficheSynopsis(numeroLigne) {
     lightbox.display();
 }
 
-function afficheBandeAnnonce(numeroLigne) {
+function afficheBandeAnnonce(el) {
     var box = lightbox.getBox();
-    var elBandeAnnonce = document.getElementById("bande_annonce" + numeroLigne);
-    var bande_annonce = elBandeAnnonce.getElementsByTagName('div')[0].innerHTML;
+    var bandeAnnonce = el.getAttribute('data-ba');
     var div = document.createElement('div');
     
-    if (!bande_annonce || bande_annonce === "") {
+    if (!bandeAnnonce || bandeAnnonce === "") {
         div.setAttribute('class', 'conteneur-lightbox');
         var p = document.createElement('p');
         p.innerHTML = "La bande-annonce n'est actuellement pas disponible pour ce film.";
@@ -92,11 +89,11 @@ function afficheBandeAnnonce(numeroLigne) {
         div.appendChild(p);
     } else {
         div.setAttribute('class', 'bande-annonce-lightbox');
-        bande_annonce = bande_annonce.replace(/&amp;/g,"&");
-        bande_annonce = bande_annonce.replace(/&lt;/g,"<");
-        bande_annonce = bande_annonce.replace(/&gt;/g,">");
-        bande_annonce = bande_annonce.replace(/&quot;/g,"\"");
-        div.innerHTML = bande_annonce;
+        bandeAnnonce = bandeAnnonce.replace(/&amp;/g,"&");
+        bandeAnnonce = bandeAnnonce.replace(/&lt;/g,"<");
+        bandeAnnonce = bandeAnnonce.replace(/&gt;/g,">");
+        bandeAnnonce = bandeAnnonce.replace(/&quot;/g,"\"");
+        div.innerHTML = bandeAnnonce;
     }
     
     box.innerHTML = "";

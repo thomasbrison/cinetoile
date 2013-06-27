@@ -134,12 +134,12 @@ article.film:before, article.film:after {
     clear: both;
 }
 
- article.film div.semi.column {
+ article.film div.semi.colonne {
     padding-left: 10px; 
     padding-right: 10px;
  }
  
-article.film div.semi.column:last-of-type { 
+article.film .description {
     font-size: 12px; 
     text-align: left;
 }

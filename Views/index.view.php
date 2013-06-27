@@ -8,6 +8,7 @@
 </h2>
 
 <section id="main" class="three-pages">
+    <div id="lightbox"></div>
     
     <?php include 'Templates/seance.php'; ?>
 
