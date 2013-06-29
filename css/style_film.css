@@ -11,10 +11,6 @@ article.film {
     -webkit-transition: box-shadow 3s;
     -moz-transition: box-shadow 3s;
     -o-transition: box-shadow 3s;
-    transition: right 700ms linear;
-    -webkit-transition: right 700ms linear;
-    -moz-transition: right 700ms linear;
-    -o-transition: right 700ms linear;
     box-shadow: none;
 }
 

@@ -27,6 +27,7 @@ var lightbox = {
     addHideEvents : function() {
         lightbox.getBox().addEventListener('click', lightbox.hide, false);
         document.addEventListener('keyup', function(event) {
+            // Touche echap
             if (event.keyCode === 27) {
                 lightbox.hide();
             }

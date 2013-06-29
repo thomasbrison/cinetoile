@@ -26,7 +26,7 @@ if (isset($table_film)) {
 }
 ?>
 
-<article class="film page" id="seance<?php echo $page; ?>">
+<article class="film transition page page-center" id="seance<?php echo $page; ?>">
 
     <h2 style="color: white; text-shadow: black -1px 1px 1px;">
         <?php echo "$date à $heure" . ' : ' . $titre; ?>

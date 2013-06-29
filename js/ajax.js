@@ -54,21 +54,21 @@ function loadPage(currentPageNumber, pageNumber, nbPages) {
 }
 
 function goToPreviousPage(currentPage, finalPage) {
-    finalPage.className = "film page page-left";
+    finalPage.className = "film transition page page-left";
     document.getElementById("main").appendChild(finalPage);
     
     setTimeout(function() {
-        currentPage.className = "film page page-right";
-        finalPage.className = "film page page-center";
+        currentPage.className = "film transition page page-right";
+        finalPage.className = "film transition page page-center";
     }, 0);
 }
 
 function goToNextPage(currentPage, finalPage) {
-    finalPage.className = "film page page-right";
+    finalPage.className = "film transition page page-right";
     document.getElementById("main").appendChild(finalPage);
     
     setTimeout(function() {
-        currentPage.className = "film page page-left";
-        finalPage.className = "film page page-center";
+        currentPage.className = "film transition page page-left";
+        finalPage.className = "film transition page page-center";
     }, 0);
 }

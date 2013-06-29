@@ -28,8 +28,8 @@ if (!isset($titre_page)) {
     <body>
         <header>
             <div id="fb-root"></div>
-            <nav>
-                <ul id="links-header">
+            <nav id="links-header">
+                <ul>
                     <li class="gauche">
                         <a class="button" href="">Accueil</a>
                     </li>
@@ -42,12 +42,9 @@ if (!isset($titre_page)) {
                     </li>
                 </ul>
             </nav>
-            <div class="centre" id="titre">
-                <h1> Cin&eacute;&CloseCurlyQuote;toile </h1>
-            </div>
             <?php if ($_SESSION['droits'] >= 1) : ?>
-            <nav>
-                <ul id="links-nav">
+            <nav id="links-nav">
+                <ul>
                     <li>
                         <a class="button" href="films.php">Films</a>
                     </li>

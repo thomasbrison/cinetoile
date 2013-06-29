@@ -5,8 +5,8 @@ html {
 body {
     min-width: 300px;
     margin: auto;
-    padding: 10px;
-    background-color: #c3e1ff;
+    padding: 0 10px 0 10px;
+    background-color: #444444;
     font-family: arial;
     text-align: center;
     z-index: 0;
@@ -15,12 +15,15 @@ body {
 header {
     position: relative;
     width: 100%;
-    height: 127px;
-    background-color: #444444;
+    height: 500px;
+    /*background-color: #444444;*/
+    background-image: url(/Cinetoile/Images/Ressources/bg-header.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     clear: both;
     padding-top: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    padding-bottom: 20px;
+    /*margin-bottom: 10px;*/
     text-align: center;
     color: white;
 }
@@ -31,9 +34,9 @@ footer {
     height: 50px;
     background-color: #444444;
     clear: both;
-    padding-top: 10px;
+    padding-top: 20px;
     padding-bottom: 10px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     text-align: center;
     line-height: 25px;
     vertical-align: middle;
@@ -42,21 +45,12 @@ footer {
 }
 
 section#main {
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    background-color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 10%;
     padding-right: 10%; 
     text-align: center;   
-}
-
-section#main.three-pages {
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding-left: 0;
-    padding-right: 0; 
-    text-align: center;  
 }
 
 @media screen and (max-width: 900px) {
@@ -108,13 +102,14 @@ header nav ul {
 }
 #links-nav {
     bottom: 0;
+    margin-top: 425px;
 }
 
 header nav li {
     position: relative;
 }    
 
-header nav ul#links-nav > li {
+header nav#links-nav ul > li {
     float: left;
     margin-left: 0.1%;
     margin-right: 0.1%;
@@ -132,7 +127,7 @@ header nav ul#links-nav > li {
 }
 
 @media screen and (min-width: 470px) {
-    header nav ul#links-nav > li {
+    header nav#links-nav ul > li {
         width: 24.8%;
     }
 }
@@ -445,9 +440,8 @@ div.inline {
 }
 
 .arrow-left {
-    position: absolute;
-    left: 0px;
-    bottom: 180px;
+    position: relative;
+    float: left;
     height: 50px;
     width: 130px;
     background-image: url(/Cinetoile/Images/Ressources/prec.png);
@@ -455,9 +449,8 @@ div.inline {
 }
 
 .arrow-right {
-    position: absolute;
-    right: 0px;
-    bottom: 180px;
+    position: relative;
+    float: right;
     height: 50px;
     width: 130px;
     background-image: url(/Cinetoile/Images/Ressources/suiv.png);
@@ -465,40 +458,29 @@ div.inline {
 }
 
 .page {
-    float: left;
-    transition: right 700ms linear;
-    -webkit-transition: right 700ms linear;
-    -moz-transition: right 700ms linear;
-    -o-transition: right 700ms linear;
+    /*float: left;*/
+}
+
+.transition {
+    transition-duration: 375ms;
+    -webkit-transition-duration: 375ms;
+    -moz-transition-duration: 375ms;
+    -o-transition-duration: 375ms;
 }
 
 .page-left {
     position : relative;
     right : 100%;
-    z-index: 100;
-    transition: right 700ms linear;
-    -webkit-transition: right 700ms linear;
-    -moz-transition: right 700ms linear;
-    -o-transition: right 700ms linear;
-    /*display: none;*/
+    display: none;
 }
 
 .page-right {
     position : relative;
     right : -100%;
-    z-index: 100;
-    transition: right 700ms linear;
-    -webkit-transition: right 700ms linear;
-    -moz-transition: right 700ms linear;
-    -o-transition: right 700ms linear;
-    /*display: none;*/
+    display: none;
 }
 
 .page-center {
     right : 0;
     display: block;
-    transition: right 700ms linear;
-    -webkit-transition: right 700ms linear;
-    -moz-transition: right 700ms linear;
-    -o-transition: right 700ms linear;
 }
