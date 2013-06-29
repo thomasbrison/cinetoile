@@ -7,9 +7,12 @@ var lightbox = {
         this.isHidden = false;
     },
             
-    hide : function() {
-        var lightbox = document.getElementById("lightbox");
-        lightbox.setAttribute('class', '');
+    hide : function(event) {
+        var box = lightbox.getBox();
+
+        if (event && event.target !== box) return;
+
+        box.className = '';
         this.isHidden = true;
     },
     
@@ -22,9 +25,9 @@ var lightbox = {
     },
             
     addHideEvents : function() {
-        //document.addEventListener('click', lightbox.hide, false);
-        document.addEventListener('keyup', function(e) {
-            if (e.keyCode === 27) {
+        lightbox.getBox().addEventListener('click', lightbox.hide, false);
+        document.addEventListener('keyup', function(event) {
+            if (event.keyCode === 27) {
                 lightbox.hide();
             }
         }, false);

@@ -40,7 +40,7 @@ class IndexController extends Controller {
             $page = 0;
         }
         
-        $js_array = array('index', 'affiche', 'video', 'style', 'ajax', 'lightbox');
+        $js_array = array('index', 'affiche', 'video', 'style', 'ajax', 'lightbox', 'facebook');
         
         if (isset($_GET['isajax']) && (int) $_GET['isajax'] == 1) {
             $var_array = compact('diffusions', 'table_film', 'page', 'nb_pages');

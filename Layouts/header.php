@@ -27,7 +27,7 @@ if (!isset($titre_page)) {
 
     <body>
         <header>
-            <!-- <div id="fb-root"></div> -->
+            <div id="fb-root"></div>
             <nav>
                 <ul id="links-header">
                     <li class="gauche">

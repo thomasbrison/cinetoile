@@ -415,10 +415,11 @@ div.inline {
     display: inline;
 }
 
-div.social {
-    visibility:hidden;
-    margin-top: 15px;
-    margin-bottom: 15px;
+.social {
+    width: 100%;
+    bottom: 0;
+    clear: both;
+    padding-top: 15px;
 }
 
 .colonne {

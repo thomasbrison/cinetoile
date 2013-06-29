@@ -28,13 +28,15 @@ if (isset($table_film)) {
 
 <article class="film page" id="seance<?php echo $page; ?>">
 
-        <!--<div class="social" id="social<?php /* echo $numero; */ ?>">
-            <div class="fb-like" data-href="http://www.google.fr" data-send="true" data-width="450" data-show-faces="true" data-action="recommend"></div>        
-        </div>-->
-
     <h2 style="color: white; text-shadow: black -1px 1px 1px;">
-        <?php echo $date . ' : ' . $titre; ?>
+        <?php echo "$date à $heure" . ' : ' . $titre; ?>
     </h2>
+
+    <?php if ($cycle) : ?>
+    <h3 style="color: white; text-shadow: black -1px 1px 1px;">
+        Cycle <?php echo $cycle; ?>
+    </h3>
+    <?php endif; ?>
 
     <?php if ($affiche) : ?>
     <div class="semi colonne">
@@ -86,6 +88,11 @@ if (isset($table_film)) {
             <a href="#" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir la bande-annonce </a>
         </p>
         <?php endif; ?>
+
+    </div>
+
+    <div class="social">
+        <div class="fb-like" data-href="<?php echo $_SERVER["HTTP_HOST"] . root . "/?date=$datetime"; ?>" data-send="true" data-width="450" data-show-faces="true" data-action="recommend"></div>
     </div>
 
     <?php if ($page > 0) : ?>
