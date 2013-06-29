@@ -2,6 +2,17 @@
 /*
  * Vue pour la modification d'une diffusion
  */
+
+require_once 'Lib/dates.php';
+
+$datetime = $diffusion->getDate();
+$date_and_hour_array = date_format_to_string($datetime);
+$date = $date_and_hour_array['date'];
+$heure = $date_and_hour_array['heure'];
+$id_film = $diffusion->getIdFilm();
+$cycle = $diffusion->getCycle();
+$affiche = $diffusion->getAffiche();
+$commentaire = $diffusion->getCommentaire();
 ?>
 
 <form class="formulaire" name="modification_diffusion" method="post" action="diffusions.php/modifier" enctype="multipart/form-data">

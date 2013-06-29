@@ -14,15 +14,15 @@
         <div class="inline hidden">
             <form name="modifier_diffusion" method="GET" action="diffusions.php/modifier">
                 <input type="hidden" name="date" value="<?php echo $datetime; ?>"/>
-                <input type="submit" name="modifier_diffusion" value="Modifier"/>
+                <input type="submit" value="Modifier"/>
             </form>
         </div>
         <div class="inline hidden">
             <form name="supprimer_diffusion" method="GET" action="diffusions.php/supprimer">
                 <input type="hidden" name="date" value="<?php echo $datetime; ?>"/>
-                <input type="button" name="confirmer_suppression" value="Supprimer" id="confirme_suppr<?php echo $numero; ?>" onclick="confirme_suppression(<?php echo $numero; ?>);"/>
-                <input type="hidden" name="supprimer" value="Oui" id="supprimer<?php echo $numero; ?>"/>
-                <input type="hidden" name="annuler" value="Non" id="annuler_suppr<?php echo $numero; ?>"/>
+                <input type="button" value="Supprimer" id="confirme_suppr<?php echo $numero; ?>" onclick="confirme_suppression(<?php echo $numero; ?>);"/>
+                <input type="hidden" value="Oui" id="supprimer<?php echo $numero; ?>"/>
+                <input type="hidden" value="Non" id="annuler_suppr<?php echo $numero; ?>"/>
             </form>
         </div>
     </div>

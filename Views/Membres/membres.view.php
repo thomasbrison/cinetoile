@@ -74,15 +74,15 @@
                     <div class="inline hidden" id="modif<?php echo $numero ?>">
                         <form class="inline" name="modifier_membre" method="GET" action="membres.php/modifier">
                             <input type="hidden" name="login" value="<?php echo $login; ?>"/>
-                            <input type="submit" name="modifier_membre" value="Modifier"/>
+                            <input type="submit" value="Modifier"/>
                         </form>
                     </div>
                     <div class="inline hidden" id="suppr<?php echo $numero ?>">
                         <form class="inline" name="supprimer_membre" method="GET" action="membres.php/supprimer" style="">
                             <input type="hidden" name="login" value="<?php echo $login; ?>"/>
-                            <input type="button" name="confirmer_suppression" value="Supprimer" id="confirme_suppr<?php echo $numero; ?>" onclick="confirme_suppression(<?php echo $numero; ?>);"/>
-                            <input type="hidden" name="supprimer" value="Oui" id="supprimer<?php echo $numero; ?>"/>
-                            <input type="hidden" name="annuler" value="Non" id="annuler_suppr<?php echo $numero; ?>"/>
+                            <input type="button" value="Supprimer" id="confirme_suppr<?php echo $numero; ?>" onclick="confirme_suppression(<?php echo $numero; ?>);"/>
+                            <input type="hidden" value="Oui" id="supprimer<?php echo $numero; ?>"/>
+                            <input type="hidden" value="Non" id="annuler_suppr<?php echo $numero; ?>"/>
                         </form>
                     </div>
                 </td>

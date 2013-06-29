@@ -45,7 +45,7 @@ class MembresController extends Controller {
                 $membre = $this->getInfos();
                 $this->tableMembre->modify($membre->getLogin(), $membre->getDroits(), $membre->getPrenom(), $membre->getNom(), $membre->getEmail(), $membre->getTelephone(), $membre->getEcole(), $membre->getAnnee());
                 header('Location: ' . root . '/membres.php');
-            } else if (isset($_GET['modifier_membre'])) {
+            } else {
                 $login = htmlentities(utf8_decode($_GET['login']));
                 $row = $this->tableMembre->getAttributes($login);
                 $prenom = $row['prenom'];
@@ -76,13 +76,9 @@ class MembresController extends Controller {
 
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            if (isset($_GET['supprimer'])) {
-                $login = htmlentities(utf8_decode($_GET['login']));
-                $this->tableMembre->remove($login);
-                header('Location: ' . root . '/membres.php');
-            } else {
-                $this->render('Membres/membres');
-            }
+            $login = htmlentities(utf8_decode($_GET['login']));
+            $this->tableMembre->remove($login);
+            header('Location: ' . root . '/membres.php');
         }
     }
 

@@ -55,31 +55,20 @@ class DiffusionsController extends Controller {
                 $diffusion = $this->getInfos($date);
                 $this->tableDiffusion->modify($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche());
                 header('Location: ' . root . '/diffusions.php');
-            } elseif (isset($_GET['modifier_diffusion'])) {
-                $date = $_GET['date'];
-                $row = $this->tableDiffusion->getAttributes($date);
-                $id_film = $row['id_film'];
-                $cycle = $row['cycle'];
-                $commentaire = $row['commentaire'];
-                $affiche = $row['affiche'];
-                $_SESSION['affiche'] = $affiche;
-                $films = $this->tableFilm->consultAsAMember();
-                $this->render('Diffusions/modification_diffusion', array('style'), compact('date', 'id_film', 'cycle', 'commentaire', 'affiche', 'films'));
             } else {
-                header('Location: ' . root . '/diffusions.php');
+                $diffusion = $this->tableDiffusion->getAttributes($_GET['date']);
+                $_SESSION['affiche'] = $diffusion->getAffiche();
+                $films = $this->tableFilm->consultAsAMember();
+                $this->render('Diffusions/modification_diffusion', array('style'), compact('diffusion', 'films'));
             }
         }
     }
 
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            if (isset($_GET['supprimer'])) {
-                $date = htmlentities(utf8_decode($_GET['date']));
-                $this->tableDiffusion->remove($date);
-                header('Location: ' . root . '/diffusions.php');
-            } else {
-                $this->render('Diffusions/diffusions');
-            }
+            $date = htmlentities(utf8_decode($_GET['date']));
+            $this->tableDiffusion->remove($date);
+            header('Location: ' . root . '/diffusions.php');
         }
     }
 

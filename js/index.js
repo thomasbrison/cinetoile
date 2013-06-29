@@ -63,12 +63,12 @@ function changement_droits(numero) {
 function confirme_suppression(numero) {
     var noeud_confirme = document.getElementById("confirme_suppr" + numero);
     var noeud_oui = document.getElementById("supprimer" + numero);
-    var noeud_non = document.getElementById("annuler_suppr"+numero);
+    var noeud_non = document.getElementById("annuler_suppr" + numero);
     
     noeud_confirme.setAttribute("type", "hidden");
     noeud_oui.setAttribute("type", "submit");
     noeud_non.setAttribute("type", "button");
-    noeud_non.setAttribute("onclick", "annule_suppression(" + numero + ");");
+    noeud_non.onclick = function() {annule_suppression(numero);};
 }
 
 function annule_suppression(numero) {

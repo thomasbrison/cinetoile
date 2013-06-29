@@ -1,8 +1,8 @@
 article.film {
     margin-top: 20px;
     margin-bottom: 20px;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
     padding: 10px;
     border: solid 2px;
     background-image: -webkit-linear-gradient(#e7e7e7 0%, #f0c79b 100%);
@@ -12,6 +12,13 @@ article.film {
     -moz-transition: box-shadow 3s;
     -o-transition: box-shadow 3s;
     box-shadow: none;
+}
+
+@media screen and (max-width: 900px) {
+    article.film {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
 }
 
 article.film:hover {
