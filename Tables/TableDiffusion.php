@@ -47,6 +47,16 @@ class TableDiffusion extends Table {
         $now = date('c');
     }
 
+    public function getAttributes($key) {
+        $row = parent::getAttributes($key);
+        $dateDiffusion = $row['date_diffusion'];
+        $idFilm = $row['id_film'];
+        $cycle = $row['cycle'];
+        $commentaire = $row['commentaire'];
+        $affiche = $row['affiche'];
+        return new Diffusion($dateDiffusion, $idFilm, $cycle, $commentaire, $affiche);
+    }
+
 }
 
 ?>

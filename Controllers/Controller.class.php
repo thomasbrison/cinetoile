@@ -25,7 +25,9 @@ abstract class Controller {
         if ($var_array)
             extract($var_array);
         include($this->root() . '/Layouts/header.php');
+        echo "<section id=\"main\">";
         require($this->root() . '/Views/' . $file_name . '.view.php');
+        echo "</section>";
         include($this->root() . '/Layouts/footer.php');
         }
     

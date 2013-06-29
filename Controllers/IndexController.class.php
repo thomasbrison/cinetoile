@@ -21,32 +21,37 @@ class IndexController extends Controller {
     }
 
     public function defaultAction() {
-        if (!$this->diffusions) {
-            $reverse_diffusions = $this->tableDiffusion->consult();
-            $diffusions = array_reverse($reverse_diffusions);
-            $this->diffusions = $diffusions;
-        } else {
-            $diffusions = $this->diffusions;
-        }
-        $nb_pages = count($diffusions);
         $table_film = $this->tableFilm;
+        $js_array = array('index', 'affiche', 'video', 'style', 'ajax', 'lightbox', 'facebook');
+
         if (isset($_SESSION['login'])) {
             $prenom = $this->tableUser->getFirstName($_SESSION['login']);
         }
         
+        if (isset ($_GET['date'])) {
+            $diffusion = $this->tableDiffusion->getAttributes($_GET['date']);
+            $var_array = compact('diffusion', 'table_film');
+            return $this->render('index', $js_array, $var_array);
+        }
+
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
         } else {
             $page = 0;
         }
         
-        $js_array = array('index', 'affiche', 'video', 'style', 'ajax', 'lightbox', 'facebook');
+        if (!$this->diffusions) {
+            $reverse_diffusions = $this->tableDiffusion->consult();
+            $this->diffusions = array_reverse($reverse_diffusions);
+        }
+        $nb_pages = count($this->diffusions);
+        $diffusion = $this->diffusions[$page];
         
         if (isset($_GET['isajax']) && (int) $_GET['isajax'] == 1) {
-            $var_array = compact('diffusions', 'table_film', 'page', 'nb_pages');
+            $var_array = compact('diffusion', 'table_film', 'page', 'nb_pages');
             $this->renderAjax('Templates/seance', $var_array);
         } else {
-            $var_array = compact('prenom', 'diffusions', 'table_film', 'page', 'nb_pages');
+            $var_array = compact('prenom', 'diffusion', 'table_film', 'page', 'nb_pages');
             $this->render('index', $js_array, $var_array);
         }
     }

@@ -2,7 +2,6 @@
 require_once 'Lib/dates.php';
 require_once 'Lib/durees.php';
 
-$diffusion = $diffusions[$page];
 $datetime = $diffusion->getDate();
 $date_and_hour_array = date_format_to_string($datetime);
 $date = $date_and_hour_array['date'];
@@ -27,6 +26,7 @@ if (isset($table_film)) {
 ?>
 
 <article class="film transition page page-center" id="seance<?php echo $page; ?>">
+    <div id="fb-root"></div>
 
     <h2 style="color: white; text-shadow: black -1px 1px 1px;">
         <?php echo "$date à $heure" . ' : ' . $titre; ?>
@@ -95,11 +95,13 @@ if (isset($table_film)) {
         <div class="fb-like" data-href="<?php echo $_SERVER["HTTP_HOST"] . root . "/?date=$datetime"; ?>" data-send="true" data-width="450" data-show-faces="true" data-action="recommend"></div>
     </div>
 
-    <?php if ($page > 0) : ?>
-        <button type="button" class="arrow-left" onclick="loadPage(<?php echo $page . "," . ($page - 1) . "," . $nb_pages; ?>);"></button>
-    <?php endif; ?>
-    <?php if ($page < $nb_pages - 1) : ?>
-        <button type="button" class="arrow-right" onclick="loadPage(<?php echo $page . "," . ($page + 1) . "," . $nb_pages; ?>);"></button>
+    <?php if (isset($nb_pages)) : ?>
+        <?php if ($page > 0) : ?>
+            <button type="button" class="arrow-left" onclick="loadPage(<?php echo $page . "," . ($page - 1) . "," . $nb_pages; ?>);"></button>
+        <?php endif; ?>
+        <?php if ($page < $nb_pages - 1) : ?>
+            <button type="button" class="arrow-right" onclick="loadPage(<?php echo $page . "," . ($page + 1) . "," . $nb_pages; ?>);"></button>
+        <?php endif; ?>
     <?php endif; ?>
 
 </article>
