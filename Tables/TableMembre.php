@@ -38,6 +38,20 @@ class TableMembre extends TableUser {
         mysql_query($query);
     }
 
+    public function getAttributes($key) {
+        $row = parent::getAttributes($key);
+        $login = $row['login'];
+        $password = $row['password'];
+        $prenom = $row['prenom'];
+        $nom = $row['nom'];
+        $email = $row['email'];
+        $telephone = $row['telephone'];
+        $ecole = $row['ecole'];
+        $annee = $row['annee'];
+        $droits = $row['droits'];
+        return new Membre($login, $password, $droits, $prenom, $nom, $email, $telephone, $ecole, $annee);
+    }
+
 }
 
 ?>

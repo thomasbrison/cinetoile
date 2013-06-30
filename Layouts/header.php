@@ -47,7 +47,11 @@ if (!isset($titre_page)) {
                     <li>
                         <a class="button" href="films.php">Films</a>
                     </li>
-                    <?php if ($_SESSION['droits'] == 2) : ?>
+                    <?php if ($_SESSION['droits'] == 1) : ?>
+                    <li>
+                        <a class="button" href="profil.php">Profil</a>
+                    </li>
+                    <?php elseif ($_SESSION['droits'] == 2) : ?>
                     <li>
                         <a class="button" href="membres.php">Membres</a>
                     </li>

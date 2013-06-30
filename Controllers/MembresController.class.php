@@ -30,7 +30,6 @@ class MembresController extends Controller {
             if (isset($_POST['ajouter'])) {
                 $password = htmlentities(($_POST['password']));
                 $membre = $this->getInfos();
-                extract($membre);
                 $this->tableMembre->add($membre->getLogin(), $password, $membre->getDroits(), $membre->getPrenom(), $membre->getNom(), $membre->getEmail(), $membre->getTelephone(), $membre->getEcole(), $membre->getAnnee());
                 header('Location: ' . root . '/membres.php');
             } else {
@@ -47,20 +46,8 @@ class MembresController extends Controller {
                 header('Location: ' . root . '/membres.php');
             } else {
                 $login = htmlentities(utf8_decode($_GET['login']));
-                $row = $this->tableMembre->getAttributes($login);
-                $prenom = $row['prenom'];
-                $nom = $row['nom'];
-                $email = $row['email'];
-                $tel = $row['telephone'];
-                $tel1 = substr($tel, 0, 2);
-                $tel2 = substr($tel, 2, 2);
-                $tel3 = substr($tel, 4, 2);
-                $tel4 = substr($tel, 6, 2);
-                $tel5 = substr($tel, 8, 2);
-                $ecole = $row['ecole'];
-                $annee = $row['annee'];
-                $droits = $row['droits'];
-                $this->render('Membres/modification_membre', array(), compact('login', 'prenom', 'nom', 'email', 'tel1', 'tel2', 'tel3', 'tel4', 'tel5', 'ecole', 'annee', 'droits'));
+                $membre = $this->tableMembre->getAttributes($login);
+                $this->render('Membres/modification_membre', array(), compact('membre'));
             }
         }
     }

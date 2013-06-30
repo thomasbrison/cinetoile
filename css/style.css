@@ -522,3 +522,28 @@ div.inline {
     right : 0;
     display: block;
 }
+
+dl {
+    text-align: left;
+    line-height: 2em;
+}
+
+dl * {
+    border-bottom: groove 2px;
+}
+
+dt {
+    clear: left;
+    float: left;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+dd {
+    clear: right;
+    padding-left: 20%;
+}
+
+.message {
+    color: red;
+}
