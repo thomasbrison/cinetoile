@@ -73,7 +73,7 @@ function taille($droits, $width_admin, $width_membre) {
                 <td class="acteurs"> <?php echo $acteurs; ?> </td>
                 <td class="genre"> <?php echo $genre; ?> </td>
                 <td class="synopsis">
-                    <a onclick="afficheSynopsis(this);" data-syn="<?php echo $synopsis; ?>">Voir</a>
+                    <a onclick="afficheSynopsis(this);" data-syn="<?php echo htmlentities(utf8_decode($synopsis)); ?>">Voir</a>
                 </td>
                 <td class="affiche">
                     <a data-href="<?php echo $affiche; ?>" onclick="afficheAffiche(this);">Voir</a>

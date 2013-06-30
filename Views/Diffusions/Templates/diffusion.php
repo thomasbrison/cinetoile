@@ -1,4 +1,4 @@
-<article class="film">
+<article class="seance">
     <h2>Le <?php echo "$date à $heure"; ?> :</h2>
     <p><?php echo "$titre  de  $realisateur"; ?></p>
     <p>

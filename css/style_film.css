@@ -1,4 +1,4 @@
-article.film {
+article {
     margin-top: 20px;
     margin-bottom: 20px;
     margin-left: 10%;
@@ -15,13 +15,13 @@ article.film {
 }
 
 @media screen and (max-width: 900px) {
-    article.film {
+    article {
         margin-left: 5%;
         margin-right: 5%;
     }
 }
 
-article.film:hover {
+article:hover {
     transition:box-shadow 0.5s;
     -webkit-transition:box-shadow 0.5s;
     -moz-transition:box-shadow 0.5s;
@@ -131,22 +131,22 @@ article.film:hover {
     border-width: 2px;
 }
 
-article.film:before, article.film:after {
+article.seance:before, article.seance:after {
     content: "";
     display: table;
     clear: both;
 }
 
- article.film div.semi.colonne {
+ article.seance div.semi.colonne {
     padding-left: 10px; 
     padding-right: 10px;
  }
  
-article.film .description {
+article.seance .description {
     font-size: 0.85em;
     text-align: left;
 }
 
-article.film .description p {
+article.seance .description p {
     margin: 0;
 }

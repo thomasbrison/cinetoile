@@ -41,17 +41,27 @@ if (!isset($titre_page)) {
                     </li>
                 </ul>
             </nav>
-            <?php if ($_SESSION['droits'] >= 1) : ?>
             <nav id="links-nav">
                 <ul>
+                    <?php if ($_SESSION['droits'] >= 1) : ?>
                     <li>
                         <a class="button" href="films.php">Films</a>
                     </li>
+                    <?php endif; ?>
                     <?php if ($_SESSION['droits'] == 1) : ?>
                     <li>
                         <a class="button" href="profil.php">Profil</a>
                     </li>
-                    <?php elseif ($_SESSION['droits'] == 2) : ?>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['droits'] <= 1) : ?>
+                    <li>
+                        <a class="button" href="plan.php">Plan</a>
+                    </li>
+                    <li>
+                        <a class="button" href="presentation.php">L'association</a>
+                    </li>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['droits'] == 2) : ?>
                     <li>
                         <a class="button" href="membres.php">Membres</a>
                     </li>
@@ -64,6 +74,5 @@ if (!isset($titre_page)) {
                     <?php endif; ?>
                 </ul>
             </nav>
-            <?php endif; ?>
         </header>
         

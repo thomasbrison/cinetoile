@@ -3,7 +3,7 @@ var lightbox = {
             
     display : function() {
         var lightbox = document.getElementById("lightbox");
-        lightbox.setAttribute('class', 'visible');
+        lightbox.className = 'visible';
         this.isHidden = false;
     },
             
@@ -42,7 +42,7 @@ function afficheAffiche(el) {
     if (!cheminAffiche || cheminAffiche === "") {
         var div = document.createElement('div');
         var p = document.createElement('p');
-        div.setAttribute('class', 'conteneur-lightbox');
+        div.className = 'conteneur-lightbox';
         p.innerHTML = "L'affiche n'est actuellement pas disponible pour ce film.";
         
         box.innerHTML = "";
@@ -63,21 +63,27 @@ function afficheAffiche(el) {
 function afficheSynopsis(el) {
     var box = lightbox.getBox();
     var synopsis = el.getAttribute('data-syn');
-    var div = document.createElement('div');
-    var p = document.createElement('p');
+    var container = document.createElement('div');
+    var block = document.createElement('blockquote');
     
-    div.setAttribute('class', 'conteneur-lightbox');
+    container.className = 'conteneur-lightbox';
+    block.className = 'text-left white-spaces';
     
     if (!synopsis || synopsis === "") {
         synopsis = "Le synopsis n'est actuellement pas disponible pour ce film.";
     }
-    p.innerHTML = synopsis;
+    block.innerHTML = synopsis;
     
     box.innerHTML = "";
-    div.appendChild(p);
-    box.appendChild(div);
+    container.appendChild(block);
+    box.appendChild(container);
+
     lightbox.addHideEvents();
     lightbox.display();
+
+    var blockHeight = block.clientHeight;
+    var boxHeight = box.clientHeight;
+    container.style.top = (boxHeight - blockHeight)/3 + "px";
 }
 
 function afficheBandeAnnonce(el) {
@@ -86,13 +92,13 @@ function afficheBandeAnnonce(el) {
     var div = document.createElement('div');
     
     if (!bandeAnnonce || bandeAnnonce === "") {
-        div.setAttribute('class', 'conteneur-lightbox');
+        div.className = 'conteneur-lightbox';
         var p = document.createElement('p');
         p.innerHTML = "La bande-annonce n'est actuellement pas disponible pour ce film.";
         
         div.appendChild(p);
     } else {
-        div.setAttribute('class', 'bande-annonce-lightbox');
+        div.className =  'bande-annonce-lightbox';
         bandeAnnonce = bandeAnnonce.replace(/&amp;/g,"&");
         bandeAnnonce = bandeAnnonce.replace(/&lt;/g,"<");
         bandeAnnonce = bandeAnnonce.replace(/&gt;/g,">");

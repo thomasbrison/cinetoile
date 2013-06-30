@@ -542,9 +542,17 @@ dt {
 dd {
     clear: right;
     padding-left: 20%;
-    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .message {
     color: red;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.white-spaces {
+    white-space: pre-line;
 }
