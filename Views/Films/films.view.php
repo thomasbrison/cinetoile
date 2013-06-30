@@ -101,8 +101,8 @@ function taille($droits, $width_admin, $width_membre) {
                     </div>
                 </td>
                 <?php elseif ($droits == 1) : ?>
-                <td class="vote" onclick="voter(this);">
-                    <input type="radio" name="id" value="<?php echo $id; ?>"/>
+                <td class="vote">
+                    <input type="checkbox" form="form-vote" name="id<?php echo $numero; ?>" value="<?php echo $id; ?>" />
                 </td>
                 <?php endif; ?>
             </tr>
@@ -117,7 +117,7 @@ function taille($droits, $width_admin, $width_membre) {
         <a class="button" href="films.php/ajouter">Ajouter un film</a>
     </div>
 <?php elseif ($droits == 1) : ?>
-<form id="form-vote" name="voter" method="POST" action="films.php/voter">
-    <input type="hidden" id="soumettre_vote" form="form-vote" value="Voter"/>
+<form name="voter" id="form-vote" method="POST" action="films.php/voter">
+    <input name="voter" type="submit" id="soumettre_vote" form="form-vote" value="Voter"/>
 </form>
 <?php endif; ?>

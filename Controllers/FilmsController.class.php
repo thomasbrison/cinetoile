@@ -84,8 +84,14 @@ class FilmsController extends Controller {
     public function voter() {
         if ($this->checkRights($_SESSION['droits'], 1, 1)) {
             if (isset($_POST['voter'])) {
-                $id = htmlentities(utf8_decode($_GET['id']));
-                $this->tableFilm->vote($id);
+                $ids = array();
+                foreach ($_POST as $post_name => $post_value) {
+                    if ($post_name !== 'voter') {
+                        $ids[] = (int) $post_value;
+                    }
+                }
+                var_dump($ids);
+                //$this->tableFilm->vote($id);
                 // Indiquer à l'utilisateur que son vote a bien été pris en compte
             } else {
                 $this->render('Films/films');

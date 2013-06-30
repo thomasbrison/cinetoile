@@ -70,12 +70,9 @@ function dezoom(img){
     img.className = "affiche";
 }
 
-function voter(id) {
-    if (cacher_input_voter) {
-        document.getElementById("soumettre_vote").setAttribute("type", "submit");
-        cacher_input_voter = false;
-    }
-    document.getElementById(id).click();
+function vote(element) {
+    //document.getElementById("soumettre_vote").setAttribute("type", "submit");
+    element.getElementsByTagName('input')[0].click();
 }
 
 function modifier_affiche() {
