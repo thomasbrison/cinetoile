@@ -1,5 +1,6 @@
 html {
-    background-color:steelblue;
+    background-color: steelblue;
+    font-size: 100%;
 }
 
 body {
@@ -8,8 +9,19 @@ body {
     padding: 0 10px 0 10px;
     background-color: #444444;
     font-family: arial;
+    font-size: 1em;
     text-align: center;
     z-index: 0;
+}
+
+::selection {
+    background-color: #8d9090;
+    color: white;
+}
+
+::-moz-selection {
+    background-color: #8d9090;
+    color: white;
 }
 
 header {
@@ -31,7 +43,7 @@ header {
 footer {
     position: relative;
     width: 100%;
-    height: 50px;
+    height: 56px;
     background-color: #444444;
     clear: both;
     padding-top: 20px;
@@ -42,6 +54,7 @@ footer {
     vertical-align: middle;
     font-size: 17px;
     color: white;
+    overflow-y: hidden;
 }
 
 section#main {
@@ -100,6 +113,7 @@ header nav ul {
 
 header nav li {
     position: relative;
+    overflow-x: hidden;
 }    
 
 header nav#links-nav ul > li {
@@ -119,9 +133,39 @@ header nav#links-nav ul > li {
     }
 }
 
-@media screen and (min-width: 470px) {
+@media screen and (min-width: 480px) {
     header nav#links-nav ul > li {
         width: 24.8%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    header {
+        height: 350px;
+    }
+
+    header nav#links-nav {
+        margin-top: 275px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        height: 300px;
+    }
+
+    header nav#links-nav {
+        margin-top: 225px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        height: 250px;
+    }
+
+    header nav#links-nav {
+        margin-top: 175px;
     }
 }
 
@@ -142,16 +186,24 @@ header span.menu {
     width: 24.5%;
 }
 
-footer img {
+footer img.logo {
     background-color: #dde0e0;
-    height:50px;
+    height: 50px;
+    box-shadow: 5px 5px 15px black;
+    padding: 3px;
+}
+@media screen and (max-width: 350px) {
+    footer img.logo {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 footer span.texte {
-    height:100%;
+    height: 100%;
 }
 
 a {
-    color:black;
+    color: black;
 }
 
 table a {
@@ -163,11 +215,7 @@ table a:hover {
     cursor: pointer;
 }
 table a:visited {
-    color:black;
-}
-
-img.logo {
-    box-shadow: 5px 5px 15px black;
+    color: black;
 }
 
 .logos {
@@ -216,7 +264,7 @@ ul.logos > li {
     top: 0;
     left: 0;
     background-color: rgba(180,180,180,0.8);
-    font-size: 18px;
+    font-size: 1.15em;
 }
 
 #lightbox.visible {
@@ -226,7 +274,7 @@ ul.logos > li {
 #lightbox > * {
     position: relative;
     padding: 10px;
-    background-color:#eee;
+    background-color: #eee;
     border: 2px solid #666;
 }
 
@@ -263,15 +311,15 @@ ul.logos > li {
 table {
     width: 100%;
     max-width: 100%;
-    border-style:none;
+    border-style: none;
     border-spacing: 1px;
-    border-collapse:collapse;
-    overflow:auto;
+    border-collapse: collapse;
+    overflow: auto;
 }
 
 caption {
     margin-bottom: 10px;
-    font-size:large;
+    font-size: large;
     font-weight: bold;
     color: darkred;
 }
@@ -296,7 +344,7 @@ th:first-child {
 }
 td {
     border-top-width: 1px;
-    font-size:small;
+    font-size: small;
 }
 tr {
     border-bottom: groove;
@@ -330,7 +378,7 @@ form #boutons {
 }
 
 form :required {
-    border-color:orangered;
+    border-color: orangered;
 }
 
 form :required:focus {
@@ -351,16 +399,11 @@ h2 {
     text-align: center;
 }
 
-div.options {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-div.options div {
+.options {
     margin-top: 30px;
     margin-bottom: 30px;
-    font-size: 20px;
+    text-align: center;
+    font-size: 1.05em;
 }
 
 td.lien {
@@ -406,11 +449,15 @@ div.inline {
     bottom: 0;
     clear: both;
     padding-top: 15px;
+    overflow: hidden;
 }
 
 .colonne {
     float: left;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .semi {
@@ -418,6 +465,7 @@ div.inline {
 }
 
 .button {
+    text-decoration: none;
     border-style: groove;
     border-width: 2px;
     padding: 5px;
@@ -426,7 +474,6 @@ div.inline {
 }
 
 .button:hover {
-    text-decoration: none;
     background-color: #b2b9b9;
 }
 

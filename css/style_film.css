@@ -143,10 +143,10 @@ article.film:before, article.film:after {
  }
  
 article.film .description {
-    font-size: 12px; 
+    font-size: 0.85em;
     text-align: left;
 }
 
-article.film p {
+article.film .description p {
     margin: 0;
 }

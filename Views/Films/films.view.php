@@ -114,9 +114,7 @@ function taille($droits, $width_admin, $width_membre) {
 
     <?php if ($droits == 2) : ?>
     <div class="options">
-        <div id="ajout_film">
-            <a href="films.php/ajouter">Ajouter un film</a>
-        </div>
+        <a class="button" href="films.php/ajouter">Ajouter un film</a>
     </div>
 <?php elseif ($droits == 1) : ?>
 <form id="form-vote" name="voter" method="POST" action="films.php/voter">

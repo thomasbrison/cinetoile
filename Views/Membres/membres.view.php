@@ -93,5 +93,5 @@
 </section>
 
 <div class="options">
-    <div id="ajout_membre"><a href="membres.php/ajouter">Ajouter un membre</a></div>
+    <a class="button" href="membres.php/ajouter">Ajouter un membre</a>
 </div>

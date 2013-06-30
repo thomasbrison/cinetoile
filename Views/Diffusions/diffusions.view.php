@@ -7,9 +7,7 @@ require_once 'Lib/dates.php';
 ?>
 
 <div class="options">
-    <div id="ajout_diffusion">
-        <a href="diffusions.php/ajouter">Nouvelle projection</a>
-    </div>
+    <a class="button" href="diffusions.php/ajouter">Nouvelle projection</a>
 </div>
 
 <?php

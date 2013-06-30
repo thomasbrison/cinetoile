@@ -75,7 +75,7 @@ class FilmsController extends Controller {
 
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            $id = htmlentities(utf8_decode($_GET['id']));
+            $id = (int) htmlentities(utf8_decode($_GET['id']));
             $this->tableFilm->remove($id);
             header('Location: ' . root . '/films.php');
         }
