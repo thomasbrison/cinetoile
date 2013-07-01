@@ -4,6 +4,24 @@ if (!isset($titre_page)) {
 } else {
     $titre_page = $titre_page . " - Ciné' toile";
 }
+
+switch ($_SESSION['droits']) {
+    case 1:
+        $class_links_header = "one-third";
+        $class_links_nav = "two-thirds";
+        $class_nav = "six-items";
+        break;
+    case 2:
+        $class_links_header = "one-third";
+        $class_links_nav = "two-thirds";
+        $class_nav = "six-items";
+        break;
+    default:
+        $class_links_header = "semi";
+        $class_links_nav = "semi";
+        $class_nav = "four-items";
+        break;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,22 +45,11 @@ if (!isset($titre_page)) {
 
     <body>
         <header>
-            <nav id="links-header">
+            <nav id="nav-header" class="<?php echo $class_nav; ?>">
                 <ul>
-                    <li class="gauche">
+                    <li>
                         <a class="button" href="">Accueil</a>
                     </li>
-                    <li class="droite">
-                        <?php if (isset($_SESSION['login'])) : ?>
-                        <a class="button" href="index.php/deconnexion">D&eacute;connexion</a>
-                        <?php else : ?>
-                        <a class="button" href="index.php/connexion">Connexion</a>
-                        <?php endif; ?>
-                    </li>
-                </ul>
-            </nav>
-            <nav id="links-nav">
-                <ul>
                     <?php if ($_SESSION['droits'] >= 1) : ?>
                     <li>
                         <a class="button" href="films.php">Films</a>
@@ -72,6 +79,13 @@ if (!isset($titre_page)) {
                         <a class="button" href="admin.php">Administration</a>
                     </li>
                     <?php endif; ?>
+                    <li>
+                        <?php if (isset($_SESSION['login'])) : ?>
+                        <a class="button" href="index.php/deconnexion">D&eacute;connexion</a>
+                        <?php else : ?>
+                        <a class="button" href="index.php/connexion">Connexion</a>
+                        <?php endif; ?>
+                    </li>
                 </ul>
             </nav>
         </header>
