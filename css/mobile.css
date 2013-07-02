@@ -1,26 +1,53 @@
+@media screen and (max-width: 1024px) {
+    body {
+        background-size: 100% 450px;
+    }
+
+    header {
+        height: 250px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    html {
+        padding: 0;
+    }
+
+    body {
+        background-size: 100% 400px;
+    }
+
+    header {
+        height: 200px;
+    }
+}
+
 @media screen and (max-width: 600px) {
     #logo-gc {
         padding-left: 0;
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 480px) {
     body {
-        padding: 0;
+        background-size: 100% 300px;
     }
-    
+
+    header {
+        height: 150px;
+    }
+
     section#main {
         margin: 0;
         padding-left: 0;
         padding-right: 0;
     }
-    
-    article.film {
-        margin: 0;
-    }
-    
-    footer {
+
+    article.seance {
+        margin-left: 2%;
+        margin-right: 2%;
         margin-top: 0;
+        margin-bottom: 0;
     }
 }
 
