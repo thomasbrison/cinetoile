@@ -6,14 +6,23 @@
 
 <h2>Quel beau plaisir de te revoir, <span class="texte-prenom"><?php echo $prenom; ?></span> !</h2>
 
-<ul>
-    <li id="membres">
-        <a href="membres.php">Gérer les membres</a>
+<ul class="liste-admin">
+    <li>
+        <a class='button' href="membres.php">Les membres</a>
     </li>
-    <li id="films">
-        <a href="films.php">Gérer les films</a>
+    <li>
+        <a class='button' href="films.php">Les films</a>
     </li>
-    <li id="diffusions">
-        <a href="diffusions.php">Gérer les diffusions</a>
+    <li>
+        <a class='button' href="diffusions.php">Les séances</a>
+    </li>
+    <li>
+        <a class='button' href="profil.php">Mon profil</a>
+    </li>
+    <li>
+        <a class='button' href="plan.php">Le plan d'accès</a>
+    </li>
+    <li>
+        <a class='button' href="presentation.php">L'association</a>
     </li>
 </ul>

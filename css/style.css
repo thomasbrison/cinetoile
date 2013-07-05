@@ -14,10 +14,11 @@ body {
     min-width: 300px;
     margin: auto;
     background-color: white;
-    background-image: url(/Cinetoile/Images/Ressources/bg-header.png);
+    background-image: url(/Cinetoile/Images/Ressources/bg-header.jpg);
     background-repeat: no-repeat;
     background-size: 100% 500px;
     background-position-x: center;
+    background-position-y: -30px;
     background-origin: content-box;
     font-family: arial;
     font-size: 1em;
@@ -101,6 +102,7 @@ header nav {
     padding-top: 0;
     padding-bottom: 0;
     box-sizing: border-box;
+    z-index: 1;
 }
 
 header nav ul {
@@ -437,7 +439,7 @@ tr:hover .hidden, article:hover .hidden {
 }
 
 .hidden > form {
-    display: inline;
+    display: inline-block;
 }
 
 div.inline {
@@ -543,6 +545,7 @@ dd {
     clear: right;
     padding-left: 20%;
     padding-right: 5px;
+    min-height: 2em;
 }
 
 .message {
@@ -555,4 +558,39 @@ dd {
 
 .white-spaces {
     white-space: pre-line;
+}
+
+input[type=submit], input[type=button], input[type=reset], button {
+    background-color: #8d9090;
+    width: 80px;
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: -1px 1px 1px black;
+    border-radius: 5px;
+}
+
+input[type=submit]:hover, input[type=button]:hover, input[type=reset]:hover, button:hover {
+    cursor: pointer;
+    border-color: #444444;
+    border-radius: 0;
+}
+
+input[value="Oui"], input[value="Non"] {
+    width: 38px;
+}
+
+textarea {
+    max-width: 600px;
+}
+
+.liste-admin {
+    padding-top: 60px;
+    padding-bottom: 90px;
+    font-size: 1.2em;
+}
+
+.liste-admin li {
+    display: inline-block;
+    width: 15%;
+    padding: 5px;
 }

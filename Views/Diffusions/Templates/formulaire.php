@@ -39,7 +39,7 @@ if (isset($diffusion)) {
         </p>
         <p>
             <label>Commentaire : </label><br/>
-            <textarea name="commentaire" rows="5" cols="40" maxlength="256"><?php echo $commentaire; ?></textarea>
+            <textarea name="commentaire" rows="5" cols="40" maxlength="256" placeholder='Insérez un commentaire.'><?php echo $commentaire; ?></textarea>
         </p>
         <p class="film">
             <label>Affiche : </label>

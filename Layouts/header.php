@@ -73,7 +73,7 @@ switch ($_SESSION['droits']) {
                         <a class="button" href="membres.php">Membres</a>
                     </li>
                     <li>
-                        <a class="button" href="diffusions.php">Diffusions</a>
+                        <a class="button" href="diffusions.php">Séances</a>
                     </li>
                     <li>
                         <a class="button" href="admin.php">Administration</a>

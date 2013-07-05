@@ -78,7 +78,7 @@
         <legend>Informations annexes</legend>
         <p>
             <label>Synopsis : </label><br/>
-            <textarea name="synopsis" rows="5" cols="40" maxlength="2048"><?php echo $synopsis ? $synopsis : 'Veuillez entrer le synopsis du film.'; ?></textarea>
+            <textarea name="synopsis" rows="5" cols="40" maxlength="2048" placeholder='Veuillez entrer le synopsis du film.'><?php echo $synopsis; ?></textarea>
         </p>
         <p class="film">
             <label>Affiche : </label><br/>

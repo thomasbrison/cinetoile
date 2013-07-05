@@ -1,5 +1,6 @@
 <?php
 
+$login = $membre->getLogin();
 $prenom = $membre->getPrenom();
 $nom = $membre->getNom();
 $email = $membre->getEmail();
