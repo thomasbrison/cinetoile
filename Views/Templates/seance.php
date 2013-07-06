@@ -97,10 +97,10 @@ if (isset($table_film)) {
 
     <?php if (isset($nb_pages)) : ?>
         <?php if ($page > 0) : ?>
-            <button type="button" class="arrow-left" onclick="loadPage(<?php echo $page . "," . ($page - 1) . "," . $nb_pages; ?>);"></button>
+            <button type="button" class="arrow arrow-left" onclick="loadPage(<?php echo $page . "," . ($page - 1) . "," . $nb_pages; ?>);">La semaine prochaine</button>
         <?php endif; ?>
         <?php if ($page < $nb_pages - 1) : ?>
-            <button type="button" class="arrow-right" onclick="loadPage(<?php echo $page . "," . ($page + 1) . "," . $nb_pages; ?>);"></button>
+            <button type="button" class="arrow arrow-right" onclick="loadPage(<?php echo $page . "," . ($page + 1) . "," . $nb_pages; ?>);">La semaine dernière</button>
         <?php endif; ?>
     <?php endif; ?>
 

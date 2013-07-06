@@ -490,22 +490,31 @@ div.inline {
     background-color: #b2b9b9;
 }
 
-.arrow-left {
+.arrow {
     position: relative;
-    float: left;
-    height: 50px;
-    width: 130px;
-    background-image: url(../Images/Icones/prec.png);
+    font-family: blair-itc-light;
+    width: 10em;
+    max-width: 45%;
+    background-image: linear-gradient(white 58%, black);
     background-repeat: no-repeat;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px black;
+}
+
+.arrow-left {
+    float: left;
+    background-image: url('../Images/Icones/left.png'), linear-gradient(white 58%, black);
+    background-position: left center;
+    padding-left: 11px;
+    /*background-image: url(../Images/Icones/prec.png);*/
 }
 
 .arrow-right {
-    position: relative;
     float: right;
-    height: 50px;
-    width: 130px;
-    background-image: url(../Images/Icones/suiv.png);
-    background-repeat: no-repeat;
+    background-image: url('../Images/Icones/right.png'), linear-gradient(white 58%, black);
+    background-position: right center;
+    padding-right: 11px;
+    /*background-image: url(../Images/Icones/suiv.png);*/
 }
 
 .page {
