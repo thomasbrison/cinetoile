@@ -1,6 +1,6 @@
 <article class="seance">
     <h2>Le <?php echo "$date à $heure"; ?> :</h2>
-    <p><?php echo "$titre  de  $realisateur"; ?></p>
+    <h3><?php echo "$titre  de  $realisateur"; ?></h3>
     <p>
         <?php if ($cycle) : ?>
             Cycle <em><i><?php echo $cycle ?></i></em>

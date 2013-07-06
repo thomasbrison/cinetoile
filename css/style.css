@@ -1,3 +1,13 @@
+@font-face {
+    font-family: blair-itc-light;
+    src: url('../Ressources/Polices/Blair_ITC_Light.ttf');
+}
+
+@font-face {
+    font-family: blair-itc-bold;
+    src: url('../Ressources/Polices/Blair_ITC_Bold.ttf');
+}
+
 html {
     font-size: 100%;
     background-color: #444444;
@@ -14,7 +24,7 @@ body {
     min-width: 300px;
     margin: auto;
     background-color: white;
-    background-image: url(/Cinetoile/Images/Ressources/bg-header.jpg);
+    background-image: url(../Images/Backgrounds/bg-header.jpg);
     background-repeat: no-repeat;
     background-size: 100% 500px;
     background-position-x: center;
@@ -470,6 +480,7 @@ div.inline {
     text-decoration: none;
     border-style: groove;
     border-width: 2px;
+    border-color: white;
     padding: 5px;
     background-color: #8d9090;
     box-shadow: 3px 3px 3px black;
@@ -484,7 +495,7 @@ div.inline {
     float: left;
     height: 50px;
     width: 130px;
-    background-image: url(/Cinetoile/Images/Ressources/prec.png);
+    background-image: url(../Images/Icones/prec.png);
     background-repeat: no-repeat;
 }
 
@@ -493,7 +504,7 @@ div.inline {
     float: right;
     height: 50px;
     width: 130px;
-    background-image: url(/Cinetoile/Images/Ressources/suiv.png);
+    background-image: url(../Images/Icones/suiv.png);
     background-repeat: no-repeat;
 }
 
@@ -561,7 +572,7 @@ dd {
 }
 
 input[type=submit], input[type=button], input[type=reset], button {
-    background-color: #8d9090;
+    background-color: rgb(210,210,210);
     width: 80px;
     border-style: solid;
     border-width: 2px;
@@ -579,8 +590,27 @@ input[value="Oui"], input[value="Non"] {
     width: 38px;
 }
 
+input[value="Oui"] {
+    background-color: green;
+}
+
+input[value="Non"] {
+    background-color: red;
+}
+
 textarea {
-    max-width: 600px;
+    width: 90%;
+    resize: none;
+}
+
+.big-button {
+    width: 150px;
+}
+
+@media screen and (min-width: 720px) {
+    textarea {
+        width: 60%;
+    }
 }
 
 .liste-admin {
@@ -591,6 +621,36 @@ textarea {
 
 .liste-admin li {
     display: inline-block;
-    width: 15%;
     padding: 5px;
+    margin: 5px;
+}
+
+.presentation h2 {
+    margin-top: 0;
+    color: #56565e;
+    font-family: blair-itc-bold;
+}
+
+.plan {
+    max-width: 100%;
+}
+
+.follow-fb {
+    display: inline-block;
+    height: 1.5em;
+    background-image: url('../Images/Logos/fb.png');
+    background-size: 1.5em;
+    background-repeat: no-repeat;
+    background-position: 0.5em center;
+    font-size: 1em;
+    line-height: 1.5em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    padding-left: 2.5em;
+    padding-right: 0.5em;
+    text-decoration: none;
+    border-style: groove;
+    border-color: white;
+    border-width: 4px;
+    border-radius: 8px;
 }

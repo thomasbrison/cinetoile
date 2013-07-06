@@ -41,6 +41,8 @@ class DiffusionsController extends Controller {
                 $diffusion = $this->getInfos($date);
                 $this->tableDiffusion->add($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche());
                 header('Location: ' . root . '/diffusions.php');
+            } elseif (isset($_POST['annuler'])) {
+                header('Location: ' . root . '/diffusions.php');
             } else {
                 $films = $this->tableFilm->consultAsAMember();
                 $this->render('Diffusions/ajout_diffusion', array(), compact('films'));
@@ -54,6 +56,8 @@ class DiffusionsController extends Controller {
                 $date = $_POST['date'];
                 $diffusion = $this->getInfos($date);
                 $this->tableDiffusion->modify($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche());
+                header('Location: ' . root . '/diffusions.php');
+            } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/diffusions.php');
             } else {
                 $diffusion = $this->tableDiffusion->getAttributes($_GET['date']);

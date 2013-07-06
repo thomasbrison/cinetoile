@@ -1,10 +1,10 @@
 
 <footer>
     <div id="logo-cinetoile">
-        <img class="logo" src="Images/Logo/cinetoile.png">
+        <img class="logo" src="Images/Logos/cinetoile.png">
     </div>
     <div id="logo-gc">
-        <img class="logo" src="Images/Logo/gc.png">
+        <img class="logo" src="Images/Logos/gc.png">
     </div>
     <address id="contenu-footer">
         En construction

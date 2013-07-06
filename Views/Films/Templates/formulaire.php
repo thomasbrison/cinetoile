@@ -112,7 +112,7 @@
     <p id="boutons">
         <input type="submit" name="<?php echo $form_action; ?>" value="Valider" />
         <input type="reset" name="reset" value="Reset"/>
-        <button formaction="films.php">Annuler</button>
+        <button type='button' onclick='window.location.href = "films.php";'>Annuler</button>
     </p>
 
 </form>

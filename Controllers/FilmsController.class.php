@@ -36,6 +36,8 @@ class FilmsController extends Controller {
                 $film = $this->getInfos(null);
                 $this->tableFilm->add($film->getTitre(), $film->getRealisateur(), $film->getAnnee(), $film->getPays(), $film->getActeurs(), $film->getGenre(), $film->getSupport(), $film->getDuree(), $film->getSynopsis(), $film->getAffiche(), $film->getBandeAnnonce());
                 header('Location: ' . root . '/films.php');
+            } elseif (isset($_POST['annuler'])) {
+                header('Location: ' . root . '/films.php');
             } else {
                 $this->render('Films/ajout_film');
             }
@@ -48,6 +50,8 @@ class FilmsController extends Controller {
                 $id = htmlentities(utf8_decode($_POST['id']));
                 $film = $this->getInfos($id);
                 $this->tableFilm->modify($id, $film->getTitre(), $film->getRealisateur(), $film->getAnnee(), $film->getPays(), $film->getActeurs(), $film->getGenre(), $film->getSupport(), $film->getDuree(), $film->getSynopsis(), $film->getAffiche(), $film->getBandeAnnonce());
+                header('Location: ' . root . '/films.php');
+            } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/films.php');
             } else {
                 $id = htmlentities(utf8_decode($_GET['id']));

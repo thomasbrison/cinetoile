@@ -32,6 +32,8 @@ class MembresController extends Controller {
                 $membre = $this->getInfos();
                 $this->tableMembre->add($membre->getLogin(), $password, $membre->getDroits(), $membre->getPrenom(), $membre->getNom(), $membre->getEmail(), $membre->getTelephone(), $membre->getEcole(), $membre->getAnnee());
                 header('Location: ' . root . '/membres.php');
+            } elseif (isset($_POST['annuler'])) {
+                header('Location: ' . root . '/membres.php');
             } else {
                 $this->render('Membres/ajout_membre');
             }
@@ -43,6 +45,8 @@ class MembresController extends Controller {
             if (isset($_POST['modifier'])) {
                 $membre = $this->getInfos();
                 $this->tableMembre->modify($membre->getLogin(), $membre->getDroits(), $membre->getPrenom(), $membre->getNom(), $membre->getEmail(), $membre->getTelephone(), $membre->getEcole(), $membre->getAnnee());
+                header('Location: ' . root . '/membres.php');
+            } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/membres.php');
             } else {
                 $login = htmlentities(utf8_decode($_GET['login']));

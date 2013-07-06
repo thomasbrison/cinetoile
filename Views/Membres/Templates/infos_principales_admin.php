@@ -2,7 +2,7 @@
     <legend>Informations principales sur le membre</legend>
     <p>
         <label>Login :  </label>
-        <input type="text" name="login" size="25" maxlength="32" value="<?php echo $login; ?>" placeholder="Login - sans accents" pattern="[A-za-z]+" required autofocus />
+        <input type="text" name="login" size="25" maxlength="32" value="<?php echo $login; ?>" placeholder="Login - sans accents" pattern="([A-za-z]+|Cinétoile)" required autofocus />
     </p>
     <?php if (!$login) : ?>
         <p>

@@ -54,7 +54,7 @@
     <p id="boutons">
         <input type="submit" name="<?php echo $form_action; ?>" value="Valider" />
         <input type="reset" name="reset" value="Reset" />
-        <button formaction="<?php echo $form_target; ?>">Annuler</button>
+        <button type='button' onclick='window.location.href = "<?php echo $form_target; ?>";'>Annuler</button>
     </p>
 
 </form>

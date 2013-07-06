@@ -38,6 +38,8 @@ class ProfilController extends Controller {
                     $_SESSION['is_password_changed'] = true;
                 }
                 header('Location: ' . root . '/profil.php');
+            } elseif (isset($_POST['annuler'])) {
+                header('Location: ' . root . '/profil.php');
             } else {
                 $login = $_SESSION['login'];
                 $membre = $this->tableMembre->getAttributes($login);

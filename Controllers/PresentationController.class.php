@@ -9,8 +9,8 @@ require_once 'Controller.class.php';
  */
 class PresentationController extends Controller  {
     public function defaultAction() {
-        $fichier_association = "Textes/" . "association.txt";
-        $fichier_equipe = "Textes/" . "equipe.txt";
+        $fichier_association = "Ressources/Textes/" . "association.txt";
+        $fichier_equipe = "Ressources/Textes/" . "equipe.txt";
 
         $texte_association = $this->getTextFromFile($fichier_association);
         $texte_equipe = $this->getTextFromFile($fichier_equipe);

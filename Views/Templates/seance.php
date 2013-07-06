@@ -28,19 +28,19 @@ if (isset($table_film)) {
 <article class="seance transition page page-center" id="seance<?php echo $page; ?>">
     <div id="fb-root"></div>
 
-    <h2 style="color: white; text-shadow: black -1px 1px 1px;">
+    <h2>
         <?php echo "$date à $heure" . ' : ' . $titre; ?>
     </h2>
 
     <?php if ($cycle) : ?>
-    <h3 style="color: white; text-shadow: black -1px 1px 1px;">
+    <h3>
         Cycle <?php echo $cycle; ?>
     </h3>
     <?php endif; ?>
 
     <?php if ($affiche) : ?>
     <div class="semi colonne">
-        <img style="width: 100%;" src="<?php echo $affiche; ?>" title="<?php echo $titre; ?>" alt="Affiche introuvable."/>
+        <img class="affiche" src="<?php echo $affiche; ?>" title="<?php echo $titre; ?>" alt="Affiche introuvable."/>
     </div>
     <div class="semi colonne description">
     <?php else : ?>
@@ -85,7 +85,7 @@ if (isset($table_film)) {
         <?php if ($bande_annonce) : ?>
         <br/>
         <p>
-            <button class="button" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir la bande-annonce </button>
+            <button class="button big-button" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir la bande-annonce </button>
         </p>
         <?php endif; ?>
 

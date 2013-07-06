@@ -64,7 +64,7 @@ if (isset($diffusion)) {
     <p id="boutons">
         <input type="submit" name="<?php echo $form_action; ?>" value="Valider" />
         <input type="reset" name="reset" value="Reset"/>
-        <button formaction="diffusions.php">Annuler</button>
+        <input type='submit' name="annuler" value='Annuler'/>
     </p>
 
 </form>
