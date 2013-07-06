@@ -85,7 +85,7 @@ if (isset($table_film)) {
         <?php if ($bande_annonce) : ?>
         <br/>
         <p>
-            <button class="button big-button" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir la bande-annonce </button>
+            <button class="button big-button" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir la bande-annonce Allociné </button>
         </p>
         <?php endif; ?>
 
