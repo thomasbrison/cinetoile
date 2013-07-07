@@ -60,16 +60,11 @@ header {
 footer {
     position: relative;
     width: 100%;
-    height: 56px;
-    background-color: #444444;
+    background-color: white;
     clear: both;
     padding-top: 20px;
     padding-bottom: 10px;
     text-align: center;
-    line-height: 25px;
-    vertical-align: middle;
-    font-size: 17px;
-    color: white;
     overflow-y: hidden;
 }
 
@@ -142,12 +137,7 @@ nav a.button {
 }
 
 @media screen and (max-width: 480px) {
-    /*header nav {
-        padding-left: 1%;
-        padding-right: 1%;
-    }
-
-    header a {
+    /*header a {
         font-size: smaller;
     }*/
 
@@ -188,7 +178,7 @@ header nav li a {
 header a {
     text-decoration: none;
 }
-header a, footer a {
+header a {
     color: white;
 }
 
@@ -199,10 +189,12 @@ header span.menu {
 }
 
 footer img.logo {
-    background-color: #dde0e0;
-    height: 50px;
-    box-shadow: 5px 5px 15px black;
-    padding: 3px;
+    display: inline-block;
+    /*background-color: #dde0e0;*/
+    height: 4.2em;
+    /*box-shadow: 0px 0px 15px black;*/
+    padding-left: 3px;
+    padding-right: 3px;
 }
 @media screen and (max-width: 350px) {
     footer img.logo {
@@ -230,33 +222,21 @@ table a:visited {
     color: black;
 }
 
-.logos {
-    display: inline-block;
-    float : left;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 10px;
-}
-
-ul.logos > li {
-    display: inline-block;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
 #logo-cinetoile {
-    display: inline-block;
     float: left;
-    margin-left: 5px;
+    margin-left: 10%;
     margin-right: 5px;
 }
 
 #logo-gc {
-    display: inline-block;
     float: right;
     margin-left: 5px;
-    margin-right: 5px;
-    padding-left: 64px; /** pour avoir #contenu-footer centré **/
+    margin-right: 10%;
+    padding-left: 78px; /** pour avoir #contenu-footer centré **/
+}
+
+#logo-inp {
+    float: right;
 }
 
 #contenu-footer {
@@ -264,6 +244,14 @@ ul.logos > li {
     text-align: center;
     padding-left: 5px;
     padding-right: 5px;
+    line-height: 1.4em;
+    font-size: 1em;
+    color: black;
+}
+
+#contenu-footer > * {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 #lightbox {
@@ -613,7 +601,7 @@ textarea {
 }
 
 .big-button {
-    width: 15em;
+    width: 16em;
 }
 
 @media screen and (min-width: 720px) {

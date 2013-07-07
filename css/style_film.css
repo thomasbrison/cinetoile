@@ -29,8 +29,8 @@ article:hover {
 }
 
 .seance {
-    background-image: linear-gradient(#e7e7e7 0%, #f0c79b 100%);
-    /*background-image: radial-gradient(circle at center top, white 70%, #e69a47);  /* Forme ronde voulue par Jonathan */
+    background-image: linear-gradient(white, #f0c79b);
+    /*background-image: radial-gradient(circle at 45% 0%, white 70%, #e69a47);  /* Forme ronde voulue par Jonathan */
 }
 
 .film .annonce {

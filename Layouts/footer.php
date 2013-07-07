@@ -1,17 +1,23 @@
+<?php
+require_once 'Lib/dates.php';
+$current_school_year = date_get_school_year();
+?>
+
 
 <footer>
-    <div id="logo-cinetoile">
-        <img class="logo" src="Images/Logos/cinetoile.png">
+    <img id="logo-cinetoile" class="logo" src="Images/Logos/cinetoile-2.png">
+    <img id="logo-gc" class="logo" src="Images/Logos/gc.png">
+    <div id="contenu-footer">
+        <p>
+            En construction
+        </p>
+        <address>
+            <a href="mailto:cinetoile.grenoble@gmail.com">Envoyer un mail</a>.
+        </address>
+        <p>
+            Cinétoile <?php echo $current_school_year['first_year'] . " - " . $current_school_year['second_year']; ?>
+        </p>
     </div>
-    <div id="logo-gc">
-        <img class="logo" src="Images/Logos/gc.png">
-    </div>
-    <address id="contenu-footer">
-        En construction
-        <br/>
-        <a href="mailto:cinetoile.grenoble@gmail.com">Envoyer un mail</a>.
-        <br/>
-    </address>
 </footer>
 </body>
 </html>

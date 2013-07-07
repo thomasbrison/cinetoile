@@ -22,7 +22,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1024px) {
     #logo-gc {
         padding-left: 0;
     }
@@ -48,6 +48,14 @@
         margin-right: 2%;
         margin-top: 0;
         margin-bottom: 0;
+    }
+
+    #contenu-footer {
+        font-size: 0.8em;
+    }
+
+    footer img.logo {
+        height: 3em;
     }
 }
 

@@ -53,4 +53,20 @@ function date_format_to_string($datetime) {
     return array('date' => $date, 'heure' => $heure);
 }
 
+/**
+ * Returns an array containing the current school year
+ * The key "first_year" contains the first year of the period, finishing in July
+ * The key "second_year" contains the second year of the period, beginning in August
+ * @return array
+ */
+function date_get_school_year() {
+    $current_date = getdate();
+    $current_year = $current_date['year'];
+    $current_month = $current_date['mon'];
+    $years = array();
+    $years['first_year'] = ($current_month < 8) ? ($current_year - 1) : $current_year;
+    $years['second_year'] = $years['first_year'] + 1;
+    return $years;
+}
+
 ?>
