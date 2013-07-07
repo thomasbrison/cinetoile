@@ -50,6 +50,11 @@
         margin-bottom: 0;
     }
 
+    blockquote {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
     #contenu-footer {
         font-size: 0.8em;
     }
