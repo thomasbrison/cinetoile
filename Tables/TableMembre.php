@@ -21,21 +21,24 @@ class TableMembre extends TableUser {
             Set prenom = '$prenom', nom = '$nom', email = '$email', telephone = '$tel',
                 ecole = '$ecole', annee = '$annee'
             Where login = '$login';";
-        mysql_query($query);
+        $sth = $this->dbh->query($query);
+        $sth->execute();
     }
 
     public function modifyPassword($login, $password) {
         $query = "Update Membre
             Set password = PASSWORD('$password')
             Where login = '$login';";
-        mysql_query($query);
+        $sth = $this->dbh->query($query);
+        $sth->execute();
     }
 
     public function modifyRights($login, $droits) {
         $query = "Update Membre
             Set droits = '$droits'
             Where login = '$login';";
-        mysql_query($query);
+        $sth = $this->dbh->query($query);
+        $sth->execute();
     }
 
     public function getAttributes($key) {

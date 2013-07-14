@@ -1,4 +1,4 @@
-CREATE USER 'Cinétoile'@'%' IDENTIFIED BY 'tarantino';
+CREATE USER 'Cinetoile'@'localhost' IDENTIFIED BY 'tarantino';
 
 
 CREATE DATABASE IF NOT EXISTS cinetoile;
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `Diffusion` (
   `affiche` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`date_diffusion`),
   KEY `id_film` (`id_film`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `Film` (
   `affiche` varchar(64) DEFAULT NULL,
   `bande_annonce` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=95 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -82,11 +82,11 @@ CREATE TABLE IF NOT EXISTS `Membre` (
   `ecole` enum('Autre','Ense3','Ensimag','GI','Pagora','Phelma') DEFAULT NULL,
   `annee` enum('Autre','1','2','3') DEFAULT NULL,
   PRIMARY KEY (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- password à changer
 INSERT INTO Membre (login,password,droits,prenom,nom,email,telephone,ecole,annee)
-VALUES ('Cin&eacute;toile',PASSWORD('siteweb'),'2','Cinétoile',NULL,'cinetoile.grenoble@gmail.com',NULL,NULL); 
+VALUES ('Cin&eacute;toile',PASSWORD('siteweb'),'2','Cin&eacute;toile',NULL,'cinetoile.grenoble@gmail.com',NULL,NULL,NULL);
 
 --
 -- Contraintes pour les tables exportées
@@ -105,5 +105,5 @@ ALTER TABLE `Diffusion`
 
 GRANT ALL
 ON cinetoile.*
-TO 'Cinétoile' IDENTIFIED BY 'tarantino'
+TO 'Cinetoile' IDENTIFIED BY 'tarantino'
 WITH GRANT OPTION;

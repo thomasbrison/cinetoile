@@ -2,13 +2,18 @@
 
 // Connexion à la BD
 function connexion_bd() {
-    $connect = mysql_connect('localhost', utf8_decode('Cinétoile'), 'tarantino');
-    if (!$connect) {
-        die("Erreur de connexion au serveur");
+    /* Connexion à une base ODBC avec l'invocation de pilote */
+    $dsn = 'mysql:host=localhost;port=3306;dbname=cinetoile;charset=utf8';
+    $user = 'Cinetoile';
+    $password = 'tarantino';
+
+    try {
+        $dbh = new PDO($dsn, $user, $password);
+    } catch (PDOException $e) {
+        echo 'Connexion &agrave; la base de donn&eacute;es &eacute;chou&eacute;e : ' . $e->getMessage();
     }
-    mysql_select_db('cinetoile') or
-            die("Erreur de connexion &agrave; la base de donn&eacute;es");
-    define('connect', $connect);
+    define('connect', $dbh);
+    return $dbh;
 }
 
 ?>

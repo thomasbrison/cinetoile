@@ -18,8 +18,9 @@ class TableUser extends Table {
     public function consult() {
         $query = "Select login, prenom, nom, email, telephone, ecole, annee, droits
             From Membre;";
-        $result = mysql_query($query);
-        while ($row = mysql_fetch_assoc($result)) {
+        $sth = $this->dbh->query($query);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($result as $row) {
             $login = $row['login'];
             $prenom = $row['prenom'];
             $nom = $row['nom'];
@@ -38,7 +39,8 @@ class TableUser extends Table {
         $query = "Insert into Membre(login, password, droits, prenom, nom, email, telephone, ecole, annee)
             Values ('$login', PASSWORD('$password'), '$droits', '$prenom',
                 '$nom', '$email', '$tel', '$ecole', '$annee');";
-        mysql_query($query);
+        $sth = $this->dbh->query($query);
+        $sth->execute();
     }
 
     public function modify($login, $droits, $prenom, $nom, $email, $tel, $ecole, $annee) {
@@ -46,7 +48,8 @@ class TableUser extends Table {
             Set droits = '$droits', prenom = '$prenom', nom = '$nom', email = '$email',
                 telephone = '$tel', ecole = '$ecole', annee = '$annee'
             Where login = '$login';";
-        mysql_query($query);
+        $sth = $this->dbh->query($query);
+        $sth->execute();
     }
 
     // Fonction permettant de verifier que la combinaison login/password est OK
@@ -54,11 +57,9 @@ class TableUser extends Table {
         $query = "Select droits
             From Membre
             Where login = '$login' and password = PASSWORD('$password');";
-        $result = mysql_query($query);
-        $droits = 0;
-        while ($row = mysql_fetch_assoc($result)) {
-            $droits = htmlentities($row['droits']);
-        }
+        $sth = $this->dbh->query($query);
+        $result = $sth->fetch(PDO::FETCH_ASSOC);
+        $droits = $result['droits'] or 0;
         return $droits;
     }
 
@@ -66,9 +67,9 @@ class TableUser extends Table {
         $query = "Select prenom
             From Membre
             Where login = '$login';";
-        $result = mysql_query($query);
-        $row = mysql_fetch_assoc($result);
-        $prenom = $row['prenom'];
+        $sth = $this->dbh->query($query);
+        $result = $sth->fetch(PDO::FETCH_ASSOC);
+        $prenom = $result['prenom'];
         return $prenom;
     }
 
