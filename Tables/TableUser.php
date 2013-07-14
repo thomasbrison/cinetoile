@@ -39,8 +39,7 @@ class TableUser extends Table {
         $query = "Insert into Membre(login, password, droits, prenom, nom, email, telephone, ecole, annee)
             Values ('$login', PASSWORD('$password'), '$droits', '$prenom',
                 '$nom', '$email', '$tel', '$ecole', '$annee');";
-        $sth = $this->dbh->query($query);
-        $sth->execute();
+        $this->dbh->query($query);
     }
 
     public function modify($login, $droits, $prenom, $nom, $email, $tel, $ecole, $annee) {
@@ -48,8 +47,7 @@ class TableUser extends Table {
             Set droits = '$droits', prenom = '$prenom', nom = '$nom', email = '$email',
                 telephone = '$tel', ecole = '$ecole', annee = '$annee'
             Where login = '$login';";
-        $sth = $this->dbh->query($query);
-        $sth->execute();
+        $this->dbh->query($query);
     }
 
     // Fonction permettant de verifier que la combinaison login/password est OK

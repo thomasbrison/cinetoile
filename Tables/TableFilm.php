@@ -68,8 +68,7 @@ class TableFilm extends Table {
             duree, synopsis, affiche, bande_annonce)
             Values ('$titre', '$realisateur', '$annee', '$pays', '$acteurs', '$genre', '$support',
                 '$duree', '$synopsis', '$affiche', '$bande_annonce');";
-        $sth = $this->dbh->query($query);
-        $sth->execute();
+        $this->dbh->query($query);
     }
 
     public function modify($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce) {
@@ -78,8 +77,7 @@ class TableFilm extends Table {
                 acteurs = '$acteurs', genre = '$genre', support = '$support', duree = '$duree',
                 synopsis = '$synopsis', affiche = '$affiche', bande_annonce = '$bande_annonce' 
             Where id = '$id';";
-        $sth = $this->dbh->query($query);
-        $sth->execute();
+        $this->dbh->query($query);
     }
 
     public function vote($id) {

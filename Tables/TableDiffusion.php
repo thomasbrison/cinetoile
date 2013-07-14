@@ -32,16 +32,14 @@ class TableDiffusion extends Table {
     public function add($date, $id_film, $cycle, $commentaire, $affiche) {
         $query = "Insert into Diffusion(date_diffusion, id_film, cycle, commentaire, affiche)
             Values ('$date', '$id_film', '$cycle', '$commentaire', '$affiche');";
-        $sth = $this->dbh->query($query);
-        $sth->execute();
+        $this->dbh->query($query);
     }
 
     public function modify($date, $id_film, $cycle, $commentaire, $affiche) {
         $query = "Update Diffusion
             Set id_film = '$id_film', cycle = '$cycle', commentaire = '$commentaire', affiche = '$affiche'
             Where date_diffusion = '$date';";
-        $sth = $this->dbh->query($query);
-        $sth->execute();
+        $this->dbh->query($query);
     }
 
     public function classifyByDate() {

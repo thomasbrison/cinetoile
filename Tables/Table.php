@@ -30,8 +30,7 @@ abstract class Table {
 
     public function remove($key) {
         $query = "DELETE FROM $this->name WHERE $this->primaryKey = '$key';";
-        $sth = $this->dbh->query($query);
-        $sth->execute();
+        $this->dbh->query($query);
     }
 
 }
