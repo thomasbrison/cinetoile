@@ -296,8 +296,8 @@ table a:visited {
 }
 
 #lightbox > div.bande-annonce-lightbox {
-    width: 100%;
-    top: 15%;
+    width: 80%;
+    left: 10%;
 }
 
 .texte-cinetoile {

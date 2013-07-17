@@ -1,6 +1,6 @@
 <?php
 
-require ("connexion.php");
+require_once 'Lib/connexion.php';
 
 abstract class Table {
 

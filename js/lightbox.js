@@ -12,6 +12,7 @@ var lightbox = {
 
         if (event && event.target !== box) return;
 
+        box.innerHTML = "";
         box.className = '';
         this.isHidden = true;
     },
@@ -86,28 +87,43 @@ function afficheSynopsis(el) {
     container.style.top = (boxHeight - blockHeight)/3 + "px";
 }
 
-function afficheBandeAnnonce(el) {
+function afficheBandeAnnonce(el, width, height) {
     var box = lightbox.getBox();
-    var bandeAnnonce = el.getAttribute('data-ba');
-    var div = document.createElement('div');
+    var url = el.getAttribute('data-ba');
+    var container = document.createElement('div');
     
-    if (!bandeAnnonce || bandeAnnonce === "") {
-        div.className = 'conteneur-lightbox';
-        var p = document.createElement('p');
-        p.innerHTML = "La bande-annonce n'est actuellement pas disponible pour ce film.";
+    if (!url || url === "") {
+        container.className = 'conteneur-lightbox';
+        var block = document.createElement('p');
+        block.innerHTML = "La bande-annonce n'est actuellement pas disponible pour ce film.";
         
-        div.appendChild(p);
+        container.appendChild(block);
     } else {
-        div.className =  'bande-annonce-lightbox';
-        bandeAnnonce = bandeAnnonce.replace(/&amp;/g,"&");
-        bandeAnnonce = bandeAnnonce.replace(/&lt;/g,"<");
-        bandeAnnonce = bandeAnnonce.replace(/&gt;/g,">");
-        bandeAnnonce = bandeAnnonce.replace(/&quot;/g,"\"");
-        div.innerHTML = bandeAnnonce;
+        width = width || "100%";
+        height = height || (document.body.clientWidth * 9/16);  // Please do not hardcode 1 (100%)
+        container.className =  'bande-annonce-lightbox';
+
+        var iframe = document.createElement('iframe');
+        url = url.replace(/&amp;/g,"&");
+        url = url.replace(/&lt;/g,"<");
+        url = url.replace(/&gt;/g,">");
+        url = url.replace(/&quot;/g,"\"");
+        iframe.src = url;
+        iframe.width = width;
+        iframe.height = height;
+
+        container.appendChild(iframe);
     }
     
     box.innerHTML = "";
-    box.appendChild(div);
+    box.appendChild(container);
     lightbox.addHideEvents();
     lightbox.display();
+
+    if (iframe) {
+        var iframeHeight = iframe.clientHeight;
+        var boxHeight = box.clientHeight;
+        container.style.top = (boxHeight - container.style.paddingTop - container.style.paddingBottom - iframeHeight)/3  + "px";
+//        container.style.left = (document.body.clientWidth - iframe.clientWidth)/3 + "px";
+    }
 }
