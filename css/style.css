@@ -518,13 +518,13 @@ div.inline {
 .stage-left {
     position: absolute;
     width: 100%;
-    left : -150%;
+    left : -115%;
 }
 
 .stage-right {
     position: absolute;
     width: 100%;
-    left : 150%;
+    left : 115%;
 }
 
 .stage-center {

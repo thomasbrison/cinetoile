@@ -92,7 +92,7 @@ if (isset($table_film)) {
     </div>
 
     <div class="social">
-        <div class="fb-like" data-href="<?php echo $_SERVER["HTTP_HOST"] . root . "/?date=$datetime"; ?>" data-send="true" data-width="450" data-show-faces="true" data-action="recommend"></div>
+        <div class="fb-like" data-href="http://<?php echo $_SERVER["HTTP_HOST"] . root . "/?date=$datetime"; ?>" data-send="true" data-width="450" data-show-faces="true" data-action="recommend"></div>
     </div>
 
     <?php if (isset($nb_pages)) : ?>
