@@ -25,7 +25,7 @@ if (isset($table_film)) {
 }
 ?>
 
-<article class="seance transition page page-center" id="seance<?php echo $page; ?>">
+<article class="seance" id="seance<?php echo $page; ?>">
     <div id="fb-root"></div>
 
     <h2>

@@ -72,7 +72,7 @@ section#main {
     padding-bottom: 10px;
     padding-left: 5%;
     padding-right: 5%;
-    text-align: center;   
+    text-align: center;
 }
 
 .gauche {
@@ -506,31 +506,30 @@ div.inline {
 }
 
 .page {
-    /*float: left;*/
+    position: relative;
+    width: 100%;
+    overflow: hidden;
 }
 
-.transition {
-    transition-duration: 375ms;
-    -webkit-transition-duration: 375ms;
-    -moz-transition-duration: 375ms;
-    -o-transition-duration: 375ms;
+.page > * {
+    position: relative;
 }
 
-.page-left {
-    position : relative;
-    right : 100%;
-    display: none;
+.stage-left {
+    position: absolute;
+    width: 100%;
+    left : -150%;
 }
 
-.page-right {
-    position : relative;
-    right : -100%;
-    display: none;
+.stage-right {
+    position: absolute;
+    width: 100%;
+    left : 150%;
 }
 
-.page-center {
-    right : 0;
-    display: block;
+.stage-center {
+    position: relative;
+    left : 0;
 }
 
 dl {

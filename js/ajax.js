@@ -32,7 +32,7 @@ function loadPage(currentPageNumber, pageNumber, nbPages) {
     xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && (xmlhttp.status == 200 || xmlhttp.status == 0)) {
+        if (xmlhttp.readyState === 4 && (xmlhttp.status === 200 || xmlhttp.status === 0)) {
 
             var div = document.createElement('div');
             div.innerHTML = xmlhttp.responseText;
@@ -53,22 +53,21 @@ function loadPage(currentPageNumber, pageNumber, nbPages) {
     xmlhttp.send(null);
 }
 
-function goToPreviousPage(currentPage, finalPage) {
-    finalPage.className = "seance transition page page-left";
-    document.getElementById("main").appendChild(finalPage);
+function slidePage(currentPage, finalPage, originClassName, directionClassName) {
+    currentPage.className = "stage-center seance";
+    finalPage.className = "seance " + originClassName;
+    document.getElementById("seances").appendChild(finalPage);
     
     setTimeout(function() {
-        currentPage.className = "seance transition page page-right";
-        finalPage.className = "seance transition page page-center";
-    }, 0);
+        currentPage.className = "seance " + directionClassName;
+        finalPage.className = "stage-center seance";
+    });
+}
+
+function goToPreviousPage(currentPage, finalPage) {
+    slidePage(currentPage, finalPage, "stage-left", "stage-right");
 }
 
 function goToNextPage(currentPage, finalPage) {
-    finalPage.className = "seance transition page page-right";
-    document.getElementById("main").appendChild(finalPage);
-    
-    setTimeout(function() {
-        currentPage.className = "seance transition page page-left";
-        finalPage.className = "seance transition page page-center";
-    }, 0);
+    slidePage(currentPage, finalPage, "stage-right", "stage-left");
 }
