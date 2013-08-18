@@ -491,7 +491,8 @@ div.inline {
 
 .arrow-left {
     float: left;
-    background-image: url('../Images/Icones/left.png'), linear-gradient(white 58%, black);
+    background-image: url('../Images/Icones/gauche.png'), linear-gradient(white 58%, black);
+    background-size: 10px auto;
     background-position: left center;
     padding-left: 11px;
     /*background-image: url(../Images/Icones/prec.png);*/
@@ -499,7 +500,8 @@ div.inline {
 
 .arrow-right {
     float: right;
-    background-image: url('../Images/Icones/right.png'), linear-gradient(white 58%, black);
+    background-image: url('../Images/Icones/droite.png'), linear-gradient(white 58%, black);
+    background-size: 10px auto;
     background-position: right center;
     padding-right: 11px;
     /*background-image: url(../Images/Icones/suiv.png);*/
