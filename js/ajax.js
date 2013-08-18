@@ -61,7 +61,7 @@ function slidePage(currentPage, finalPage, originClassName, directionClassName) 
     setTimeout(function() {
         currentPage.className = "seance " + directionClassName;
         finalPage.className = "stage-center seance";
-    });
+    }, 0);
 }
 
 function goToPreviousPage(currentPage, finalPage) {

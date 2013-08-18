@@ -1,42 +1,87 @@
 var lightbox = {
+    isInitialized : false,
     isHidden : true,
+    element : null,
+    box : null,
+    closeButton : null,
+
+    init : function() {
+	if (!this.isInitialized) {
+	    this.element = document.getElementById("lightbox");
+	    this.addTopBar();
+	    this.addBox();
+	    this.isInitialized = true;
+	}
+    },
             
     display : function() {
-        var lightbox = document.getElementById("lightbox");
-        lightbox.className = 'visible';
+        var lightboxElement = lightbox.getElement();
+        lightboxElement.className = 'visible';
         this.isHidden = false;
     },
             
     hide : function(event) {
-        var box = lightbox.getBox();
+        var lightboxElement = lightbox.getElement();
+	var closeButton = lightbox.getCloseButton();
 
-        if (event && event.target !== box) return;
+        if ((event && (event.target !== lightboxElement) && (event.target !== closeButton))) return;
 
-        box.innerHTML = "";
-        box.className = '';
+	lightbox.getBox().innerHTML = "";
+        lightboxElement.className = '';
         this.isHidden = true;
     },
     
-    getBox : function() {
-        if (document) {
-            return document.getElementById("lightbox");
-        } else {
-            return null;
-        }
+    getElement : function() {
+	return this.element;
     },
-            
+
+    getBox : function() {
+	return this.box;
+    },
+
+    getCloseButton : function() {
+	return this.closeButton;
+    },
+
+    addTopBar : function() {
+	var lightboxElement = lightbox.getElement();
+	var barElement = document.createElement('div');
+	var closeButtonElement = document.createElement('div');
+
+	barElement.className = 'lightbox-top-bar';
+	closeButtonElement.className = 'close';
+
+	lightbox.closeButton = closeButtonElement;
+
+	barElement.appendChild(closeButtonElement);
+	lightboxElement.appendChild(barElement);
+    },
+
+    addBox : function() {
+	var lightboxElement = lightbox.getElement();
+	var boxElement = document.createElement('div');
+
+	boxElement.className = 'lightbox-container';
+
+	lightbox.box = boxElement;
+
+	lightboxElement.appendChild(boxElement);
+    },
+
     addHideEvents : function() {
-        lightbox.getBox().addEventListener('click', lightbox.hide, false);
+        lightbox.getElement().addEventListener('click', lightbox.hide, false);
+        lightbox.getCloseButton().addEventListener('click', lightbox.hide, false);
         document.addEventListener('keyup', function(event) {
             // Touche echap
             if (event.keyCode === 27) {
                 lightbox.hide();
             }
         }, false);
-    }        
+    }
 };
 
 function afficheAffiche(el) {
+    lightbox.init();
     var box = lightbox.getBox();
     var cheminAffiche = el.getAttribute('data-href');
     
@@ -62,6 +107,7 @@ function afficheAffiche(el) {
 } 
 
 function afficheSynopsis(el) {
+    lightbox.init();
     var box = lightbox.getBox();
     var synopsis = el.getAttribute('data-syn');
     var container = document.createElement('div');
@@ -88,6 +134,7 @@ function afficheSynopsis(el) {
 }
 
 function afficheBandeAnnonce(el, width, height) {
+    lightbox.init();
     var box = lightbox.getBox();
     var url = el.getAttribute('data-ba');
     var container = document.createElement('div');
@@ -127,3 +174,4 @@ function afficheBandeAnnonce(el, width, height) {
 //        container.style.left = (document.body.clientWidth - iframe.clientWidth)/3 + "px";
     }
 }
+
