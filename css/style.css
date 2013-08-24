@@ -286,7 +286,7 @@ table a:visited {
     padding: 10px;
 }
 
-.lightbox-container > * {
+.lightbox-container > * , .lightbox-container p {
     width: 100%;
     height: 100%;
     margin: 0;

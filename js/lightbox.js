@@ -24,11 +24,13 @@ var lightbox = {
             
     hide : function(event) {
         var lightboxElement = lightbox.getElement();
+        var boxElement = lightbox.getBox();
 	var closeButton = lightbox.getCloseButton();
 
         if ((event && (event.target !== lightboxElement) && (event.target !== closeButton))) return;
 
-	lightbox.getBox().innerHTML = "";
+	boxElement.innerHTML = "";
+        boxElement.setAttribute('style', "");
         lightboxElement.className = '';
         this.isHidden = true;
     },
@@ -81,21 +83,26 @@ var lightbox = {
         }, false);
     },
 
-    setHeight : function(height) {
-	var lightboxElement = lightbox.getBox();
-	lightboxElement.style.top = (window.innerHeight - height)/2 - 10 + "px"; // 10 is the padding
-	lightboxElement.style.height = height + "px";
-    },
-
     setWidth : function(width) {
+        var totalWidth = document.width;
 	var lightboxElement = lightbox.getBox();
-	if (width > document.width - 20) {
-	    width = document.width - 20;
+	if (width > totalWidth - 20) {
+	    width = totalWidth - 20;
 	}
-	var margin = (document.width - width)/2 - 10; // 10 is the padding
+	var margin = (totalWidth - width - 20)/2; // 20 is the padding
 	lightboxElement.style.marginLeft = margin + "px";
 	lightboxElement.style.marginRight = margin + "px";
 	lightboxElement.style.width = width + "px";
+    },
+
+    setHeight : function(height) {
+        var totalHeight = window.innerHeight;
+	var lightboxElement = lightbox.getBox();
+        if (height > totalHeight - 20) {
+            height = totalHeight - 20;
+        }
+	lightboxElement.style.top = (totalHeight - height - 20)/2 + "px"; // 20 is the padding
+	lightboxElement.style.height = height + "px";
     }
 };
 
@@ -103,30 +110,39 @@ function afficheAffiche(el) {
     lightbox.init();
     var box = lightbox.getBox();
     var cheminAffiche = el.getAttribute('data-href');
+    var width, height;
     
     if (!cheminAffiche || cheminAffiche === "") {
         var p = document.createElement('p');
         p.innerHTML = "L'affiche n'est actuellement pas disponible pour ce film.";
-        
+
         box.appendChild(p);
+
+        width = document.width * 0.7;
     } else {
         var imageLightbox = document.createElement('img');
         imageLightbox.src = cheminAffiche;
-        
+
         box.appendChild(imageLightbox);
+
+        height = window.innerHeight * 0.8;
+        width = height * 3/4;
     }
-    
+
     lightbox.addHideEvents();
     lightbox.display();
 
-    lightbox.setHeight(600);
-    lightbox.setWidth(450);
+    if (p) {
+        height = p.clientHeight;
+    }
+    lightbox.setWidth(width);
+    lightbox.setHeight(height);
 } 
 
 function afficheSynopsis(el) {
     lightbox.init();
     var box = lightbox.getBox();
-    var synopsis = el.getAttribute('data-syn');
+    var synopsis = el.getAttribute('data-synopsis');
     var block = document.createElement('blockquote');
     
     block.className = 'text-left white-spaces';
@@ -141,8 +157,8 @@ function afficheSynopsis(el) {
     lightbox.addHideEvents();
     lightbox.display();
 
-    lightbox.setHeight(synopsis.clientHeight);
     lightbox.setWidth(document.width * 0.7);
+    lightbox.setHeight(block.clientHeight);
 }
 
 function afficheBandeAnnonce(el, width, height) {
@@ -155,11 +171,13 @@ function afficheBandeAnnonce(el, width, height) {
         container.className = 'conteneur-lightbox';
         var block = document.createElement('p');
         block.innerHTML = "La bande-annonce n'est actuellement pas disponible pour ce film.";
-        
+
         container.appendChild(block);
+
+        width = document.width * 0.7;
     } else {
-        width = width || "100%";
-        height = height || (document.body.clientWidth * 9/16);  // Please do not hardcode 1 (100%)
+        width = width || document.width;
+        height = height || (width * 9/16);
         container.className =  'bande-annonce-lightbox';
 
         var iframe = document.createElement('iframe');
@@ -168,17 +186,17 @@ function afficheBandeAnnonce(el, width, height) {
         url = url.replace(/&gt;/g,">");
         url = url.replace(/&quot;/g,"\"");
         iframe.src = url;
-        iframe.width = width;
+        iframe.width = width - 24; // 24 = padding-top + padding-bottom + 4 for the iframe
         iframe.height = height;
 
         container.appendChild(iframe);
     }
-    
+
     box.appendChild(container);
     lightbox.addHideEvents();
     lightbox.display();
 
-    lightbox.setHeight(window.innerHeight);
-    lightbox.setWidth(document.width);
+    lightbox.setWidth(width);
+    lightbox.setHeight(container.clientHeight);
 }
 
