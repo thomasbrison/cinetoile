@@ -5,6 +5,7 @@ var lightbox = {
     box : null,
     topBar : null,
     closeButton : null,
+    offset : null,
 
     init : function() {
 	if (!this.isInitialized) {
@@ -58,6 +59,12 @@ var lightbox = {
         lightboxElement.id = "lightbox";
         document.getElementById('main').appendChild(lightboxElement);
         lightbox.element = lightboxElement;
+        lightbox.offset = {  // corresponds to the padding + the border
+            left : 12,
+            top : 12,
+            right : 12,
+            bottom : 12
+        };
     },
 
     addTopBar : function() {
@@ -99,24 +106,26 @@ var lightbox = {
 
     setWidth : function(width) {
         var totalWidth = document.width;
-	var lightboxElement = lightbox.getBox();
-	if (width > totalWidth - 20) {
-	    width = totalWidth - 20;
+        var totalOffset = lightbox.offset.left + lightbox.offset.right;
+	var boxElement = lightbox.getBox();
+	if (width > totalWidth - totalOffset) {
+	    width = totalWidth - totalOffset;
 	}
-	var margin = (totalWidth - width - 20)/2; // 20 is the padding
-	lightboxElement.style.marginLeft = margin + "px";
-	lightboxElement.style.marginRight = margin + "px";
-	lightboxElement.style.width = width + "px";
+	var margin = (totalWidth - width - totalOffset)/2;
+	boxElement.style.marginLeft = margin + "px";
+	boxElement.style.marginRight = margin + "px";
+	boxElement.style.width = width + "px";
     },
 
     setHeight : function(height) {
         var totalHeight = window.innerHeight;
-	var lightboxElement = lightbox.getBox();
-        if (height > totalHeight - 20) {
-            height = totalHeight - 20;
+        var totalOffset = lightbox.offset.top + lightbox.offset.bottom;
+	var boxElement = lightbox.getBox();
+        if (height > totalHeight - totalOffset) {
+            height = totalHeight - totalOffset;
         }
-	lightboxElement.style.top = (totalHeight - height - 20)/2 + "px"; // 20 is the padding
-	lightboxElement.style.height = height + "px";
+	boxElement.style.top = (totalHeight - height - totalOffset)/2 + "px";
+	boxElement.style.height = height + "px";
     }
 };
 
@@ -139,7 +148,7 @@ function afficheAffiche(el) {
 
         box.appendChild(imageLightbox);
 
-        height = window.innerHeight * 0.8;
+        height = window.innerHeight * 0.9;
         width = height * 3/4;
     }
 
@@ -190,7 +199,7 @@ function afficheBandeAnnonce(el, width, height) {
 
         width = document.width * 0.7;
     } else {
-        width = width || document.width;
+        width = width || Math.min(document.width, (window.innerHeight - lightbox.offset.top - lightbox.offset.bottom) * 16/9);
         height = height || (width * 9/16);
         container.className =  'bande-annonce-lightbox';
 
@@ -200,8 +209,8 @@ function afficheBandeAnnonce(el, width, height) {
         url = url.replace(/&gt;/g,">");
         url = url.replace(/&quot;/g,"\"");
         iframe.src = url;
-        iframe.width = width - 24; // 24 = padding-top + padding-bottom + 4 for the iframe
-        iframe.height = height;
+        iframe.width = width - lightbox.offset.left - lightbox.offset.right;
+        iframe.height = height - lightbox.offset.top - lightbox.offset.bottom;
 
         container.appendChild(iframe);
     }
