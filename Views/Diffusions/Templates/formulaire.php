@@ -1,7 +1,7 @@
 <?php
-if (isset($diffusion)) {
-    require_once 'Lib/dates.php';
+require_once 'Lib/dates.php';
 
+if (isset($diffusion)) {
     $datetime = $diffusion->getDate();
     $date_and_hour_array = date_format_to_string($datetime);
     $date = $date_and_hour_array['date'];
@@ -17,7 +17,60 @@ if (isset($diffusion)) {
 
     <fieldset>
         <legend></legend>
+        <?php if (isset($datetime)) : ?>
         <input type="hidden" name="date" value="<?php echo $datetime; ?>"/>
+        <?php else : ?>
+        <p>
+            <label>Date : </label>
+            <span>
+                <select name="jour_diffusion">
+                    <option value=NULL>Jour</option>
+                    <?php for ($i = 1; $i <= 31; $i++) : ?>
+                    <option value="<?php echo $i; ?>">
+                        <?php echo $i; ?>
+                    </option>
+                    <?php endfor; ?>
+                </select>
+                <select name="mois_diffusion">
+                    <option value=NULL>Mois</option>
+                    <?php
+                    for ($i = 1; $i <= 12; $i++) :
+                        $mois = date_format_month_to_string($i);
+                        ?>
+                    <option value="<?php echo $i; ?>">
+                        <?php echo $mois; ?>
+                    </option>
+                    <?php endfor; ?>
+                </select>
+                <select name="annee_diffusion">
+                    <option value=NULL>Annee</option>
+                    <?php for ($i = 2013; $i <= 2020; $i++) : ?>
+                    <option value="<?php echo $i; ?>">
+                        <?php echo $i; ?>
+                    </option>
+                    <?php endfor; ?>
+                </select>
+                &nbsp;
+                <select name="heure_diffusion">
+                    <option value=NULL>Heure</option>
+                    <?php for ($i = 0; $i <= 23; $i++) : ?>
+                    <option value="<?php echo $i; ?>">
+                        <?php echo $i; ?>
+                    </option>
+                    <?php endfor; ?>
+                </select>
+                :
+                <select name="minute_diffusion">
+                    <option value=NULL>Minutes</option>
+                    <?php for ($i = 0; $i <= 59; $i = $i + 5) : ?>
+                    <option value="<?php echo $i; ?>">
+                        <?php echo $i; ?>
+                    </option>
+                    <?php endfor; ?>
+                </select>
+            </span>
+        </p>
+        <?php endif; ?>
         <p>
             <label>Film :  </label>
             <select name="id_film">
@@ -27,7 +80,7 @@ if (isset($diffusion)) {
                     $titre = $film->getTitre();
                     $realisateur = $film->getRealisateur();
                     ?>
-                    <option value="<?php echo $id; ?>" <?php if ($id == $id_film) echo "selected"; ?>>
+                    <option value="<?php echo $id; ?>" <?php if (isset($id_film) && $id === $id_film) echo "selected"; ?>>
                         <?php echo "$titre  de  $realisateur"; ?>
                     </option>
                 <?php endforeach; ?>
@@ -35,16 +88,16 @@ if (isset($diffusion)) {
         </p>
         <p>
             <label>Cycle :  </label><br/>
-            <input name="cycle" type="text" size="20" maxlength="48" value="<?php echo $cycle; ?>" placeholder="Nom du cycle"/>
+            <input name="cycle" type="text" size="20" maxlength="48" value="<?php if (isset($cycle)) echo $cycle; ?>" placeholder="Nom du cycle"/>
         </p>
         <p>
             <label>Commentaire : </label><br/>
-            <textarea name="commentaire" rows="5" cols="40" maxlength="256" placeholder='Insérez un commentaire.'><?php echo $commentaire; ?></textarea>
+            <textarea name="commentaire" rows="5" cols="40" maxlength="256" placeholder='Insérez un commentaire.'><?php if (isset($commentaire)) echo $commentaire; ?></textarea>
         </p>
         <p class="film">
             <label>Affiche : </label>
             <input type="hidden" name="MAX_FILE_SIZE" value="100000"/>
-            <?php if ($affiche) : ?>
+            <?php if (isset($affiche) && $affiche) : ?>
                 <br/>
                 <img class="affiche" name="affiche" src="<?php echo $affiche; ?>" alt=""/>
                 <br/>
