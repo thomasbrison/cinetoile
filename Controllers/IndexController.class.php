@@ -2,19 +2,19 @@
 
 require_once 'Controller.class.php';
 require_once 'Beans/Diffusion.class.php';
-require_once 'Tables/TableUser.php';
+require_once 'Tables/TableMembre.php';
 require_once 'Tables/TableFilm.php';
 require_once 'Tables/TableDiffusion.php';
 
 class IndexController extends Controller {
 
-    private $tableUser;
+    private $tableMembre;
     private $tableFilm;
     private $tableDiffusion;
     private $diffusions;
 
     public function __construct() {
-        $this->tableUser = new TableUser();
+        $this->tableMembre = new TableMembre();
         $this->tableFilm = new TableFilm();
         $this->tableDiffusion = new TableDiffusion();
         parent::__construct();
@@ -25,7 +25,7 @@ class IndexController extends Controller {
         $js_array = array('index', 'affiche', 'video', 'style', 'ajax', 'lightbox', 'facebook');
 
         if (isset($_SESSION['login'])) {
-            $prenom = $this->tableUser->getFirstName($_SESSION['login']);
+            $prenom = $this->tableMembre->getFirstName($_SESSION['login']);
         }
         
         if (isset ($_GET['date'])) {
@@ -69,7 +69,7 @@ class IndexController extends Controller {
             } else {
                 $login = htmlentities(utf8_decode($_POST['login']));
                 $password = htmlentities($_POST['password']);
-                $droits = $this->tableUser->authenticate($login, $password);
+                $droits = $this->tableMembre->authenticate($login, $password);
                 if ($droits == 0) {
                     ?>
                     <script>alert("Nom d'utilisateur ou mot de passe incorrect !");</script>
