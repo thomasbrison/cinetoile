@@ -8,7 +8,7 @@ var lightbox = {
 
     init : function() {
 	if (!this.isInitialized) {
-	    this.element = document.getElementById("lightbox");
+	    this.addElement();
 	    this.addTopBar();
 	    this.addBox();
 	    this.isInitialized = true;
@@ -16,13 +16,13 @@ var lightbox = {
 	    this.getBox().innerHTML = "";
 	 }
     },
-            
+
     display : function() {
         var lightboxElement = lightbox.getElement();
         lightboxElement.className = 'visible';
         this.isHidden = false;
     },
-            
+
     hide : function(event) {
         var lightboxElement = lightbox.getElement();
         var boxElement = lightbox.getBox();
@@ -33,10 +33,10 @@ var lightbox = {
 
 	boxElement.innerHTML = "";
         boxElement.setAttribute('style', "");
-        lightboxElement.className = '';
+        lightboxElement.className = 'hidden';
         this.isHidden = true;
     },
-    
+
     getElement : function() {
 	return this.element;
     },
@@ -51,6 +51,13 @@ var lightbox = {
 
     getCloseButton : function() {
 	return this.closeButton;
+    },
+
+    addElement : function() {
+        var lightboxElement = document.createElement('div');
+        lightboxElement.id = "lightbox";
+        document.getElementById('main').appendChild(lightboxElement);
+        lightbox.element = lightboxElement;
     },
 
     addTopBar : function() {
@@ -118,7 +125,7 @@ function afficheAffiche(el) {
     var box = lightbox.getBox();
     var cheminAffiche = el.getAttribute('data-href');
     var width, height;
-    
+
     if (!cheminAffiche || cheminAffiche === "") {
         var p = document.createElement('p');
         p.innerHTML = "L'affiche n'est actuellement pas disponible pour ce film.";
@@ -173,7 +180,7 @@ function afficheBandeAnnonce(el, width, height) {
     var box = lightbox.getBox();
     var url = el.getAttribute('data-ba');
     var container = document.createElement('div');
-    
+
     if (!url || url === "") {
         container.className = 'conteneur-lightbox';
         var block = document.createElement('p');

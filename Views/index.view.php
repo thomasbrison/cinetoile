@@ -7,8 +7,6 @@
     !
 </h2>-->
 
-<div id="lightbox"></div>
-
 <div id="seances" class="page">
 
     <?php include 'Templates/seance.php'; ?>
