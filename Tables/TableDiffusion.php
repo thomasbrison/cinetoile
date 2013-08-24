@@ -17,6 +17,7 @@ class TableDiffusion extends Table {
 
     public function consult() {
         $result = parent::getAll();
+	$diffusions = array();
         foreach ($result as $row) {
             $dateDiffusion = $row['date_diffusion'];
             $idFilm = $row['id_film'];

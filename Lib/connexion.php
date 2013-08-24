@@ -12,7 +12,6 @@ function connexion_bd() {
     } catch (PDOException $e) {
         echo 'Connexion &agrave; la base de donn&eacute;es &eacute;chou&eacute;e : ' . $e->getMessage();
     }
-    define('connect', $dbh);
     return $dbh;
 }
 

@@ -11,7 +11,9 @@ var lightbox = {
 	    this.addTopBar();
 	    this.addBox();
 	    this.isInitialized = true;
-	}
+	 } else {
+	    this.getBox().innerHTML = "";
+	 }
     },
             
     display : function() {
@@ -77,6 +79,23 @@ var lightbox = {
                 lightbox.hide();
             }
         }, false);
+    },
+
+    setHeight : function(height) {
+	var lightboxElement = lightbox.getBox();
+	lightboxElement.style.top = (window.innerHeight - height)/2 - 10 + "px"; // 10 is the padding
+	lightboxElement.style.height = height + "px";
+    },
+
+    setWidth : function(width) {
+	var lightboxElement = lightbox.getBox();
+	if (width > document.width - 20) {
+	    width = document.width - 20;
+	}
+	var margin = (document.width - width)/2 - 10; // 10 is the padding
+	lightboxElement.style.marginLeft = margin + "px";
+	lightboxElement.style.marginRight = margin + "px";
+	lightboxElement.style.width = width + "px";
     }
 };
 
@@ -86,34 +105,30 @@ function afficheAffiche(el) {
     var cheminAffiche = el.getAttribute('data-href');
     
     if (!cheminAffiche || cheminAffiche === "") {
-        var div = document.createElement('div');
         var p = document.createElement('p');
-        div.className = 'conteneur-lightbox';
         p.innerHTML = "L'affiche n'est actuellement pas disponible pour ce film.";
         
-        box.innerHTML = "";
-        div.appendChild(p);
-        box.appendChild(div);
+        box.appendChild(p);
     } else {
         var imageLightbox = document.createElement('img');
         imageLightbox.src = cheminAffiche;
         
-        box.innerHTML = "";
         box.appendChild(imageLightbox);
     }
     
     lightbox.addHideEvents();
     lightbox.display();
+
+    lightbox.setHeight(600);
+    lightbox.setWidth(450);
 } 
 
 function afficheSynopsis(el) {
     lightbox.init();
     var box = lightbox.getBox();
     var synopsis = el.getAttribute('data-syn');
-    var container = document.createElement('div');
     var block = document.createElement('blockquote');
     
-    container.className = 'conteneur-lightbox';
     block.className = 'text-left white-spaces';
     
     if (!synopsis || synopsis === "") {
@@ -121,16 +136,13 @@ function afficheSynopsis(el) {
     }
     block.innerHTML = synopsis;
     
-    box.innerHTML = "";
-    container.appendChild(block);
-    box.appendChild(container);
+    box.appendChild(block);
 
     lightbox.addHideEvents();
     lightbox.display();
 
-    var blockHeight = block.clientHeight;
-    var boxHeight = box.clientHeight;
-    container.style.top = (boxHeight - blockHeight)/3 + "px";
+    lightbox.setHeight(synopsis.clientHeight);
+    lightbox.setWidth(document.width * 0.7);
 }
 
 function afficheBandeAnnonce(el, width, height) {
@@ -162,16 +174,11 @@ function afficheBandeAnnonce(el, width, height) {
         container.appendChild(iframe);
     }
     
-    box.innerHTML = "";
     box.appendChild(container);
     lightbox.addHideEvents();
     lightbox.display();
 
-    if (iframe) {
-        var iframeHeight = iframe.clientHeight;
-        var boxHeight = box.clientHeight;
-        container.style.top = (boxHeight - container.style.paddingTop - container.style.paddingBottom - iframeHeight)/3  + "px";
-//        container.style.left = (document.body.clientWidth - iframe.clientWidth)/3 + "px";
-    }
+    lightbox.setHeight(window.innerHeight);
+    lightbox.setWidth(document.width);
 }
 

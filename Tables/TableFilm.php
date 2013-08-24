@@ -21,6 +21,7 @@ class TableFilm extends Table {
             Order By titre;";
         $sth = $this->dbh->query($query);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+	$films = array();
         foreach ($result as $row) {
             $id = $row['id'];
             $titre = $row['titre'];
@@ -46,6 +47,7 @@ class TableFilm extends Table {
             Order By titre;";
         $sth = $this->dbh->query($query);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+	$films = array();
         foreach ($result as $row) {
             $id = $row['id'];
             $titre = $row['titre'];

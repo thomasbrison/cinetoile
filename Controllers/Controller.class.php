@@ -5,6 +5,9 @@ abstract class Controller {
     public function __construct() {
         session_start();
         $this->setRootWebApp();
+	if (!isset($_SESSION['droits'])) {
+	    $_SESSION['droits'] = 0;
+	}
         //Exécution de l'action demandée du contrôleur
         $this->executeAction();
     }
@@ -18,10 +21,10 @@ abstract class Controller {
         // la racine de l'application. Ceci est pratique dans les vues lors
         // de l'appel de contrôleurs.
         preg_match('@/[^/]+@', $_SERVER["PHP_SELF"], $matches);
-        defined('root') || define('root', $matches[0]);
+        defined('root') || define('root', $matches[0]);  // Cette ligne peut poser problème selon la configuration Apache ; ajouter le nom du dossier si nécessaire
     }
 
-    protected function render($file_name, $js_array = null, $var_array = null) {
+    protected function render($file_name, $js_array = array(), $var_array = null) {
         if ($var_array)
             extract($var_array);
         include($this->root() . '/Layouts/header.php');
@@ -29,7 +32,7 @@ abstract class Controller {
         require($this->root() . '/Views/' . $file_name . '.view.php');
         echo "</section>";
         include($this->root() . '/Layouts/footer.php');
-        }
+    }
     
     protected function renderAjax($file_name, $var_array = null) {
         if ($var_array)
@@ -49,7 +52,7 @@ abstract class Controller {
     }
 
     // Appel à un contrôleur avec une action qui n'existe pas
-    private function __call($name, $arguments) {
+    public function __call($name, $arguments) {
         echo "<b>Erreur : </b> L'action $name n'est pas d&eacute;finie";
     }
 

@@ -33,7 +33,7 @@ switch ($_SESSION['droits']) {
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <link rel="icon" href="Images/Logos/favicon.ico"/>
-        <?php foreach ($js_array as $fichier) : ?>
+	<?php foreach ($js_array as $fichier) : ?>
         <script type="text/javascript" src="js/<?php echo $fichier; ?>.js"></script>
         <?php endforeach; ?>
         <link rel="stylesheet" type="text/css" href="css/style.css" />

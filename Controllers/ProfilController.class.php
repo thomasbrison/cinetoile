@@ -20,8 +20,10 @@ class ProfilController extends Controller {
     public function consulter() {
         if ($this->checkRights($_SESSION['droits'], 1, 2)) {
             $membre = $this->tableMembre->getAttributes($_SESSION['login']);
+	    if (!isset($_SESSION['is_password_changed'])) {
+		$_SESSION['is_password_changed'] = false;
+	    }
             $is_password_changed = $_SESSION['is_password_changed'];
-            $_SESSION['is_password_changed'] = false;
             $titre_page = "Profil de " . $_SESSION['login'];
             $this->render('Profil/profil', array(), compact('membre', 'titre_page', 'is_password_changed'));
         }

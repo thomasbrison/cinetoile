@@ -45,7 +45,11 @@ class IndexController extends Controller {
             $this->diffusions = array_reverse($reverse_diffusions);
         }
         $nb_pages = count($this->diffusions);
-        $diffusion = $this->diffusions[$page];
+	if ($nb_pages) {
+	    $diffusion = $this->diffusions[$page];
+	} else {
+	    return $this->render('no-diffusion');
+	}
         
         if (isset($_GET['isajax']) && (int) $_GET['isajax'] == 1) {
             $var_array = compact('diffusion', 'table_film', 'page', 'nb_pages');

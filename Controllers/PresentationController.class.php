@@ -15,7 +15,7 @@ class PresentationController extends Controller  {
         $texte_association = $this->getTextFromFile($fichier_association);
         $texte_equipe = $this->getTextFromFile($fichier_equipe);
 
-        $this->render('presentation', null, compact('texte_association', 'texte_equipe'));
+        $this->render('presentation', array(), compact('texte_association', 'texte_equipe'));
     }
     
     private function getTextFromFile($filename) {
