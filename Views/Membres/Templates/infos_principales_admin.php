@@ -4,7 +4,7 @@
         <label>Login :  </label>
         <input type="text" name="login" size="25" maxlength="32" value="<?php echo $login; ?>" placeholder="Login - sans accents" pattern="([A-za-z]+|Cinétoile)" required autofocus />
     </p>
-    <?php if (!$login) : ?>
+    <?php if (!$login || ($droits && $droits >= 2)) : ?>
         <p>
             <label>Mot de passe : </label>
             <input type="password" name="password" size="25" maxlength="64" placeholder="Mot de passe" required />
