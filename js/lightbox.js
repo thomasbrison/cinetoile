@@ -151,14 +151,14 @@ function afficheSynopsis(el) {
     var box = lightbox.getBox();
     var synopsis = el.getAttribute('data-synopsis');
     var block = document.createElement('blockquote');
-    
-    block.className = 'text-left white-spaces';
-    
+
     if (!synopsis || synopsis === "") {
         synopsis = "Le synopsis n'est actuellement pas disponible pour ce film.";
+    } else {
+        block.className = 'text-left white-spaces';
     }
     block.innerHTML = synopsis;
-    
+
     box.appendChild(block);
 
     lightbox.addHideEvents();
