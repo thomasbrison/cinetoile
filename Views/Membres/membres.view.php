@@ -91,6 +91,8 @@ require_once 'Lib/telephone.php';
     </table>
 </section>
 
+<br/><a href="mailto:<?php echo $emails; ?>">Envoyer un email aux membres</a>
+
 <div class="options">
     <a class="button" href="membres.php/ajouter">Ajouter un membre</a>
 </div>

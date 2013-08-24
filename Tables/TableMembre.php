@@ -119,7 +119,7 @@ class TableMembre extends Table {
         $query = "Select email
             From Membre;";
         $sth = $this->dbh->query($query);
-        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        $result = $sth->fetchAll(PDO::FETCH_COLUMN);
         return $result;
     }
 

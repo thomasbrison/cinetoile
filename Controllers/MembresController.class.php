@@ -19,9 +19,16 @@ class MembresController extends Controller {
 
     public function consulter() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            $membres = $this->tableMembre->consult();
             $titre_page = "Membres";
-            $this->render('Membres/membres', array('index', 'style'), compact('membres', 'titre_page'));
+            $membres = $this->tableMembre->consult();
+            $emailsTab = $this->tableMembre->getEmails();
+            $emails = "";
+            foreach ($emailsTab as $email) {
+                if (strlen($email)) {
+                    $emails .= $email . ',';
+                }
+            }
+            $this->render('Membres/membres', array('index', 'style'), compact('titre_page', 'membres', 'emails'));
         }
     }
 
