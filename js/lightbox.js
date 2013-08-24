@@ -3,6 +3,7 @@ var lightbox = {
     isHidden : true,
     element : null,
     box : null,
+    topBar : null,
     closeButton : null,
 
     init : function() {
@@ -25,9 +26,10 @@ var lightbox = {
     hide : function(event) {
         var lightboxElement = lightbox.getElement();
         var boxElement = lightbox.getBox();
+        var topBar = lightbox.getTopBar();
 	var closeButton = lightbox.getCloseButton();
 
-        if ((event && (event.target !== lightboxElement) && (event.target !== closeButton))) return;
+        if ((event && (event.target !== lightboxElement) && (event.target !== closeButton)  && (event.target !== topBar))) return;
 
 	boxElement.innerHTML = "";
         boxElement.setAttribute('style', "");
@@ -43,6 +45,10 @@ var lightbox = {
 	return this.box;
     },
 
+    getTopBar : function() {
+	return this.topBar;
+    },
+
     getCloseButton : function() {
 	return this.closeButton;
     },
@@ -55,6 +61,7 @@ var lightbox = {
 	barElement.className = 'lightbox-top-bar';
 	closeButtonElement.className = 'close';
 
+        lightbox.topBar = barElement;
 	lightbox.closeButton = closeButtonElement;
 
 	barElement.appendChild(closeButtonElement);
