@@ -25,7 +25,7 @@ class DiffusionsController extends Controller {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             $diffusions = $this->tableDiffusion->consult();
             $table_film = $this->tableFilm;
-            $this->render('Diffusions/diffusions', array('index', 'style'), compact('diffusions', 'table_film'));
+            $this->render('Diffusions/diffusions', array('effets'), compact('diffusions', 'table_film'));
         }
     }
 
@@ -63,7 +63,7 @@ class DiffusionsController extends Controller {
                 $diffusion = $this->tableDiffusion->getAttributes($_GET['date']);
                 $_SESSION['affiche'] = $diffusion->getAffiche();
                 $films = $this->tableFilm->consultAsAMember();
-                $this->render('Diffusions/modification_diffusion', array('style'), compact('diffusion', 'films'));
+                $this->render('Diffusions/modification_diffusion', array('effets'), compact('diffusion', 'films'));
             }
         }
     }

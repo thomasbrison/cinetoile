@@ -15,7 +15,7 @@ class AdminController extends Controller {
     public function defaultAction() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
             $prenom = $this->tableMembre->getFirstName($_SESSION['login']);
-            $this->render('admin', array('index'), compact('prenom'));
+            $this->render('admin', array(), compact('prenom'));
         }
     }
 

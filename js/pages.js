@@ -1,3 +1,15 @@
+/*
+ * Effets Ajax/JavaScript pour visualiser les séances précédentes/suivantes
+ */
+
+/**
+ * Charge une page en Ajax
+ *
+ * @param {Integer} currentPageNumber
+ * @param {Integer} pageNumber
+ * @param {Integer} nbPages
+ * @returns {undefined}
+ */
 function loadPage(currentPageNumber, pageNumber, nbPages) {
     var direction = pageNumber - currentPageNumber;
     if (direction === 0 || currentPageNumber < 0 || pageNumber < 0 || pageNumber > nbPages || currentPageNumber > nbPages) {
@@ -53,6 +65,15 @@ function loadPage(currentPageNumber, pageNumber, nbPages) {
     xmlhttp.send(null);
 }
 
+/**
+ * Fonction générique pour appliquer un effet de slide
+ *
+ * @param {DOMElement} currentPage
+ * @param {DOMElement} finalPage
+ * @param {String} originClassName
+ * @param {String} directionClassName
+ * @returns {undefined}
+ */
 function slidePage(currentPage, finalPage, originClassName, directionClassName) {
     currentPage.className = "stage-center seance";
     finalPage.className = "seance " + originClassName;
@@ -64,10 +85,24 @@ function slidePage(currentPage, finalPage, originClassName, directionClassName) 
     }, 0);
 }
 
+/**
+ * Applique un effet de slide pour voir la page précédente
+ *
+ * @param {DOMElement} currentPage
+ * @param {DOMElement} finalPage
+ * @returns {undefined}
+ */
 function goToPreviousPage(currentPage, finalPage) {
     slidePage(currentPage, finalPage, "stage-left", "stage-right");
 }
 
+/**
+ * Applique un effet de slide pour voir la page suivante
+ *
+ * @param {DOMElement} currentPage
+ * @param {DOMElement} finalPage
+ * @returns {undefined}
+ */
 function goToNextPage(currentPage, finalPage) {
     slidePage(currentPage, finalPage, "stage-right", "stage-left");
 }

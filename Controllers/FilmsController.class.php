@@ -26,7 +26,7 @@ class FilmsController extends Controller {
                 $films = $this->tableFilm->consultAsAMember();
             }
             $titre_page = "Films";
-            $this->render('Films/films', array('index', 'lightbox', 'style'), compact('films', 'droits', 'titre_page'));
+            $this->render('Films/films', array('effets', 'lightbox'), compact('films', 'droits', 'titre_page'));
         }
     }
 
@@ -72,7 +72,7 @@ class FilmsController extends Controller {
                 $affiche = $row['affiche'];
                 $_SESSION['affiche'] = $affiche;
                 $bande_annonce = $row['bande_annonce'];
-                $this->render('Films/modification_film', array('style'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'heures_duree', 'minutes_duree', 'synopsis', 'affiche', 'bande_annonce'));
+                $this->render('Films/modification_film', array('effets'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'heures_duree', 'minutes_duree', 'synopsis', 'affiche', 'bande_annonce'));
             }
         }
     }

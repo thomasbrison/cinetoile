@@ -1,3 +1,7 @@
+/*
+ * Lightbox servant à afficher les affiches / synopsis / bandes-annonces
+ */
+
 var lightbox = {
     isInitialized : false,
     isHidden : true,
@@ -222,4 +226,3 @@ function afficheBandeAnnonce(el, width, height) {
     lightbox.setWidth(width);
     lightbox.setHeight(container.clientHeight);
 }
-

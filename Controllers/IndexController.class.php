@@ -22,7 +22,7 @@ class IndexController extends Controller {
 
     public function defaultAction() {
         $table_film = $this->tableFilm;
-        $js_array = array('index', 'affiche', 'video', 'style', 'ajax', 'lightbox', 'facebook');
+        $js_array = array('effets', 'pages', 'lightbox', 'facebook');
 
         if (isset($_SESSION['login'])) {
             $prenom = $this->tableMembre->getFirstName($_SESSION['login']);

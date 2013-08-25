@@ -28,7 +28,7 @@ class MembresController extends Controller {
                     $emails .= $email . ',';
                 }
             }
-            $this->render('Membres/membres', array('index', 'style'), compact('titre_page', 'membres', 'emails'));
+            $this->render('Membres/membres', array('effets'), compact('titre_page', 'membres', 'emails'));
         }
     }
 
