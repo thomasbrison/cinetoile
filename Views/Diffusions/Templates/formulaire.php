@@ -112,6 +112,19 @@ if (isset($diffusion)) {
                 <input type="file" name="affiche"/>
             <?php endif; ?>
         </p>
+        <p>
+            <label>Nombre de personnes présentes :  </label>
+            <select name="nb_presents">
+                    <option value="">
+                    </option>
+                <?php
+                for ($i = 1; $i <= 100; $i++) { ?>
+                    <option value="<?php echo $i; ?>">
+                        <?php echo $i; ?>
+                    </option>
+                <?php }; ?>
+            </select>
+        </p>
     </fieldset>
 
     <p id="boutons">

@@ -48,32 +48,32 @@ if (isset($table_film)) {
     <?php endif; ?>
         <?php if ($annee) : ?>
         <p>
-            Date de sortie : <?php echo $annee; ?>
+            <strong>Date de sortie</strong> : <?php echo $annee; ?>
         </p>
         <?php endif; ?>
         <?php if ($duree) : ?>
         <p>
-            Durée : <?php echo $duree; ?>
+            <strong>Durée</strong> : <?php echo $duree; ?>
         </p>
         <?php endif; ?>
         <?php if ($realisateur) : ?>
         <p>
-            Réalisé par <?php echo $realisateur; ?>
+            <strong>Réalisé par</strong> <?php echo $realisateur; ?>
         </p>
         <?php endif; ?>
         <?php if ($acteurs) : ?>
         <p>
-            Avec <?php echo $acteurs; ?>
+            <strong>Avec</strong> <?php echo $acteurs; ?>
         </p>
         <?php endif; ?>
         <?php if ($genre) : ?>
         <p>
-            Genre : <?php echo $genre; ?>
+            <strong>Genre</strong> : <?php echo $genre; ?>
         </p>
         <?php endif; ?>
         <?php if ($pays) : ?>
         <p>
-            Nationalité : <?php echo $pays; ?>
+            <strong>Nationalité</strong> : <?php echo $pays; ?>
         </p>
         <?php endif; ?>
         <?php if ($synopsis) : ?>
@@ -97,10 +97,10 @@ if (isset($table_film)) {
 
     <?php if (isset($nb_pages)) : ?>
         <?php if ($page > 0) : ?>
-            <button type="button" class="arrow arrow-left" onclick="loadPage(<?php echo $page . "," . ($page - 1) . "," . $nb_pages; ?>);">La semaine prochaine</button>
+            <button type="button" class="arrow arrow-left" onclick="loadPage(<?php echo $page . "," . ($page - 1) . "," . $nb_pages; ?>);">La semaine suivante</button>
         <?php endif; ?>
         <?php if ($page < $nb_pages - 1) : ?>
-            <button type="button" class="arrow arrow-right" onclick="loadPage(<?php echo $page . "," . ($page + 1) . "," . $nb_pages; ?>);">La semaine dernière</button>
+            <button type="button" class="arrow arrow-right" onclick="loadPage(<?php echo $page . "," . ($page + 1) . "," . $nb_pages; ?>);">La semaine précédente</button>
         <?php endif; ?>
     <?php endif; ?>
 
