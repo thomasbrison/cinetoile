@@ -24,7 +24,8 @@ class TableDiffusion extends Table {
             $cycle = $row['cycle'];
             $commentaire = $row['commentaire'];
             $affiche = $row['affiche'];
-            $diffusion = new Diffusion($dateDiffusion, $idFilm, $cycle, $commentaire, $affiche);
+            $nb_presents = $row['nb_presents'];
+            $diffusion = new Diffusion($dateDiffusion, $idFilm, $cycle, $commentaire, $affiche, $nb_presents);
             $diffusions[] = $diffusion;
         }
         return $diffusions;
@@ -57,7 +58,8 @@ class TableDiffusion extends Table {
         $cycle = $row['cycle'];
         $commentaire = $row['commentaire'];
         $affiche = $row['affiche'];
-        return new Diffusion($dateDiffusion, $idFilm, $cycle, $commentaire, $affiche);
+        $nb_presents = $row['nb_presents'];
+        return new Diffusion($dateDiffusion, $idFilm, $cycle, $commentaire, $affiche, $nb_presents);
     }
 
     /**

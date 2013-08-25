@@ -22,6 +22,7 @@ foreach ($diffusions as $numero => $diffusion) :
     $cycle = $diffusion->getCycle();
     $affiche = $diffusion->getAffiche();
     $commentaire = $diffusion->getCommentaire();
+    $nb_presents = $diffusion->getNbPresents();
     if (isset($table_film)) {
         $infos_film = $table_film->getAttributes($id_film);
         $titre = $infos_film['titre'];

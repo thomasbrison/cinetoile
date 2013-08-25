@@ -10,6 +10,7 @@
         <img class="affiche" name="affiche" src="<?php echo $affiche; ?>" title="<?php echo $titre; ?>" alt=""/>
     <?php endif; ?>
     <p><?php echo $commentaire; ?></p>
+    <p><?php echo $nb_presents; ?> personne(s) présente(s)</p>
     <div class="inline buttons">
         <div class="inline hidden">
             <form name="modifier_diffusion" method="GET" action="diffusions.php/modifier">
