@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Modèle pour les films
+ * API pour accéder à la table des films
  */
 
 require_once('Table.php');

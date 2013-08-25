@@ -114,13 +114,9 @@ class TableMembre extends Table {
         $droits = $row['droits'];
         return new Membre($login, $password, $droits, $prenom, $nom, $email, $telephone, $ecole, $annee);
     }
-    
+
     public function getEmails() {
-        $query = "Select email
-            From Membre;";
-        $sth = $this->dbh->query($query);
-        $result = $sth->fetchAll(PDO::FETCH_COLUMN);
-        return $result;
+        return parent::getColumn('email');
     }
 
 }

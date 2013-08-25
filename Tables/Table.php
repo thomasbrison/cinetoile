@@ -20,6 +20,16 @@ abstract class Table {
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Returns an array with the values of the column
+     * @param String $column Name of the column
+     */
+    public function getColumn($column) {
+        $query = "SELECT $column FROM $this->name;";
+        $sth = $this->dbh->query($query);
+        return $sth->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     public function getAttributes($key) {
         $query = "SELECT * FROM $this->name WHERE $this->primaryKey = '$key';";
         $sth = $this->dbh->query($query);

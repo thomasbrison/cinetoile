@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Modèle pour les diffusions
+ * API pour accéder à la table des diffusions
  */
 
 require_once('Table.php');
@@ -67,9 +67,9 @@ class TableDiffusion extends Table {
      */
     public function pageOfNextDiffusion() {
         $page = -1;
-        $result = parent::getAll();
-        foreach ($result as $row) {
-            $timeDiffusion = strtotime($row['date_diffusion']);
+        $result = parent::getColumn('date_diffusion');
+        foreach ($result as $value) {
+            $timeDiffusion = strtotime($value);
             if ($timeDiffusion > time())
                 $page++;
         }
