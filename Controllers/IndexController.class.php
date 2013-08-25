@@ -37,7 +37,7 @@ class IndexController extends Controller {
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
         } else {
-            $page = 0;
+            $page = $this->tableDiffusion->pageOfNextDiffusion();
         }
         
         if (!$this->diffusions) {
@@ -46,7 +46,7 @@ class IndexController extends Controller {
         }
         $nb_pages = count($this->diffusions);
 	if ($nb_pages) {
-	    $diffusion = $this->diffusions[$page];
+        $diffusion = $this->diffusions[$page];
 	} else {
 	    return $this->render('no-diffusion');
 	}

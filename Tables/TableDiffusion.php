@@ -58,6 +58,22 @@ class TableDiffusion extends Table {
         return new Diffusion($dateDiffusion, $idFilm, $cycle, $commentaire, $affiche);
     }
 
+    /**
+     * @author Maxence
+     * @date 25/08/2013
+     * @brief Retourne le numéro de page de la prochaine diffusion
+     */
+    public function pageOfNextDiffusion() {
+        $page = -1;
+        $result = parent::getAll();
+        foreach ($result as $row) {
+            $timeDiffusion = strtotime($row['date_diffusion']);
+            if ($timeDiffusion > time())
+                $page++;
+        }
+        return $page < 0 ? 0 : $page;
+    }
+
 }
 
 ?>
