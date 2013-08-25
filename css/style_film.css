@@ -148,7 +148,7 @@ article.seance div.semi.colonne {
 .seance h2, .seance h3 {
     font-family: blair-itc-bold;
     /*color: rgb(84, 84, 84);  /* Style voulu par Jonathan */
-    color: white;
+    color: #848484;
     text-shadow: black -1px 1px 1px;
 }
 
