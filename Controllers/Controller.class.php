@@ -21,7 +21,7 @@ abstract class Controller {
         // la racine de l'application. Ceci est pratique dans les vues lors
         // de l'appel de contrôleurs.
         preg_match('@/[^/]+@', $_SERVER["PHP_SELF"], $matches);
-        defined('root') || define('root', $matches[0] . '/cinetoile');  // Cette ligne peut poser problème selon la configuration Apache ; ajouter le nom du dossier si nécessaire
+        defined('root') || define('root', $matches[0]);  // Cette ligne peut poser problème selon la configuration Apache ; ajouter le nom du dossier si nécessaire
     }
 
     protected function render($file_name, $js_array = array(), $var_array = null) {

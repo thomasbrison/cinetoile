@@ -44,7 +44,6 @@ function date_format_month_to_string($month_number) {
 
 function date_format_to_string($datetime) {
     $date_diff = date("d m Y H i", strtotime($datetime));
-    $numero_mois = substr($datetime, 3, 2);
     $numero_mois = date("n", strtotime($datetime));
     $mois = date_format_month_to_string($numero_mois);
     $date_format = substr_replace($date_diff, 'H', 13, 1);

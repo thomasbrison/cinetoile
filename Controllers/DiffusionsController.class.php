@@ -39,7 +39,7 @@ class DiffusionsController extends Controller {
                 $minute = $_POST['minute_diffusion'];
                 $date = "$annee-$mois-$jour $heure:$minute";
                 $diffusion = $this->getInfos($date);
-                $this->tableDiffusion->add($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche());
+                $this->tableDiffusion->add($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche(), $diffusion->getNbPresents());
                 header('Location: ' . root . '/diffusions.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/diffusions.php');
@@ -55,7 +55,7 @@ class DiffusionsController extends Controller {
             if (isset($_POST['modifier'])) {
                 $date = $_POST['date'];
                 $diffusion = $this->getInfos($date);
-                $this->tableDiffusion->modify($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche());
+                $this->tableDiffusion->modify($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche(), $diffusion->getNbPresents());
                 header('Location: ' . root . '/diffusions.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/diffusions.php');
@@ -80,6 +80,7 @@ class DiffusionsController extends Controller {
         $id_film = $_POST['id_film'];
         $cycle = $_POST['cycle'];
         $commentaire = addslashes($_POST['commentaire']);
+        $nb_presents = $_POST['nb_presents'];
         $etat_affiche = $_POST['etat_affiche'];
         if (!isset($etat_affiche)) {
             $etat_affiche = "1";
@@ -112,7 +113,7 @@ class DiffusionsController extends Controller {
             default :
                 die("Etat de l'affiche non autorisé.");
         endswitch;
-        $diffusion = new Diffusion($date, $id_film, $cycle, $commentaire, $affiche);
+        $diffusion = new Diffusion($date, $id_film, $cycle, $commentaire, $affiche, $nb_presents);
         return $diffusion;
     }
 

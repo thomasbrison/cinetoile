@@ -12,13 +12,15 @@ class Diffusion {
     protected $cycle;
     protected $commentaire;
     protected $affiche;
+    protected $nbPresents;
 
-    function __construct($date, $id_film, $cycle = null, $commentaire = null, $affiche = null) {
+    function __construct($date, $id_film, $cycle = null, $commentaire = null, $affiche = null, $nbPresents = null) {
         $this->date = $date;
         $this->idFilm = $id_film;
         $this->cycle = $cycle;
         $this->commentaire = $commentaire;
         $this->affiche = $affiche;
+        $this->nbPresents = $nbPresents;
     }
 
     public function getDate() {
@@ -47,6 +49,10 @@ class Diffusion {
 
     public function getCommentaire() {
         return $this->commentaire;
+    }
+
+    public function getNbPresents() {
+        return $this->nbPresents;
     }
 
     public function setCommentaire($commentaire) {
