@@ -55,27 +55,33 @@ class MembresController extends Controller {
                 header('Location: ' . root . '/membres.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/membres.php');
-            } else {
+            } elseif (isset($_GET['login'])) {
                 $login = htmlentities(utf8_decode($_GET['login']));
                 $membre = $this->tableMembre->getAttributes($login);
                 $this->render('Membres/modification_membre', array(), compact('membre'));
+            } else {
+                header('Location: ' . root . '/membres.php');
             }
         }
     }
 
     public function modifierDroits() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            $login = htmlentities(utf8_decode($_GET['login']));
-            $droits = htmlentities($_GET['droits']);
-            $this->tableMembre->modifyRights($login, $droits);
+            if (isset($_GET['login']) && isset($_GET['droits'])) {
+                $login = htmlentities(utf8_decode($_GET['login']));
+                $droits = htmlentities($_GET['droits']);
+                $this->tableMembre->modifyRights($login, $droits);
+            }
             header('Location: ' . root . '/membres.php');
         }
     }
 
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            $login = htmlentities(utf8_decode($_GET['login']));
-            $this->tableMembre->remove($login);
+            if (isset($_GET['login'])) {
+                $login = htmlentities(utf8_decode($_GET['login']));
+                $this->tableMembre->remove($login);
+            }
             header('Location: ' . root . '/membres.php');
         }
     }

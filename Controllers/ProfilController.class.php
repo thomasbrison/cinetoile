@@ -20,9 +20,9 @@ class ProfilController extends Controller {
     public function consulter() {
         if ($this->checkRights($_SESSION['droits'], 1, 2)) {
             $membre = $this->tableMembre->getAttributes($_SESSION['login']);
-	    if (!isset($_SESSION['is_password_changed'])) {
-		$_SESSION['is_password_changed'] = false;
-	    }
+            if (!isset($_SESSION['is_password_changed'])) {
+                $_SESSION['is_password_changed'] = false;
+            }
             $is_password_changed = $_SESSION['is_password_changed'];
             $titre_page = "Profil de " . $_SESSION['login'];
             $this->render('Profil/profil', array(), compact('membre', 'titre_page', 'is_password_changed'));
@@ -35,25 +35,37 @@ class ProfilController extends Controller {
                 $membre = $this->getInfos();
                 $membre->setLogin($_SESSION['login']);
                 $this->tableMembre->modifyInformation($membre);
-                if ($membre->getPassword() && $membre->getPassword() !== "") {
-                    $this->tableMembre->modifyPassword($membre->getLogin(), $membre->getPassword());
-                    $_SESSION['is_password_changed'] = true;
-                }
+                $this->modifyPassword($membre);
                 header('Location: ' . root . '/profil.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/profil.php');
-            } else {
+            } elseif (isset($_SESSION['login'])) {
                 $login = $_SESSION['login'];
                 $membre = $this->tableMembre->getAttributes($login);
                 $this->render('Membres/modification_membre', array(), compact('membre'));
+            } else {
+                header('Location: ' . root . '/profil.php');
             }
+        }
+    }
+
+    /**
+     * Modify a member's password in the table
+     * @param Membre $membre should have a not null login
+     */
+    private function modifyPassword($membre) {
+        if ($membre->getPassword() && strlen($membre->getPassword())) {
+            $this->tableMembre->modifyPassword($membre->getLogin(), $membre->getPassword());
+            $_SESSION['is_password_changed'] = true;
         }
     }
 
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], 1, 2)) {
-            $login = $_SESSION['login'];
-            $this->tableMembre->remove($login);
+            if (isset($_SESSION['login'])) {
+                $login = $_SESSION['login'];
+                $this->tableMembre->remove($login);
+            }
             header('Location: ' . root . '/index.php');
         }
     }

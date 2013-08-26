@@ -53,7 +53,7 @@ class FilmsController extends Controller {
                 header('Location: ' . root . '/films.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/films.php');
-            } else {
+            } elseif (isset($_GET['id'])) {
                 $id = htmlentities(utf8_decode($_GET['id']));
                 $row = $this->tableFilm->getAttributes($id);
                 $titre = $row['titre'];
@@ -72,15 +72,19 @@ class FilmsController extends Controller {
                 $affiche = $row['affiche'];
                 $_SESSION['affiche'] = $affiche;
                 $bande_annonce = $row['bande_annonce'];
-                $this->render('Films/modification_film', array('effets'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'heures_duree', 'minutes_duree', 'synopsis', 'affiche', 'bande_annonce'));
+                $this->render('Films/modification_film', array('effets', 'lightbox'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'heures_duree', 'minutes_duree', 'synopsis', 'affiche', 'bande_annonce'));
+            } else {
+                header('Location: ' . root . '/films.php');
             }
         }
     }
 
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            $id = (int) htmlentities(utf8_decode($_GET['id']));
-            $this->tableFilm->remove($id);
+            if (isset($_GET['id'])) {
+                $id = (int) htmlentities(utf8_decode($_GET['id']));
+                $this->tableFilm->remove($id);
+            }
             header('Location: ' . root . '/films.php');
         }
     }

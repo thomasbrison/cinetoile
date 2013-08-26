@@ -59,19 +59,23 @@ class DiffusionsController extends Controller {
                 header('Location: ' . root . '/diffusions.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/diffusions.php');
-            } else {
+            } elseif (isset($_GET['date'])) {
                 $diffusion = $this->tableDiffusion->getAttributes($_GET['date']);
                 $_SESSION['affiche'] = $diffusion->getAffiche();
                 $films = $this->tableFilm->consultAsAMember();
                 $this->render('Diffusions/modification_diffusion', array('effets'), compact('diffusion', 'films'));
+            } else {
+                header('Location: ' . root . '/diffusions.php');
             }
         }
     }
 
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], 2, 2)) {
-            $date = htmlentities(utf8_decode($_GET['date']));
-            $this->tableDiffusion->remove($date);
+            if (isset($_GET['date'])) {
+                $date = htmlentities(utf8_decode($_GET['date']));
+                $this->tableDiffusion->remove($date);
+            }
             header('Location: ' . root . '/diffusions.php');
         }
     }

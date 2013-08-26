@@ -484,6 +484,7 @@ div.inline {
 
 .button:hover {
     background-color: #b2b9b9;
+    cursor: pointer;
 }
 
 .arrow {

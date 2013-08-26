@@ -98,15 +98,13 @@
         </p>
         <p>
             <label>Bande-annonce : </label>
-            <input type="text" name="bande_annonce" value="<?php if (isset($bande_annonce)) echo $bande_annonce; ?>" placeholder="Balise à insérer"/>
+            <input type="text" name="bande_annonce" value="<?php if (isset($bande_annonce)) echo $bande_annonce; ?>" placeholder="Lien à insérer"/>
+        </p>
             <?php if (isset($bande_annonce) && $bande_annonce) : ?>
-        </p>
-        <p class="video">
-            <?php echo html_entity_decode($bande_annonce); ?>
-        </p>
         <p>
-            <?php endif; ?>
+            <a class="button big-button" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir la bande-annonce Allociné </a>
         </p>
+            <?php endif; ?>
     </fieldset>
     
     <p id="boutons">
