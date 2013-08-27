@@ -106,6 +106,7 @@ var lightbox = {
             right : computeOffset(boxStyle, 'right'),
             bottom : computeOffset(boxStyle, 'bottom')
         };
+
         lightbox.maxWidth = document.documentElement.clientWidth - lightbox.offset.left - lightbox.offset.right;
         lightbox.maxHeight = document.documentElement.clientHeight - lightbox.offset.top - lightbox.offset.bottom;
     },
