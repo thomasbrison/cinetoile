@@ -10,8 +10,8 @@ var lightbox = {
     topBar : null,
     closeButton : null,
     offset : null,
-    maxWidth : 0,
-    maxHeight : 0,
+    maxInnerWidth : 0,
+    maxInnerHeight : 0,
 
     init : function() {
 	if (!this.isInitialized) {
@@ -107,8 +107,8 @@ var lightbox = {
             bottom : computeOffset(boxStyle, 'bottom')
         };
 
-        lightbox.maxWidth = document.documentElement.clientWidth - lightbox.offset.left - lightbox.offset.right;
-        lightbox.maxHeight = document.documentElement.clientHeight - lightbox.offset.top - lightbox.offset.bottom;
+        lightbox.maxInnerWidth = document.documentElement.clientWidth - lightbox.offset.left - lightbox.offset.right;
+        lightbox.maxInnerHeight = document.documentElement.clientHeight - lightbox.offset.top - lightbox.offset.bottom;
     },
 
     addHideEvents : function() {
@@ -122,20 +122,20 @@ var lightbox = {
         }, false);
     },
 
-    setWidth : function(width) {
+    setInnerWidth : function(width) {
 	var boxElement = lightbox.getBox();
-	if (width > lightbox.maxWidth) {
-	    width = lightbox.maxWidth;
+	if (width > lightbox.maxInnerWidth) {
+	    width = lightbox.maxInnerWidth;
 	}
 	boxElement.style.width = width + "px";
     },
 
-    setHeight : function(height) {
+    setInnerHeight : function(height) {
 	var boxElement = lightbox.getBox();
-        if (height > lightbox.maxHeight) {
-            height = lightbox.maxHeight;
+        if (height > lightbox.maxInnerHeight) {
+            height = lightbox.maxInnerHeight;
         }
-	boxElement.style.top = (lightbox.maxHeight - height)/2 + "px";
+	boxElement.style.top = (lightbox.maxInnerHeight - height)/2 + "px";
 	boxElement.style.height = height + "px";
     }
 };
@@ -152,14 +152,14 @@ function afficheAffiche(el) {
 
         box.appendChild(p);
 
-        width = lightbox.maxWidth * 0.7;
+        width = lightbox.maxInnerWidth * 0.7;
     } else {
         var imageLightbox = document.createElement('img');
         imageLightbox.src = cheminAffiche;
 
         box.appendChild(imageLightbox);
 
-        height = lightbox.maxHeight * 0.95;
+        height = lightbox.maxInnerHeight * 0.95;
         width = height * 3/4;
     }
 
@@ -169,8 +169,8 @@ function afficheAffiche(el) {
     if (p) {
         height = p.clientHeight;
     }
-    lightbox.setWidth(width);
-    lightbox.setHeight(height);
+    lightbox.setInnerWidth(width);
+    lightbox.setInnerHeight(height);
 } 
 
 function afficheSynopsis(el) {
@@ -191,8 +191,8 @@ function afficheSynopsis(el) {
     lightbox.addHideEvents();
     lightbox.display();
 
-    lightbox.setWidth(lightbox.maxWidth * 0.7);
-    lightbox.setHeight(block.clientHeight);
+    lightbox.setInnerWidth(lightbox.maxInnerWidth * 0.7);
+    lightbox.setInnerHeight(block.clientHeight);
 }
 
 function afficheBandeAnnonce(el, width, height) {
@@ -208,9 +208,9 @@ function afficheBandeAnnonce(el, width, height) {
 
         container.appendChild(block);
 
-        width = lightbox.maxWidth * 0.7;
+        width = lightbox.maxInnerWidth * 0.7;
     } else {
-        width = width || Math.min(lightbox.maxWidth, lightbox.maxHeight * 16/9);
+        width = width || Math.min(lightbox.maxInnerWidth, lightbox.maxInnerHeight * 16/9);
         height = height || (width * 9/16);
         container.className =  'bande-annonce-lightbox';
 
@@ -230,6 +230,6 @@ function afficheBandeAnnonce(el, width, height) {
     lightbox.addHideEvents();
     lightbox.display();
 
-    lightbox.setWidth(width);
-    lightbox.setHeight(container.clientHeight);
+    lightbox.setInnerWidth(width);
+    lightbox.setInnerHeight(container.clientHeight);
 }
