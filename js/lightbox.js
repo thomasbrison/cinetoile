@@ -10,6 +10,8 @@ var lightbox = {
     topBar : null,
     closeButton : null,
     offset : null,
+    maxWidth : 0,
+    maxHeight : 0,
 
     init : function() {
 	if (!this.isInitialized) {
@@ -63,12 +65,6 @@ var lightbox = {
         lightboxElement.id = "lightbox";
         document.getElementById('main').appendChild(lightboxElement);
         lightbox.element = lightboxElement;
-        lightbox.offset = {  // corresponds to the padding + the border
-            left : 12,
-            top : 12,
-            right : 12,
-            bottom : 12
-        };
     },
 
     addTopBar : function() {
@@ -91,10 +87,27 @@ var lightbox = {
 	var boxElement = document.createElement('div');
 
 	boxElement.className = 'lightbox-container';
+        var boxStyle = window.getComputedStyle(boxElement);
 
 	lightbox.box = boxElement;
 
 	lightboxElement.appendChild(boxElement);
+
+        // computes the offset which corresponds to the padding + the border
+        function computeOffset(style, direction) {
+            var padding = style.getPropertyValue('padding-' + direction);
+            var borderWidth = style.getPropertyValue('border-' + direction + '-width');
+            return parseFloat(padding.substring(0, padding.length - 2)) + parseFloat(borderWidth.substring(0, borderWidth.length - 2));
+        }
+
+        lightbox.offset = {
+            left :  computeOffset(boxStyle, 'left'),
+            top : computeOffset(boxStyle, 'top'),
+            right : computeOffset(boxStyle, 'right'),
+            bottom : computeOffset(boxStyle, 'bottom')
+        };
+        lightbox.maxWidth = document.documentElement.clientWidth - lightbox.offset.left - lightbox.offset.right;
+        lightbox.maxHeight = document.documentElement.clientHeight - lightbox.offset.top - lightbox.offset.bottom;
     },
 
     addHideEvents : function() {
@@ -109,26 +122,19 @@ var lightbox = {
     },
 
     setWidth : function(width) {
-        var totalWidth = document.width;
-        var totalOffset = lightbox.offset.left + lightbox.offset.right;
 	var boxElement = lightbox.getBox();
-	if (width > totalWidth - totalOffset) {
-	    width = totalWidth - totalOffset;
+	if (width > lightbox.maxWidth) {
+	    width = lightbox.maxWidth;
 	}
-	var margin = (totalWidth - width - totalOffset)/2;
-	boxElement.style.marginLeft = margin + "px";
-	boxElement.style.marginRight = margin + "px";
 	boxElement.style.width = width + "px";
     },
 
     setHeight : function(height) {
-        var totalHeight = window.innerHeight;
-        var totalOffset = lightbox.offset.top + lightbox.offset.bottom;
 	var boxElement = lightbox.getBox();
-        if (height > totalHeight - totalOffset) {
-            height = totalHeight - totalOffset;
+        if (height > lightbox.maxHeight) {
+            height = lightbox.maxHeight;
         }
-	boxElement.style.top = (totalHeight - height - totalOffset)/2 + "px";
+	boxElement.style.top = (lightbox.maxHeight - height)/2 + "px";
 	boxElement.style.height = height + "px";
     }
 };
@@ -145,14 +151,14 @@ function afficheAffiche(el) {
 
         box.appendChild(p);
 
-        width = document.width * 0.7;
+        width = lightbox.maxWidth * 0.7;
     } else {
         var imageLightbox = document.createElement('img');
         imageLightbox.src = cheminAffiche;
 
         box.appendChild(imageLightbox);
 
-        height = window.innerHeight * 0.9;
+        height = lightbox.maxHeight * 0.95;
         width = height * 3/4;
     }
 
@@ -184,7 +190,7 @@ function afficheSynopsis(el) {
     lightbox.addHideEvents();
     lightbox.display();
 
-    lightbox.setWidth(document.width * 0.7);
+    lightbox.setWidth(lightbox.maxWidth * 0.7);
     lightbox.setHeight(block.clientHeight);
 }
 
@@ -201,9 +207,9 @@ function afficheBandeAnnonce(el, width, height) {
 
         container.appendChild(block);
 
-        width = document.width * 0.7;
+        width = lightbox.maxWidth * 0.7;
     } else {
-        width = width || Math.min(document.width, (window.innerHeight - lightbox.offset.top - lightbox.offset.bottom) * 16/9);
+        width = width || Math.min(lightbox.maxWidth, lightbox.maxHeight * 16/9);
         height = height || (width * 9/16);
         container.className =  'bande-annonce-lightbox';
 
@@ -213,8 +219,8 @@ function afficheBandeAnnonce(el, width, height) {
         url = url.replace(/&gt;/g,">");
         url = url.replace(/&quot;/g,"\"");
         iframe.src = url;
-        iframe.width = width - lightbox.offset.left - lightbox.offset.right;
-        iframe.height = height - lightbox.offset.top - lightbox.offset.bottom;
+        iframe.width = width;
+        iframe.height = height;
 
         container.appendChild(iframe);
     }

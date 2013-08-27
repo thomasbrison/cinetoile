@@ -277,8 +277,6 @@ table a:visited {
 
 #lightbox > * {
     position: absolute;
-    background-color: #eee;
-    border: 2px solid #666;
 }
 
 #lightbox > img {
@@ -287,6 +285,12 @@ table a:visited {
 }
 
 .lightbox-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #eee;
+    border: 2px solid #666;
     padding: 10px;
 }
 
@@ -296,16 +300,28 @@ table a:visited {
     margin: 0;
 }
 
-#lightbox > div.conteneur-lightbox {
-    width: 50%;
-    top: 25%;
-    margin-left: 25%;
-    margin-right: 25%;
+#lightbox .lightbox-top-bar {
+    height: 60px;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    z-index: 1;
 }
 
-#lightbox > div.bande-annonce-lightbox {
-    width: 80%;
-    left: 10%;
+.close {
+    background-image: url('../Images/Icones/croix.png');
+    cursor: pointer;
+}
+
+#lightbox .close {
+    position: absolute;
+    right: 0;
+    height: 60px;
+    width: 60px;
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .texte-cinetoile {
@@ -660,29 +676,4 @@ textarea {
     border-color: white;
     border-width: 4px;
     border-radius: 8px;
-}
-
-#lightbox .lightbox-top-bar {
-    position: relative;
-    height: 60px;
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 0;
-    z-index: 1;
-}
-
-.close {
-    background-image: url('../Images/Icones/croix.png');
-    cursor: pointer;
-}
-
-#lightbox .close {
-    position: absolute;
-    right: 0;
-    height: 60px;
-    width: 60px;
-    background-size: 75%;
-    background-repeat: no-repeat;
-    background-position: center center;
 }
