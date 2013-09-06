@@ -19,10 +19,10 @@ class FilmsController extends Controller {
 
     public function consulter() {
         $droits = $_SESSION['droits'];
-        if ($this->checkRights($droits, 1, 2)) {
-            if ($droits == 2) {
+        if ($this->checkRights($droits, Rights::$MEMBER, Rights::$ADMIN)) {
+            if ($droits == Rights::$ADMIN) {
                 $films = $this->tableFilm->consult();
-            } else if ($droits == 1) {
+            } else if ($droits == Rights::$MEMBER) {
                 $films = $this->tableFilm->consultAsAMember();
             }
             $titre_page = "Films";
@@ -31,7 +31,7 @@ class FilmsController extends Controller {
     }
 
     public function ajouter() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['ajouter'])) {
                 $film = $this->getInfos(null);
                 $this->tableFilm->add($film->getTitre(), $film->getRealisateur(), $film->getAnnee(), $film->getPays(), $film->getActeurs(), $film->getGenre(), $film->getSupport(), $film->getDuree(), $film->getSynopsis(), $film->getAffiche(), $film->getBandeAnnonce());
@@ -45,7 +45,7 @@ class FilmsController extends Controller {
     }
 
     public function modifier() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['modifier'])) {
                 $id = htmlentities(utf8_decode($_POST['id']));
                 $film = $this->getInfos($id);
@@ -80,7 +80,7 @@ class FilmsController extends Controller {
     }
 
     public function supprimer() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_GET['id'])) {
                 $id = (int) htmlentities(utf8_decode($_GET['id']));
                 $this->tableFilm->remove($id);
@@ -90,7 +90,7 @@ class FilmsController extends Controller {
     }
 
     public function voter() {
-        if ($this->checkRights($_SESSION['droits'], 1, 1)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$MEMBER)) {
             if (isset($_POST['voter'])) {
                 $ids = array();
                 foreach ($_POST as $post_name => $post_value) {

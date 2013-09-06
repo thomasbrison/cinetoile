@@ -35,16 +35,19 @@ require_once 'Lib/telephone.php';
                 $email = $membre->getEmail();
                 $tel = telephone_format($membre->getTelephone());
                 $ecole = $membre->getEcole();
-                if (isset($ecole) && $ecole == "Ense3") {
+                if (isset($ecole) && $ecole === "Ense3") {
                     $ecole = "Ense<sup>3</sup>";
                 }
                 $annee = annee_format($membre->getAnnee());
-                $droits = $membre->getDroits();
+                $droits = (int) $membre->getDroits();
                 switch ($droits) {
-                    case "1":
+                    case Rights::$BASIC:
+                        $droit = "Étudiant";
+                        break;
+                    case Rights::$MEMBER:
                         $droit = "Membre";
                         break;
-                    case "2":
+                    case Rights::$ADMIN:
                         $droit = "Admin";
                         break;
                 }
@@ -91,7 +94,8 @@ require_once 'Lib/telephone.php';
     </table>
 </section>
 
-<br/><a href="mailto:<?php echo $emails; ?>">Envoyer un email aux membres</a>
+<br/><a href="mailto:?bcc=<?php echo $emails; ?>">Envoyer un email à tout le monde</a>
+<br/><a href="mailto:?bcc=<?php echo $membersEmails; ?>">Envoyer un email aux membres</a>
 
 <div class="options">
     <a class="button" href="membres.php/ajouter">Ajouter un membre</a>

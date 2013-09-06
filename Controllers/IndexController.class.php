@@ -63,14 +63,14 @@ class IndexController extends Controller {
     public function connexion() {
         // Verifie si l'utilisateur n'etait pas deja connecté
         if (!isset($_SESSION['login'])) {
-            $droits = 0;
+            $droits = Rights::$USER;
             if (!isset($_POST['connexion'])) {
                 $this->render('authentification');
             } else {
                 $login = htmlentities(utf8_decode($_POST['login']));
                 $password = htmlentities($_POST['password']);
                 $droits = $this->tableMembre->authenticate($login, $password);
-                if ($droits == 0) {
+                if ($droits === Rights::$USER) {
                     ?>
                     <script>alert("Nom d'utilisateur ou mot de passe incorrect !");</script>
                     <?php
@@ -79,7 +79,7 @@ class IndexController extends Controller {
                 } else {
                     $_SESSION['login'] = $login;
                     $_SESSION['droits'] = $droits;
-                    if ($_SESSION['droits'] == 2) {
+                    if ($_SESSION['droits'] === Rights::$ADMIN) {
                         header('Location: ' . root . '/admin.php');
                     } else {
                         header('Location: ' . root . '/index.php');

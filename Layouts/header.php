@@ -6,12 +6,12 @@ if (!isset($titre_page)) {
 }
 
 switch ($_SESSION['droits']) {
-    case 1:
+    case Rights::$MEMBER:
         $class_links_header = "one-third";
         $class_links_nav = "two-thirds";
         $class_nav = "six-items";
         break;
-    case 2:
+    case Rights::$ADMIN:
         $class_links_header = "one-third";
         $class_links_nav = "two-thirds";
         $class_nav = "six-items";
@@ -50,17 +50,17 @@ switch ($_SESSION['droits']) {
                     <li>
                         <a class="button" href="">Accueil</a>
                     </li>
-                    <?php if ($_SESSION['droits'] >= 1) : ?>
+                    <?php if ($_SESSION['droits'] >= Rights::$MEMBER) : ?>
                     <li>
                         <a class="button" href="films.php">Films</a>
                     </li>
                     <?php endif; ?>
-                    <?php if ($_SESSION['droits'] == 1) : ?>
+                    <?php if ($_SESSION['droits'] === Rights::$MEMBER) : ?>
                     <li>
                         <a class="button" href="profil.php">Profil</a>
                     </li>
                     <?php endif; ?>
-                    <?php if ($_SESSION['droits'] <= 1) : ?>
+                    <?php if ($_SESSION['droits'] <= Rights::$MEMBER) : ?>
                     <li>
                         <a class="button" href="plan.php">Plan</a>
                     </li>
@@ -68,7 +68,7 @@ switch ($_SESSION['droits']) {
                         <a class="button" href="presentation.php">L'association</a>
                     </li>
                     <?php endif; ?>
-                    <?php if ($_SESSION['droits'] == 2) : ?>
+                    <?php if ($_SESSION['droits'] === Rights::$ADMIN) : ?>
                     <li>
                         <a class="button" href="membres.php">Membres</a>
                     </li>

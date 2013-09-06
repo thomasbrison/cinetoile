@@ -29,7 +29,7 @@ class TableMembre extends Table {
             $telephone = $row['telephone'];
             $ecole = $row['ecole'];
             $annee = $row['annee'];
-            $droits = $row['droits'];
+            $droits = (int) $row['droits'];
             $membre = new Membre($login, null, $droits, $prenom, $nom, $email, $telephone, $ecole, $annee);
             $membres[] = $membre;
         }
@@ -58,7 +58,7 @@ class TableMembre extends Table {
             Where login = '$login' and password = PASSWORD('$password');";
         $sth = $this->dbh->query($query);
         $result = $sth->fetch(PDO::FETCH_ASSOC);
-        $droits = $result['droits'] or 0;
+        $droits = (int) $result['droits'];
         return $droits;
     }
 
@@ -111,12 +111,21 @@ class TableMembre extends Table {
         $telephone = $row['telephone'];
         $ecole = $row['ecole'];
         $annee = $row['annee'];
-        $droits = $row['droits'];
+        $droits = (int) $row['droits'];
         return new Membre($login, $password, $droits, $prenom, $nom, $email, $telephone, $ecole, $annee);
     }
 
     public function getEmails() {
         return parent::getColumn('email');
+    }
+
+    public function getMembersEmails() {
+        require_once 'Lib/Rights.class.php';
+        $tableName = self::$name;
+        $memberRights = Rights::$MEMBER;
+        $query = "SELECT email FROM $tableName WHERE droits = '$memberRights';";
+        $sth = $this->dbh->query($query);
+        return $sth->fetchAll(PDO::FETCH_COLUMN);
     }
 
 }

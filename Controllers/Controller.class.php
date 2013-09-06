@@ -1,12 +1,14 @@
 <?php
 
+require_once 'Lib/Rights.class.php';
+
 abstract class Controller {
 
     public function __construct() {
         session_start();
         $this->setRootWebApp();
 	if (!isset($_SESSION['droits'])) {
-	    $_SESSION['droits'] = 0;
+	    $_SESSION['droits'] = Rights::$USER;
 	}
         //Exécution de l'action demandée du contrôleur
         $this->executeAction();
@@ -53,7 +55,9 @@ abstract class Controller {
 
     // Appel à un contrôleur avec une action qui n'existe pas
     public function __call($name, $arguments) {
-        echo "<b>Erreur : </b> L'action $name n'est pas d&eacute;finie";
+        //echo "<b>Erreur : </b> L'action $name n'est pas d&eacute;finie";
+        header("HTTP/1.0 404 Not Found");
+        exit;
     }
 
     protected function checkRights($droits, $levelmin, $levelmax) {

@@ -5,7 +5,7 @@ $current_school_year = date_get_school_year();
 
 
 <footer>
-    <img id="logo-cinetoile" class="logo" src="Images/Logos/cinetoile-nouveau.png">
+    <img id="logo-cinetoile" class="logo" src="Images/Logos/cinetoile.png">
     <img id="logo-gc" class="logo" src="Images/Logos/gc.png">
     <div id="contenu-footer">
         <p>

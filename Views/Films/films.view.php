@@ -4,9 +4,9 @@
  */
 
 function taille($droits, $width_admin, $width_membre) {
-    if ($droits == 2) {
+    if ($droits === Rights::$ADMIN) {
         echo $width_admin;
-    } else if ($droits == 1) {
+    } elseif ($droits === Rights::$MEMBER) {
         echo $width_membre;
     }
 }
@@ -14,9 +14,9 @@ function taille($droits, $width_admin, $width_membre) {
 
 <section id="tableFilms">
     <table class="films <?php
-    if ($droits == 1) {
+    if ($droits === Rights::$MEMBER) {
         echo "membre table_membre";
-    } elseif ($droits == 2) {
+    } elseif ($droits === Rights::$ADMIN) {
         echo "admin";
     }
     ?>">
@@ -24,7 +24,7 @@ function taille($droits, $width_admin, $width_membre) {
 
         <thead>
             <tr>
-                <?php if ($droits == 2) : ?>
+                <?php if ($droits === Rights::$ADMIN) : ?>
                     <th class="numero"> &nbsp; </th>
                 <?php endif; ?>
                 <th class="titre"> Titre </th>
@@ -36,11 +36,11 @@ function taille($droits, $width_admin, $width_membre) {
                 <th class="synopsis"> Synopsis </th>
                 <th class="affiche"> Affiche du film </th>
                 <th class="bande-annonce"> Bande-annonce </th>
-                <?php if ($droits == 2) : ?>
+                <?php if ($droits === Rights::$ADMIN) : ?>
                     <th class="support"> Support </th>
                     <th class="duree"> Dur&eacute;e </th>
                     <th class="modif-suppr"> &nbsp; </th>
-                <?php elseif ($droits == 1) : ?>
+                <?php elseif ($droits === Rights::$MEMBER) : ?>
                     <th class="vote"> Vote </th>
                 <?php endif; ?>
             </tr>
@@ -64,7 +64,7 @@ function taille($droits, $width_admin, $width_membre) {
                 $bande_annonce = $film->getBandeAnnonce();
                 ?>
                 <tr>
-                    <?php if ($droits == 2) : ?>
+                    <?php if ($droits === Rights::$ADMIN) : ?>
                         <td class="numero"> <?php echo $numero; ?> </td>
                     <?php endif; ?>
                     <td class="titre"> <?php echo $titre; ?> </td>
@@ -82,7 +82,7 @@ function taille($droits, $width_admin, $width_membre) {
                     <td class="bande-annonce">
                         <a onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir </a>
                     </td>
-                    <?php if ($droits == 2) : ?>
+                    <?php if ($droits === Rights::$ADMIN) : ?>
                         <td class="support"> <?php echo $support; ?> </td>
                         <td class="duree"> <?php echo $duree; ?> </td>
                         <td class="modif-suppr">
@@ -101,7 +101,7 @@ function taille($droits, $width_admin, $width_membre) {
                                 </form>
                             </div>
                         </td>
-                    <?php elseif ($droits == 1) : ?>
+                    <?php elseif ($droits === Rights::$MEMBER) : ?>
                         <td class="vote">
                             <input type="checkbox" form="form-vote" name="id<?php echo $numero; ?>" value="<?php echo $id; ?>" />
                         </td>
@@ -113,11 +113,11 @@ function taille($droits, $width_admin, $width_membre) {
     </table>
 </section>
 
-<?php if ($droits == 2) : ?>
+<?php if ($droits === Rights::$ADMIN) : ?>
     <div class="options">
         <a class="button" href="films.php/ajouter">Ajouter un film</a>
     </div>
-<?php elseif ($droits == 1) : ?>
+<?php elseif ($droits === Rights::$MEMBER) : ?>
     <form name="voter" id="form-vote" method="POST" action="films.php/voter">
         <input name="voter" type="submit" id="soumettre_vote" form="form-vote" value="Voter"/>
     </form>

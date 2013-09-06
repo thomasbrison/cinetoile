@@ -18,7 +18,7 @@ class MembresController extends Controller {
     }
 
     public function consulter() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             $titre_page = "Membres";
             $membres = $this->tableMembre->consult();
             $emailsTab = $this->tableMembre->getEmails();
@@ -28,12 +28,19 @@ class MembresController extends Controller {
                     $emails .= $email . ',';
                 }
             }
-            $this->render('Membres/membres', array('effets'), compact('titre_page', 'membres', 'emails'));
+            $membersEmailsTab = $this->tableMembre->getMembersEmails();
+            $membersEmails = "";
+            foreach ($membersEmailsTab as $memberEmail) {
+                if (strlen($memberEmail)) {
+                    $membersEmails .= $memberEmail . ',';
+                }
+            }
+            $this->render('Membres/membres', array('effets'), compact('titre_page', 'membres', 'emails', 'membersEmails'));
         }
     }
 
     public function ajouter() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['ajouter'])) {
                 $password = htmlentities(($_POST['password']));
                 $membre = $this->getInfos();
@@ -48,7 +55,7 @@ class MembresController extends Controller {
     }
 
     public function modifier() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['modifier'])) {
                 $membre = $this->getInfos();
                 $this->tableMembre->modify($membre->getLogin(), $membre->getDroits(), $membre->getPrenom(), $membre->getNom(), $membre->getEmail(), $membre->getTelephone(), $membre->getEcole(), $membre->getAnnee());
@@ -66,7 +73,7 @@ class MembresController extends Controller {
     }
 
     public function modifierDroits() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_GET['login']) && isset($_GET['droits'])) {
                 $login = htmlentities(utf8_decode($_GET['login']));
                 $droits = htmlentities($_GET['droits']);
@@ -77,7 +84,7 @@ class MembresController extends Controller {
     }
 
     public function supprimer() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_GET['login'])) {
                 $login = htmlentities(utf8_decode($_GET['login']));
                 $this->tableMembre->remove($login);

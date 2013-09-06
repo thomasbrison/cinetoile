@@ -22,7 +22,7 @@ class DiffusionsController extends Controller {
     }
 
     public function consulter() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             $diffusions = $this->tableDiffusion->consult();
             $table_film = $this->tableFilm;
             $this->render('Diffusions/diffusions', array('effets'), compact('diffusions', 'table_film'));
@@ -30,7 +30,7 @@ class DiffusionsController extends Controller {
     }
 
     public function ajouter() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['ajouter'])) {
                 $jour = $_POST['jour_diffusion'];
                 $mois = $_POST['mois_diffusion'];
@@ -51,7 +51,7 @@ class DiffusionsController extends Controller {
     }
 
     public function modifier() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['modifier'])) {
                 $date = $_POST['date'];
                 $diffusion = $this->getInfos($date);
@@ -71,7 +71,7 @@ class DiffusionsController extends Controller {
     }
 
     public function supprimer() {
-        if ($this->checkRights($_SESSION['droits'], 2, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_GET['date'])) {
                 $date = htmlentities(utf8_decode($_GET['date']));
                 $this->tableDiffusion->remove($date);

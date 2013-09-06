@@ -17,7 +17,7 @@ $droits = $membre->getDroits();
 $form_name = "modification_membre";
 $form_action = "modifier";
 
-if ($_SESSION['droits'] == 1) {
+if ($_SESSION['droits'] === Rights::$MEMBER) {
     $form_target = "profil.php";
 } else {
     $form_target = "membres.php";

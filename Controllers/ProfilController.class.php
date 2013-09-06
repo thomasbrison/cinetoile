@@ -18,7 +18,7 @@ class ProfilController extends Controller {
     }
 
     public function consulter() {
-        if ($this->checkRights($_SESSION['droits'], 1, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
             $membre = $this->tableMembre->getAttributes($_SESSION['login']);
             if (!isset($_SESSION['is_password_changed'])) {
                 $_SESSION['is_password_changed'] = false;
@@ -30,7 +30,7 @@ class ProfilController extends Controller {
     }
 
     public function modifier() {
-        if ($this->checkRights($_SESSION['droits'], 1, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
             if (isset($_POST['modifier'])) {
                 $membre = $this->getInfos();
                 $membre->setLogin($_SESSION['login']);
@@ -61,7 +61,7 @@ class ProfilController extends Controller {
     }
 
     public function supprimer() {
-        if ($this->checkRights($_SESSION['droits'], 1, 2)) {
+        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
             if (isset($_SESSION['login'])) {
                 $login = $_SESSION['login'];
                 $this->tableMembre->remove($login);
