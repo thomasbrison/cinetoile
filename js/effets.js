@@ -20,23 +20,9 @@ function afficheDroits(number, rights) {
 function changerDroits(formElement, number) {
     var formAction = formElement.getAttribute('action');
     var loginValue = formElement.elements['login'].value;
-    var rightsValue = parseInt(formElement.elements['droits'].value);
-    var rightsText;
-
-    switch (rightsValue) {
-        case 1 :
-            rightsText = "Étudiant";
-            break;
-        case 2 :
-            rightsText = "Membre";
-            break;
-        case 3 :
-            rightsText = "Admin";
-            break;
-        default :
-            rightsText = "Erreur";
-            break;
-    }
+    var rightsElement = formElement.elements['droits'];
+    var rightsValue = parseInt(rightsElement.value);
+    var rightsText = rightsElement.options[rightsElement.selectedIndex].innerHTML;
 
     var xmlhttp = new XMLHttpRequest();
 
