@@ -2,40 +2,52 @@
  * Actions JavaScript générales
  */
 
-function afficheSelectionsDroits(number) {
-    var droitsElement = document.getElementById("droits" + number);
-    var formElement = document.getElementById("form_droits" + number);
-    droitsElement.className = "hidden";
+function displaySelections(displayedElementGenericId, formElementGenericId, number) {
+    var displayedElement = document.getElementById(displayedElementGenericId + number);
+    var formElement = document.getElementById(formElementGenericId + number);
+    displayedElement.className = "hidden";
     formElement.className = "";
 }
 
-function afficheDroits(number, rights) {
-    var droitsElement = document.getElementById("droits" + number);
-    var formElement = document.getElementById("form_droits" + number);
-    droitsElement.innerHTML = rights;
-    droitsElement.className = "";
+function displayElement(displayedElementGenericId, formElementGenericId, number, elementInnerHTML) {
+    var displayedElement = document.getElementById(displayedElementGenericId + number);
+    var formElement = document.getElementById(formElementGenericId + number);
+    displayedElement.innerHTML = elementInnerHTML;
+    displayedElement.className = "";
     formElement.className = "hidden";
 }
 
-function changerDroits(formElement, number) {
+function changeTableElement(formElement, primaryKeyName, elementName, displayedElementGenericId, formElementGenericId, number) {
     var formAction = formElement.getAttribute('action');
-    var loginValue = formElement.elements['login'].value;
-    var rightsElement = formElement.elements['droits'];
-    var rightsValue = parseInt(rightsElement.value);
-    var rightsText = rightsElement.options[rightsElement.selectedIndex].innerHTML;
+    var primaryKeyValue = formElement.elements[primaryKeyName].value;
+    var element = formElement.elements[elementName];
+    var elementValue = parseInt(element.value);
+    var elementText = element.options[element.selectedIndex].innerHTML;
 
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4 && (xmlhttp.status === 200 || xmlhttp.status === 0)) {
-            afficheDroits(number, rightsText);
+            displayElement(displayedElementGenericId, formElementGenericId, number, elementText);
         }
     };
 
-    xmlhttp.open("GET", formAction + "?login=" + loginValue + "&droits=" + rightsValue, true);
+    xmlhttp.open("GET", formAction + "?" + primaryKeyName + "=" + primaryKeyValue + "&" + elementName + "=" + elementValue, true);
     xmlhttp.send(null);
 
     return false;
+}
+
+function displaySelectionsDroits(number) {
+    displaySelections("droits", "form_droits", number);
+}
+
+function displayElementDroits(number, rights) {
+    displayElement("droits", "form_droits", number, rights);
+}
+
+function changerDroits(formElement, number) {
+    return changeTableElement(formElement, 'login', 'droits', 'droits', 'form_droits', number);
 }
 
 function confirme_suppression(numero) {

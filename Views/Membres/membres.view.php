@@ -72,7 +72,7 @@ require_once 'Lib/telephone.php';
                     <td class="ecole"> <?php echo $ecole; ?> </td>
                     <td class="annee"> <?php echo $annee; ?> </td>
                     <td class="droits lien">
-                        <span class="lien" id="droits<?php echo $numero ?>" onclick="afficheSelectionsDroits(<?php echo $numero; ?>);"> <?php echo $droit; ?> </span>
+                        <span class="lien" id="droits<?php echo $numero ?>" onclick="displaySelectionsDroits(<?php echo $numero; ?>);"> <?php echo $droit; ?> </span>
                         <form id="form_droits<?php echo $numero; ?>" method="GET" action="membres.php/modifierDroits" class="hidden" onsubmit="return changerDroits(this, <?php echo $numero; ?>);">
                             <input type="hidden" name="login" value="<?php echo $login; ?>">
                             <select name="droits">
