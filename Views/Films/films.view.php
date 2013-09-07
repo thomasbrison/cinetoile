@@ -86,13 +86,13 @@ function taille($droits, $width_admin, $width_membre) {
                         <td class="support"> <?php echo $support; ?> </td>
                         <td class="duree"> <?php echo $duree; ?> </td>
                         <td class="modif-suppr">
-                            <div class="inline hidden">
+                            <div class="inline invisible">
                                 <form name="modifier_film" method="GET" action="films.php/modifier">
                                     <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                                     <input type="submit" value="Modifier"/>
                                 </form>
                             </div>
-                            <div class="inline hidden">
+                            <div class="inline invisible">
                                 <form name="supprimer_film" method="GET" action="films.php/supprimer">
                                     <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                                     <input type="button" value="Supprimer" id="confirme_suppr<?php echo $numero; ?>" onclick="confirme_suppression(<?php echo $numero; ?>);"/>

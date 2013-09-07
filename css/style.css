@@ -271,10 +271,6 @@ table a:visited {
     display: block;
 }
 
-#lightbox.hidden {
-    display: none;
-}
-
 #lightbox > * {
     position: absolute;
 }
@@ -454,13 +450,18 @@ table.buttons th {
 }
 
 .hidden {
+    display: none;
+}
+
+.invisible {
     visibility: hidden;
 }
-tr:hover .hidden, article:hover .hidden {
+
+tr:hover .invisible, article:hover .invisible {
     visibility: visible;
 }
 
-.hidden > form {
+table .invisible > form {
     display: inline-block;
 }
 

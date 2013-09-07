@@ -2,62 +2,54 @@
  * Actions JavaScript générales
  */
 
-function modifier_droits(numero) {
-    var noeud_droits = document.getElementById("droits" + numero);
-    var droits = noeud_droits.textContent.toString().replace(/ /g,'');
-    var login = document.getElementById("login" + numero).innerHTML.toString().replace(/ /g,'');
-    var form = document.createElement("form");
-    var input_hidden = document.createElement("input");
-    var select = document.createElement("select");
-    var option1 = document.createElement("option");
-    var option2 = document.createElement("option");
+function afficheSelectionsDroits(number) {
+    var droitsElement = document.getElementById("droits" + number);
+    var formElement = document.getElementById("form_droits" + number);
+    droitsElement.className = "hidden";
+    formElement.className = "";
+}
 
-    form.id = "form_droits" + numero;
-    form.name = "modifier_droits";
-    form.setAttribute("method", "GET");
-    form.setAttribute("action", "membres.php/modifier_droits");
+function afficheDroits(number, rights) {
+    var droitsElement = document.getElementById("droits" + number);
+    var formElement = document.getElementById("form_droits" + number);
+    droitsElement.innerHTML = rights;
+    droitsElement.className = "";
+    formElement.className = "hidden";
+}
 
-    input_hidden.name = "login";
-    input_hidden.setAttribute("type", "hidden");
-    input_hidden.setAttribute("value", login);
+function changerDroits(formElement, number) {
+    var formAction = formElement.getAttribute('action');
+    var loginValue = formElement.elements['login'].value;
+    var rightsValue = parseInt(formElement.elements['droits'].value);
+    var rightsText;
 
-    select.name = "droits";
-    select.onchange = function() {
-        changement_droits(numero);
+    switch (rightsValue) {
+        case 1 :
+            rightsText = "Étudiant";
+            break;
+        case 2 :
+            rightsText = "Membre";
+            break;
+        case 3 :
+            rightsText = "Admin";
+            break;
+        default :
+            rightsText = "Erreur";
+            break;
+    }
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4 && (xmlhttp.status === 200 || xmlhttp.status === 0)) {
+            afficheDroits(number, rightsText);
+        }
     };
-    option1.setAttribute("value", "1");
-    if (droits === "Membre") {
-        option1.setAttribute("selected", "selected");
-    }
-    option1.innerHTML = "Membre";
-    option2.setAttribute("value", "2");
-    if (droits === "Admin") {
-        option2.setAttribute("selected", "selected");
-    }
-    option2.innerHTML = "Admin";
 
-    select.appendChild(option1);
-    select.appendChild(option2);
-    form.appendChild(input_hidden);
-    form.appendChild(select);
-    noeud_droits.appendChild(form);
-    noeud_droits.setAttribute("onclick", "annuler_modif_droits(" + numero + ");");
-}
+    xmlhttp.open("GET", formAction + "?login=" + loginValue + "&droits=" + rightsValue, true);
+    xmlhttp.send(null);
 
-function annuler_modif_droits(numero) {
-    var noeud_droits = document.getElementById("droits" + numero);
-    var droits = noeud_droits.firstChild.textContent;
-    noeud_droits.innerHTML = "";
-    noeud_droits.textContent = " " + droits + " ";
-    noeud_droits.setAttribute("onclick", "modifier_droits(" + numero + ");");
-}
-
-function changement_droits(numero) {
-    var form = document.getElementById("form_droits" + numero);
-    var input_submit = document.createElement("input");
-    input_submit.setAttribute("type", "submit");
-    form.appendChild(input_submit);
-    input_submit.click();
+    return false;
 }
 
 function confirme_suppression(numero) {

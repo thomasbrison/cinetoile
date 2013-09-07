@@ -39,7 +39,7 @@ require_once 'Lib/telephone.php';
                     $ecole = "Ense<sup>3</sup>";
                 }
                 $annee = annee_format($membre->getAnnee());
-                $droits = (int) $membre->getDroits();
+                $droits = $membre->getDroits();
                 switch ($droits) {
                     case Rights::$BASIC:
                         $droit = "Étudiant";
@@ -71,15 +71,26 @@ require_once 'Lib/telephone.php';
                     </td>
                     <td class="ecole"> <?php echo $ecole; ?> </td>
                     <td class="annee"> <?php echo $annee; ?> </td>
-                    <td class="droits lien" id="droits<?php echo $numero ?>" onclick="modifier_droits(<?php echo $numero; ?>);"> <?php echo $droit; ?> </td>
+                    <td class="droits lien">
+                        <span class="lien" id="droits<?php echo $numero ?>" onclick="afficheSelectionsDroits(<?php echo $numero; ?>);"> <?php echo $droit; ?> </span>
+                        <form id="form_droits<?php echo $numero; ?>" method="GET" action="membres.php/modifierDroits" class="hidden" onsubmit="return changerDroits(this, <?php echo $numero; ?>);">
+                            <input type="hidden" name="login" value="<?php echo $login; ?>">
+                            <select name="droits">
+                                <option value="<?php echo Rights::$BASIC; ?>" <?php if ($droits === Rights::$BASIC) echo "selected"; ?>>Étudiant</option>
+                                <option value="<?php echo Rights::$MEMBER; ?>" <?php if ($droits === Rights::$MEMBER) echo "selected"; ?>>Membre</option>
+                                <option value="<?php echo Rights::$ADMIN; ?>" <?php if ($droits === Rights::$ADMIN) echo "selected"; ?>>Admin</option>
+                            </select>
+                            <input type="submit">
+                        </form>
+                    </td>
                     <td class="modif-suppr" id="modifsuppr<?php echo $numero ?>">
-                        <div class="inline hidden" id="modif<?php echo $numero ?>">
+                        <div class="inline invisible" id="modif<?php echo $numero ?>">
                             <form class="inline" name="modifier_membre" method="GET" action="membres.php/modifier">
                                 <input type="hidden" name="login" value="<?php echo $login; ?>"/>
                                 <input type="submit" value="Modifier"/>
                             </form>
                         </div>
-                        <div class="inline hidden" id="suppr<?php echo $numero ?>">
+                        <div class="inline invisible" id="suppr<?php echo $numero ?>">
                             <form class="inline" name="supprimer_membre" method="GET" action="membres.php/supprimer" style="">
                                 <input type="hidden" name="login" value="<?php echo $login; ?>"/>
                                 <input type="button" value="Supprimer" id="confirme_suppr<?php echo $numero; ?>" onclick="confirme_suppression(<?php echo $numero; ?>);"/>

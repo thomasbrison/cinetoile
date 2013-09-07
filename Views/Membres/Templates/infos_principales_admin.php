@@ -14,9 +14,9 @@
         <p>
             <label>Droits : </label>
             <select name="droits">
-                <option value="1" <?php if (isset($droits) && $droits === Rights::$BASIC) echo "selected"; ?>>Étudiant</option>
-                <option value="2" <?php if (isset($droits) && $droits === Rights::$MEMBER) echo "selected"; ?>>Membre</option>
-                <option value="3" <?php if (isset($droits) && $droits === Rights::$ADMIN) echo "selected"; ?>>Administrateur</option>
+                <option value="<?php echo Rights::$BASIC; ?>" <?php if (isset($droits) && $droits === Rights::$BASIC) echo "selected"; ?>>Étudiant</option>
+                <option value="<?php echo Rights::$MEMBER; ?>" <?php if (isset($droits) && $droits === Rights::$MEMBER) echo "selected"; ?>>Membre</option>
+                <option value="<?php echo Rights::$ADMIN; ?>" <?php if (isset($droits) && $droits === Rights::$ADMIN) echo "selected"; ?>>Administrateur</option>
             </select>
         </p>
     <?php else : ?>

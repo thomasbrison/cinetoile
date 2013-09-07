@@ -79,7 +79,6 @@ class MembresController extends Controller {
                 $droits = htmlentities($_GET['droits']);
                 $this->tableMembre->modifyRights($login, $droits);
             }
-            header('Location: ' . root . '/membres.php');
         }
     }
 
