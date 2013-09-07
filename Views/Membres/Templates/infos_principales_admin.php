@@ -13,11 +13,7 @@
     <?php if (isset($droits)) : ?>
         <p>
             <label>Droits : </label>
-            <select name="droits">
-                <option value="<?php echo Rights::$BASIC; ?>" <?php if (isset($droits) && $droits === Rights::$BASIC) echo "selected"; ?>>Étudiant</option>
-                <option value="<?php echo Rights::$MEMBER; ?>" <?php if (isset($droits) && $droits === Rights::$MEMBER) echo "selected"; ?>>Membre</option>
-                <option value="<?php echo Rights::$ADMIN; ?>" <?php if (isset($droits) && $droits === Rights::$ADMIN) echo "selected"; ?>>Administrateur</option>
-            </select>
+            <?php include 'selection_droits.php'; ?>
         </p>
     <?php else : ?>
         <input type="hidden" name="droits" value="<?php echo Rights::$BASIC; ?>"/>

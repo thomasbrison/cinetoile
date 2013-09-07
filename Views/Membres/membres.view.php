@@ -72,14 +72,10 @@ require_once 'Lib/telephone.php';
                     <td class="ecole"> <?php echo $ecole; ?> </td>
                     <td class="annee"> <?php echo $annee; ?> </td>
                     <td class="droits lien">
-                        <span class="lien" id="droits<?php echo $numero ?>" onclick="displaySelectionsDroits(<?php echo $numero; ?>);"> <?php echo $droit; ?> </span>
+                        <span id="droits<?php echo $numero ?>" onclick="displaySelectionsDroits(<?php echo $numero; ?>);"> <?php echo $droit; ?> </span>
                         <form id="form_droits<?php echo $numero; ?>" method="GET" action="membres.php/modifierDroits" class="hidden" onsubmit="return changerDroits(this, <?php echo $numero; ?>);">
                             <input type="hidden" name="login" value="<?php echo $login; ?>">
-                            <select name="droits">
-                                <option value="<?php echo Rights::$BASIC; ?>" <?php if ($droits === Rights::$BASIC) echo "selected"; ?>>Étudiant</option>
-                                <option value="<?php echo Rights::$MEMBER; ?>" <?php if ($droits === Rights::$MEMBER) echo "selected"; ?>>Membre</option>
-                                <option value="<?php echo Rights::$ADMIN; ?>" <?php if ($droits === Rights::$ADMIN) echo "selected"; ?>>Admin</option>
-                            </select>
+                            <?php include 'Templates/selection_droits.php'; ?>
                             <input type="submit">
                         </form>
                     </td>
