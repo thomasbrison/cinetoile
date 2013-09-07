@@ -10,6 +10,12 @@ function taille($droits, $width_admin, $width_membre) {
         echo $width_membre;
     }
 }
+
+if (isset($message)) :
+?>
+<p class="message"><?php echo $message; ?></p>
+<?php
+endif;
 ?>
 
 <section id="tableFilms">

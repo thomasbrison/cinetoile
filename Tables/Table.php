@@ -40,9 +40,9 @@ abstract class Table {
 
     public function remove($key) {
         $query = "DELETE FROM $this->name WHERE $this->primaryKey = '$key';";
-        $this->dbh->query($query);
+        $nbDelLines = $this->dbh->exec($query);
+        return $nbDelLines;
     }
 
 }
-
 ?>

@@ -585,6 +585,7 @@ dd {
 
 .message {
     color: red;
+    font-weight: bold;
 }
 
 .text-left {

@@ -19,6 +19,10 @@ class FilmsController extends Controller {
 
     public function consulter() {
         $droits = $_SESSION['droits'];
+        if (isset($_SESSION['message'])) {
+            $message = $_SESSION['message'];
+            unset($_SESSION['message']);
+        }
         if ($this->checkRights($droits, Rights::$MEMBER, Rights::$ADMIN)) {
             if ($droits == Rights::$ADMIN) {
                 $films = $this->tableFilm->consult();
@@ -26,7 +30,7 @@ class FilmsController extends Controller {
                 $films = $this->tableFilm->consultAsAMember();
             }
             $titre_page = "Films";
-            $this->render('Films/films', array('effets', 'lightbox'), compact('films', 'droits', 'titre_page'));
+            $this->render('Films/films', array('effets', 'lightbox'), compact('films', 'droits', 'titre_page', 'message'));
         }
     }
 
@@ -83,7 +87,12 @@ class FilmsController extends Controller {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_GET['id'])) {
                 $id = (int) htmlentities(utf8_decode($_GET['id']));
-                $this->tableFilm->remove($id);
+                $nbDelLines = $this->tableFilm->remove($id);
+                if ($nbDelLines) {
+                    $_SESSION['message'] = "Le film a été supprimé avec succès !";
+                } else {
+                    $_SESSION['message'] = "Le film n'a pas pu être supprimé, certainement parce qu'une séance référence encore ce film.";
+                }
             }
             header('Location: ' . root . '/films.php');
         }
