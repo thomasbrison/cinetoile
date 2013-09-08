@@ -81,30 +81,26 @@ class DiffusionsController extends Controller {
     }
 
     private function getInfos($date) {
+        require_once 'Lib/dates.php';
         $id_film = $_POST['id_film'];
         $cycle = $_POST['cycle'];
         $commentaire = addslashes($_POST['commentaire']);
         $nb_presents = (int) $_POST['nb_presents'];
-        $etat_affiche = $_POST['etat_affiche'];
-        if (!isset($etat_affiche)) {
-            $etat_affiche = '1';
+        $datetime = new DateTime($date);
+        $year = $datetime->format('Y');
+        $month = $datetime->format('m');
+        $day = $datetime->format('d');
+        $school_years = date_get_school_year($year, $month);
+        $str_school_years = $school_years['first_year'] . '-' . $school_years['second_year'];
+        $final_dir = "Images/Affiches/Seances/$str_school_years/$month/$day/";
+        // On supprime l'affiche du répertoire lorsqu'elle existe et qu'on veut la modifier/supprimer
+        if (!$_POST['etat_affiche'] !== '0') {
+            foreach(glob($final_dir . '*') as $file) {
+                unlink($file);
+            }
+            rmdir($final_dir);
         }
-        switch ($etat_affiche) :
-            case '0' : // Affiche non modifiée
-                $affiche = $_SESSION['affiche'];
-                break;
-            case '1' : // Affiche modifiée
-                require_once 'Lib/dates.php';
-                $school_years = date_get_school_year_from_datetime($date);
-                $str_school_years = $school_years['first_year'] . '-' . $school_years['second_year'];
-                $affiche = $this->uploadFile("Images/Affiches/Seances/" . $str_school_years . '/');
-                break;
-            case '2' : // Affiche supprimée
-                $affiche = null;
-                break;
-            default :
-                die("Etat de l'affiche non autorisé.");
-        endswitch;
+        $affiche = $this->uploadPoster($_POST['etat_affiche'], $final_dir);
         $diffusion = new Diffusion($date, $id_film, $cycle, $commentaire, $affiche, $nb_presents);
         return $diffusion;
     }

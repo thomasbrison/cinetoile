@@ -78,21 +78,39 @@ abstract class Controller {
         }
     }
 
-    protected function uploadFile($final_dir) {
+    protected function uploadFile($form_file_name, $sizemax, $valid_extensions, $final_dir) {
         require_once 'Lib/files.php';
-        $sizemax = 100000;
-        $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
-        $upload = file_upload('affiche', $sizemax, $valid_extensions, $final_dir);
+        $upload = file_upload($form_file_name, $sizemax, $valid_extensions, $final_dir);
         $success = $upload['success'];
         $error = $upload['error'];
         $message = $upload['message'];
         if ($success) {
-            $affiche = $final_dir . $upload['file_name'];
+            $path = $final_dir . $upload['file_name'];
         } else {
-            $affiche = NULL;
+            $path = NULL;
         }
         $_SESSION['message'] = $message;
-        return $affiche;
+        return $path;
+    }
+
+    protected function uploadPoster($poster_state, $final_dir) {
+        if (!isset($poster_state)) {
+            $poster_state = '1';
+        }
+        switch ($poster_state) :
+            case '0' : // Affiche non modifiée
+                $poster_path = $_SESSION['affiche'];
+                break;
+            case '1' : // Affiche modifiée
+                $poster_path = $this->uploadFile('affiche', 100000, array('jpg', 'jpeg', 'gif', 'png'), $final_dir);
+                break;
+            case '2' : // Affiche supprimée
+                $poster_path = NULL;
+                break;
+            default :
+                die("Etat de l'affiche non autorisé.");
+        endswitch;
+        return $poster_path;
     }
 
     private function appendMessage($message) {

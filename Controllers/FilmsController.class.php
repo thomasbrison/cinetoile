@@ -134,23 +134,7 @@ class FilmsController extends Controller {
         $duree = htmlentities(utf8_decode($_POST['heures_duree'] . ':' . $_POST['minutes_duree']));
         $synopsis = addslashes($_POST['synopsis']);
         $bande_annonce = htmlentities($_POST['bande_annonce']);
-        $etat_affiche = $_POST['etat_affiche'];
-        if (!isset($etat_affiche)) {
-            $etat_affiche = '1';
-        }
-        switch ($etat_affiche) :
-            case '0' : // Affiche non modifiée
-                $affiche = $_SESSION['affiche'];
-                break;
-            case '1' : // Affiche modifiée
-                $affiche = $this->uploadFile("Images/Affiches/Films/");
-                break;
-            case '2' : // Affiche supprimée
-                $affiche = null;
-                break;
-            default :
-                die("Etat de l'affiche non autorisé.");
-        endswitch;
+        $affiche = $this->uploadPoster($_POST['etat_affiche'], "Images/Affiches/Films/");
         $film = new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
         return $film;
     }

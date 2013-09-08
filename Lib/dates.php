@@ -83,11 +83,4 @@ function date_get_current_school_year() {
     return date_get_school_year($year, $month);
 }
 
-function date_get_school_year_from_datetime($datetime) {
-    $date = new DateTime($datetime);
-    $year = $date->format('Y');
-    $month = $date->format('m');
-    return date_get_school_year($year, $month);
-}
-
 ?>
