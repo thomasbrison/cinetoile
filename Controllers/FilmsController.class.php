@@ -68,19 +68,26 @@ class FilmsController extends Controller {
                 $genre = $row['genre'];
                 $support = $row['support'];
                 $duree = $row['duree'];
-                if ($duree) {
-                    $heures_duree = substr($duree, 0, 2);
-                    $minutes_duree = substr($duree, 3, 2);
-                }
+                $array_duration = $this->formatDuration($duree);
                 $synopsis = $row['synopsis'];
                 $affiche = $row['affiche'];
                 $_SESSION['affiche'] = $affiche;
                 $bande_annonce = $row['bande_annonce'];
-                $this->render('Films/modification_film', array('effets', 'lightbox'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'heures_duree', 'minutes_duree', 'synopsis', 'affiche', 'bande_annonce'));
+                $this->render('Films/modification_film', array('effets', 'lightbox'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'array_duration', 'synopsis', 'affiche', 'bande_annonce'));
             } else {
                 header('Location: ' . root . '/films.php');
             }
         }
+    }
+
+    private function formatDuration($duration) {
+        $hours = 0;
+        $minutes = 0;
+        if ($duration) {
+            $hours = (int) substr($duration, 0, 2);
+            $minutes = (int) substr($duration, 3, 2);
+        }
+        return array('hours' => $hours, 'minutes' => $minutes);
     }
 
     public function supprimer() {
@@ -88,13 +95,17 @@ class FilmsController extends Controller {
             if (isset($_GET['id'])) {
                 $id = (int) htmlentities(utf8_decode($_GET['id']));
                 $nbDelLines = $this->tableFilm->remove($id);
-                if ($nbDelLines) {
-                    $_SESSION['message'] = "Le film a été supprimé avec succès !";
-                } else {
-                    $_SESSION['message'] = "Le film n'a pas pu être supprimé, certainement parce qu'une séance référence encore ce film.";
-                }
+                $this->checkRemoved($nbDelLines);
             }
             header('Location: ' . root . '/films.php');
+        }
+    }
+
+    private function checkRemoved($nbDelLines) {
+        if ($nbDelLines) {
+            $_SESSION['message'] = "Le film a été supprimé avec succès !";
+        } else {
+            $_SESSION['message'] = "Le film n'a pas pu être supprimé, certainement parce qu'une séance référence encore ce film.";
         }
     }
 
@@ -136,22 +147,7 @@ class FilmsController extends Controller {
                 $affiche = $_SESSION['affiche'];
                 break;
             case "1" : // Affiche modifiée
-                require_once 'Lib/files.php';
-                $sizemax = 100000;
-                $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
-                $final_dir = "Images/Affiches/";
-                $upload = file_upload('affiche', $sizemax, $valid_extensions, $final_dir);
-                $success = $upload['success'];
-                $error = $upload['error'];
-                $message = $upload['message'];
-                if ($success) {
-                    $affiche = $final_dir . $upload['file_name'];
-                } elseif ($error == UPLOAD_ERR_NO_FILE) {
-                    $affiche = null;
-                } else {
-                    $affiche = null;
-                    die($message);
-                }
+                $affiche = $this->uploadFile();
                 break;
             case "2" : // Affiche supprimée
                 $affiche = null;
@@ -161,6 +157,24 @@ class FilmsController extends Controller {
         endswitch;
         $film = new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
         return $film;
+    }
+
+    private function uploadFile() {
+        require_once 'Lib/files.php';
+        $sizemax = 100000;
+        $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
+        $final_dir = "Images/Affiches/Films/";
+        $upload = file_upload('affiche', $sizemax, $valid_extensions, $final_dir);
+        $success = $upload['success'];
+        $error = $upload['error'];
+        $message = $upload['message'];
+        if ($success) {
+            $affiche = $final_dir . $upload['file_name'];
+        } else {
+            $affiche = NULL;
+        }
+        $_SESSION['message'] = $message;
+        return $affiche;
     }
 
 }

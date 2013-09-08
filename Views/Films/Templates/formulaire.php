@@ -54,18 +54,18 @@
             <label>Dur&eacute;e : </label>
             <span>
                 <select name="heures_duree">
-                    <option value=NULL  <?php if (!isset($heures_duree)) echo "selected"; ?>>Heures</option>
+                    <option value=NULL  <?php if (!isset($array_duration)) echo "selected"; ?>>Heures</option>
                     <?php for ($i = 0; $i <= 3; $i++) : ?>
-                    <option value="<?php echo $i; ?>" <?php if (isset($heures_duree) && $i === $heures_duree) echo "selected"; ?>>
+                    <option value="<?php echo $i; ?>" <?php if (isset($array_duration) && $i === $array_duration['hours']) echo "selected"; ?>>
                         <?php echo $i; ?>
                     </option>
                         <?php endfor; ?>
                 </select>
                 :
                 <select name="minutes_duree">
-                    <option value=NULL  <?php if (!isset($minutes_duree)) echo "selected"; ?>>Minutes</option>
+                    <option value=NULL  <?php if (!isset($array_duration)) echo "selected"; ?>>Minutes</option>
                     <?php for ($i = 0; $i <= 59; $i++) : ?>
-                    <option value="<?php echo $i; ?>" <?php if (isset($minutes_duree) && $i === $minutes_duree) echo "selected"; ?>>
+                    <option value="<?php echo $i; ?>" <?php if (isset($array_duration) && $i === $array_duration['minutes']) echo "selected"; ?>>
                         <?php echo $i; ?>
                     </option>
                     <?php endfor; ?>

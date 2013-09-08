@@ -7,9 +7,7 @@ abstract class Controller {
     public function __construct() {
         session_start();
         $this->setRootWebApp();
-	if (!isset($_SESSION['droits'])) {
-	    $_SESSION['droits'] = Rights::$USER;
-	}
+        $this->setDefaultSessionRights();
         //Exécution de l'action demandée du contrôleur
         $this->executeAction();
     }
@@ -27,15 +25,16 @@ abstract class Controller {
     }
 
     protected function render($file_name, $js_array = array(), $var_array = null) {
-        if ($var_array)
+        if ($var_array) {
             extract($var_array);
+        }
         include($this->root() . '/Layouts/header.php');
         echo "<section id=\"main\">";
         require($this->root() . '/Views/' . $file_name . '.view.php');
         echo "</section>";
         include($this->root() . '/Layouts/footer.php');
     }
-    
+
     protected function renderAjax($file_name, $var_array = null) {
         if ($var_array)
             extract($var_array);
@@ -66,6 +65,12 @@ abstract class Controller {
         } else {
             $this->render('autorisations');
             return false;
+        }
+    }
+
+    private function setDefaultSessionRights() {
+        if (!isset($_SESSION['droits'])) {
+            $_SESSION['droits'] = Rights::$USER;
         }
     }
 
