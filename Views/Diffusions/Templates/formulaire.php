@@ -5,7 +5,7 @@ if (isset($diffusion)) {
     $datetime = $diffusion->getDate();
     $date_and_hour_array = date_format_to_string($datetime);
     $date = $date_and_hour_array['date'];
-    $heure = $date_and_hour_array['heure'];
+    $heure = $date_and_hour_array['time'];
     $id_film = $diffusion->getIdFilm();
     $cycle = $diffusion->getCycle();
     $affiche = $diffusion->getAffiche();
@@ -99,18 +99,16 @@ if (isset($diffusion)) {
             <label>Affiche : </label>
             <input type="hidden" name="MAX_FILE_SIZE" value="100000"/>
             <?php if (isset($affiche) && $affiche) : ?>
-                <br/>
-                <img class="affiche" name="affiche" src="<?php echo $affiche; ?>" alt=""/>
-                <br/>
-                <span id="buttons">
-                    <input type="hidden" name="etat_affiche" value="0"/>
-                    <button onclick="modifier_affiche();
-                            return false;">Modifier l'affiche</button>
-                    <button onclick="supprimer_affiche();
-                            return false;">Supprimer l'affiche</button>
-                </span>
+            <br/>
+            <img class="affiche" name="affiche" src="<?php echo $affiche; ?>" alt=""/>
+            <br/>
+            <span id="buttons">
+                <input type="hidden" name="etat_affiche" value="0"/>
+                <button onclick="modifier_affiche(); return false;">Modifier l'affiche</button>
+                <button onclick="supprimer_affiche(); return false;">Supprimer l'affiche</button>
+            </span>
             <?php else : ?>
-                <input type="file" name="affiche"/>
+            <input type="file" name="affiche"/>
             <?php endif; ?>
         </p>
         <p>

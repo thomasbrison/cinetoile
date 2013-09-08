@@ -32,9 +32,8 @@ class TableDiffusion extends Table {
     }
 
     public function add($date, $id_film, $cycle, $commentaire, $affiche, $nb_presents) {
-        $val_nb_presents = (!$nb_presents > 0) ? "null" : "'$nb_presents'";
         $query = "Insert into Diffusion(date_diffusion, id_film, cycle, commentaire, affiche, nb_presents)
-            Values ('$date', '$id_film', '$cycle', '$commentaire', '$affiche', " . $val_nb_presents . ");";
+            Values ('$date', '$id_film', '$cycle', '$commentaire', '$affiche', '$nb_presents');";
         $this->dbh->query($query);
     }
 

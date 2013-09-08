@@ -1,6 +1,6 @@
 <?php
 require_once 'Lib/dates.php';
-$current_school_year = date_get_school_year();
+$current_school_year = date_get_current_school_year();
 ?>
 
 

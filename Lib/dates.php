@@ -44,29 +44,50 @@ function date_format_month_to_string($month_number) {
 
 function date_format_to_string($datetime) {
     $date_diff = date("d m Y H i", strtotime($datetime));
-    $numero_mois = date("n", strtotime($datetime));
-    $mois = date_format_month_to_string($numero_mois);
+    $mon_nb = date("n", strtotime($datetime));
+    $mon = date_format_month_to_string($mon_nb);
     $date_format = substr_replace($date_diff, 'H', 13, 1);
     $date_sans_mois = substr($date_format, 0, 10);
-    $heure = substr($date_format, 11, 5);
-    $date = substr_replace($date_sans_mois, $mois, 3, 2);
-    return array('date' => $date, 'heure' => $heure);
+    $time = substr($date_format, 11, 5);
+    $date = substr_replace($date_sans_mois, $mon, 3, 2);
+    return array('date' => $date, 'time' => $time);
+}
+
+/**
+ * Returns an array containing the school year of a date
+ * The key "first_year" contains the first year of the period, finishing in July
+ * The key "second_year" contains the second year of the period, beginning in August
+ *
+ * @param int $year
+ * @param int $month
+ * @return array
+ */
+function date_get_school_year($year, $month) {
+    $years = array();
+    $years['first_year'] = ($month < 8) ? ($year - 1) : $year;
+    $years['second_year'] = $years['first_year'] + 1;
+    return $years;
 }
 
 /**
  * Returns an array containing the current school year
  * The key "first_year" contains the first year of the period, finishing in July
  * The key "second_year" contains the second year of the period, beginning in August
+ *
  * @return array
  */
-function date_get_school_year() {
-    $current_date = getdate();
-    $current_year = $current_date['year'];
-    $current_month = $current_date['mon'];
-    $years = array();
-    $years['first_year'] = ($current_month < 8) ? ($current_year - 1) : $current_year;
-    $years['second_year'] = $years['first_year'] + 1;
-    return $years;
+function date_get_current_school_year() {
+    $date = getdate();
+    $year = $date['year'];
+    $month = $date['mon'];
+    return date_get_school_year($year, $month);
+}
+
+function date_get_school_year_from_datetime($datetime) {
+    $date = new DateTime($datetime);
+    $year = $date->format('Y');
+    $month = $date->format('m');
+    return date_get_school_year($year, $month);
 }
 
 ?>

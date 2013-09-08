@@ -32,11 +32,11 @@ class DiffusionsController extends Controller {
     public function ajouter() {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['ajouter'])) {
-                $jour = $_POST['jour_diffusion'];
-                $mois = $_POST['mois_diffusion'];
-                $annee = $_POST['annee_diffusion'];
-                $heure = $_POST['heure_diffusion'];
-                $minute = $_POST['minute_diffusion'];
+                $jour = (int) $_POST['jour_diffusion'];
+                $mois = (int) $_POST['mois_diffusion'];
+                $annee = (int) $_POST['annee_diffusion'];
+                $heure = (int) $_POST['heure_diffusion'];
+                $minute = (int) $_POST['minute_diffusion'];
                 $date = "$annee-$mois-$jour $heure:$minute";
                 $diffusion = $this->getInfos($date);
                 $this->tableDiffusion->add($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche(), $diffusion->getNbPresents());
@@ -84,34 +84,22 @@ class DiffusionsController extends Controller {
         $id_film = $_POST['id_film'];
         $cycle = $_POST['cycle'];
         $commentaire = addslashes($_POST['commentaire']);
-        $nb_presents = $_POST['nb_presents'];
+        $nb_presents = (int) $_POST['nb_presents'];
         $etat_affiche = $_POST['etat_affiche'];
         if (!isset($etat_affiche)) {
-            $etat_affiche = "1";
+            $etat_affiche = '1';
         }
         switch ($etat_affiche) :
-            case "0" : // Affiche non modifiée
+            case '0' : // Affiche non modifiée
                 $affiche = $_SESSION['affiche'];
                 break;
-            case "1" : // Affiche modifiée
-                require_once 'Lib/files.php';
-                $sizemax = 100000;
-                $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
-                $final_dir = "Images/Affiches/";
-                $upload = file_upload('affiche', $sizemax, $valid_extensions, $final_dir);
-                $success = $upload['success'];
-                $error = $upload['error'];
-                $message = $upload['message'];
-                if ($success) {
-                    $affiche = $final_dir . $upload['file_name'];
-                } elseif ($error == UPLOAD_ERR_NO_FILE) {
-                    $affiche = null;
-                } else {
-                    $affiche = null;
-                    die($message);
-                }
+            case '1' : // Affiche modifiée
+                require_once 'Lib/dates.php';
+                $school_years = date_get_school_year_from_datetime($date);
+                $str_school_years = $school_years['first_year'] . '-' . $school_years['second_year'];
+                $affiche = $this->uploadFile("Images/Affiches/Seances/" . $str_school_years . '/');
                 break;
-            case "2" : // Affiche supprimée
+            case '2' : // Affiche supprimée
                 $affiche = null;
                 break;
             default :

@@ -5,7 +5,7 @@ require_once 'Lib/durees.php';
 $datetime = $diffusion->getDate();
 $date_and_hour_array = date_format_to_string($datetime);
 $date = $date_and_hour_array['date'];
-$heure = $date_and_hour_array['heure'];
+$heure = $date_and_hour_array['time'];
 $id_film = $diffusion->getIdFilm();
 $cycle = $diffusion->getCycle();
 

@@ -19,10 +19,6 @@ class FilmsController extends Controller {
 
     public function consulter() {
         $droits = $_SESSION['droits'];
-        if (isset($_SESSION['message'])) {
-            $message = $_SESSION['message'];
-            unset($_SESSION['message']);
-        }
         if ($this->checkRights($droits, Rights::$MEMBER, Rights::$ADMIN)) {
             if ($droits == Rights::$ADMIN) {
                 $films = $this->tableFilm->consult();
@@ -30,7 +26,7 @@ class FilmsController extends Controller {
                 $films = $this->tableFilm->consultAsAMember();
             }
             $titre_page = "Films";
-            $this->render('Films/films', array('effets', 'lightbox'), compact('films', 'droits', 'titre_page', 'message'));
+            $this->render('Films/films', array('effets', 'lightbox'), compact('films', 'droits', 'titre_page'));
         }
     }
 
@@ -140,16 +136,16 @@ class FilmsController extends Controller {
         $bande_annonce = htmlentities($_POST['bande_annonce']);
         $etat_affiche = $_POST['etat_affiche'];
         if (!isset($etat_affiche)) {
-            $etat_affiche = "1";
+            $etat_affiche = '1';
         }
         switch ($etat_affiche) :
-            case "0" : // Affiche non modifiée
+            case '0' : // Affiche non modifiée
                 $affiche = $_SESSION['affiche'];
                 break;
-            case "1" : // Affiche modifiée
-                $affiche = $this->uploadFile();
+            case '1' : // Affiche modifiée
+                $affiche = $this->uploadFile("Images/Affiches/Films/");
                 break;
-            case "2" : // Affiche supprimée
+            case '2' : // Affiche supprimée
                 $affiche = null;
                 break;
             default :
@@ -157,24 +153,6 @@ class FilmsController extends Controller {
         endswitch;
         $film = new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
         return $film;
-    }
-
-    private function uploadFile() {
-        require_once 'Lib/files.php';
-        $sizemax = 100000;
-        $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
-        $final_dir = "Images/Affiches/Films/";
-        $upload = file_upload('affiche', $sizemax, $valid_extensions, $final_dir);
-        $success = $upload['success'];
-        $error = $upload['error'];
-        $message = $upload['message'];
-        if ($success) {
-            $affiche = $final_dir . $upload['file_name'];
-        } else {
-            $affiche = NULL;
-        }
-        $_SESSION['message'] = $message;
-        return $affiche;
     }
 
 }

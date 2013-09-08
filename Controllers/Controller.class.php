@@ -30,6 +30,10 @@ abstract class Controller {
         }
         include($this->root() . '/Layouts/header.php');
         echo "<section id=\"main\">";
+        if (isset($_SESSION['message'])) {
+            $this->appendMessage($_SESSION['message']);
+            unset($_SESSION['message']);
+        }
         require($this->root() . '/Views/' . $file_name . '.view.php');
         echo "</section>";
         include($this->root() . '/Layouts/footer.php');
@@ -72,6 +76,27 @@ abstract class Controller {
         if (!isset($_SESSION['droits'])) {
             $_SESSION['droits'] = Rights::$USER;
         }
+    }
+
+    protected function uploadFile($final_dir) {
+        require_once 'Lib/files.php';
+        $sizemax = 100000;
+        $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
+        $upload = file_upload('affiche', $sizemax, $valid_extensions, $final_dir);
+        $success = $upload['success'];
+        $error = $upload['error'];
+        $message = $upload['message'];
+        if ($success) {
+            $affiche = $final_dir . $upload['file_name'];
+        } else {
+            $affiche = NULL;
+        }
+        $_SESSION['message'] = $message;
+        return $affiche;
+    }
+
+    private function appendMessage($message) {
+        echo "<p class='message'>$message</p>";
     }
 
 }
