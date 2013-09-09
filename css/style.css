@@ -465,8 +465,12 @@ table .invisible > form {
     display: inline-block;
 }
 
-div.inline {
+.inline {
     display: inline;
+}
+
+.inline-block {
+    display: inline-block;
 }
 
 .social {
@@ -613,6 +617,8 @@ input[type=submit]:hover, input[type=button]:hover, input[type=reset]:hover, but
 
 input[value="Oui"], input[value="Non"] {
     width: 38px;
+    margin-left: 1px;
+    margin-right: 1px;
 }
 
 input[value="Oui"] {

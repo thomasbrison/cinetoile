@@ -2,73 +2,73 @@
  * Actions JavaScript générales
  */
 
-function displaySelections(displayedElementGenericId, formElementGenericId, number) {
-    var displayedElement = document.getElementById(displayedElementGenericId + number);
-    var formElement = document.getElementById(formElementGenericId + number);
-    displayedElement.className = "hidden";
+function displaySelections(displayedEl) {
+    var formElement = displayedEl.parentNode.querySelector('form');
+    displayedEl.className = "js-el hidden";
     formElement.className = "";
 }
 
-function displayElement(displayedElementGenericId, formElementGenericId, number, elementInnerHTML) {
-    var displayedElement = document.getElementById(displayedElementGenericId + number);
-    var formElement = document.getElementById(formElementGenericId + number);
-    displayedElement.innerHTML = elementInnerHTML;
-    displayedElement.className = "";
+function displayElement(displayedEl, elInnerHTML) {
+    var formElement = displayedEl.parentNode.querySelector('form');
+    displayedEl.innerHTML = elInnerHTML;
+    displayedEl.className = "js-el";
     formElement.className = "hidden";
 }
 
-function changeTableElement(formElement, primaryKeyName, elementName, displayedElementGenericId, formElementGenericId, number) {
-    var formAction = formElement.getAttribute('action');
-    var primaryKeyValue = formElement.elements[primaryKeyName].value;
-    var element = formElement.elements[elementName];
-    var elementValue = parseInt(element.value);
-    var elementText = element.options[element.selectedIndex].innerHTML;
+function updateTable(formEl, primaryKeyName, keyName) {
+    var displayedEl = formEl.parentNode.querySelector('.js-el');
+    var formAction = formEl.getAttribute('action');
+    var primaryKeyValue = formEl.elements[primaryKeyName].value;
+    var chosenEl = formEl.elements[keyName];
+    var chosenValue = parseInt(chosenEl.value);
+    var chosenText = chosenEl.options[chosenEl.selectedIndex].innerHTML;
 
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4 && (xmlhttp.status === 200 || xmlhttp.status === 0)) {
-            displayElement(displayedElementGenericId, formElementGenericId, number, elementText);
+            displayElement(displayedEl, chosenText);
         }
     };
 
-    xmlhttp.open("GET", formAction + "?" + primaryKeyName + "=" + primaryKeyValue + "&" + elementName + "=" + elementValue, true);
+    xmlhttp.open("GET", formAction + "?" + primaryKeyName + "=" + primaryKeyValue + "&" + keyName + "=" + chosenValue, true);
     xmlhttp.send(null);
 
     return false;
 }
 
-function displaySelectionsDroits(number) {
-    displaySelections("droits", "form_droits", number);
+function changerDroits(formEl) {
+    return updateTable(formEl, 'login', 'droits');
 }
 
-function displayElementDroits(number, rights) {
-    displayElement("droits", "form_droits", number, rights);
+function confirm(el) {
+    var parentEl = el.parentNode;
+    var yesEl = document.createElement('input');
+    var noEl = document.createElement('input');
+
+    yesEl.setAttribute("type", "submit");
+    noEl.setAttribute("type", "button");
+    yesEl.value = "Oui";
+    noEl.value = "Non";
+
+    noEl.onclick = function() {
+        cancel(el);
+    };
+
+    el.className = "hidden";
+    parentEl.appendChild(yesEl);
+    parentEl.appendChild(noEl);
 }
 
-function changerDroits(formElement, number) {
-    return changeTableElement(formElement, 'login', 'droits', 'droits', 'form_droits', number);
-}
+function cancel(el) {
+    var parentEl = el.parentNode;
+    var yesEl = parentEl.querySelector('input[value="Oui"]');
+    var noEl = parentEl.querySelector('input[value="Non"]');
 
-function confirme_suppression(numero) {
-    var noeud_confirme = document.getElementById("confirme_suppr" + numero);
-    var noeud_oui = document.getElementById("supprimer" + numero);
-    var noeud_non = document.getElementById("annuler_suppr" + numero);
+    parentEl.removeChild(yesEl);
+    parentEl.removeChild(noEl);
 
-    noeud_confirme.setAttribute("type", "hidden");
-    noeud_oui.setAttribute("type", "submit");
-    noeud_non.setAttribute("type", "button");
-    noeud_non.onclick = function() {annule_suppression(numero);};
-}
-
-function annule_suppression(numero) {
-    var noeud_confirme = document.getElementById("confirme_suppr" + numero);
-    var noeud_oui = document.getElementById("supprimer" + numero);
-    var noeud_non = document.getElementById("annuler_suppr" + numero);
-
-    noeud_confirme.setAttribute("type", "button");
-    noeud_oui.setAttribute("type", "hidden");
-    noeud_non.setAttribute("type", "hidden");
+    el.className = "";
 }
 
 

@@ -11,19 +11,17 @@
     <?php endif; ?>
     <p><?php echo $commentaire; ?></p>
     <p><?php echo $nb_presents; ?> personne(s) présente(s)</p>
-    <div class="inline buttons">
-        <div class="inline invisible">
+    <div class="buttons">
+        <div class="inline-block invisible">
             <form name="modifier_diffusion" method="GET" action="diffusions.php/modifier">
                 <input type="hidden" name="date" value="<?php echo $datetime; ?>"/>
                 <input type="submit" value="Modifier"/>
             </form>
         </div>
-        <div class="inline invisible">
+        <div class="inline-block invisible">
             <form name="supprimer_diffusion" method="GET" action="diffusions.php/supprimer">
                 <input type="hidden" name="date" value="<?php echo $datetime; ?>"/>
-                <input type="button" value="Supprimer" id="confirme_suppr<?php echo $numero; ?>" onclick="confirme_suppression(<?php echo $numero; ?>);"/>
-                <input type="hidden" value="Oui" id="supprimer<?php echo $numero; ?>"/>
-                <input type="hidden" value="Non" id="annuler_suppr<?php echo $numero; ?>"/>
+                <input type="button" value="Supprimer" onclick="confirm(this);"/>
             </form>
         </div>
     </div>

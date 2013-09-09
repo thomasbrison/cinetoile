@@ -54,7 +54,7 @@ require_once 'Lib/telephone.php';
                 ?>
                 <tr>
                     <td class="numero"> <?php echo $numero; ?> </td>
-                    <td class="login" id="login<?php echo $numero ?>"> <?php echo $login; ?> </td>
+                    <td class="login"> <?php echo $login; ?> </td>
                     <td class="prenom"> <?php echo $prenom; ?> </td>
                     <td class="nom"> <?php echo $nom; ?> </td>
                     <td class="coordonnees">
@@ -72,26 +72,24 @@ require_once 'Lib/telephone.php';
                     <td class="ecole"> <?php echo $ecole; ?> </td>
                     <td class="annee"> <?php echo $annee; ?> </td>
                     <td class="droits lien">
-                        <span id="droits<?php echo $numero ?>" onclick="displaySelectionsDroits(<?php echo $numero; ?>);"> <?php echo $droit; ?> </span>
-                        <form id="form_droits<?php echo $numero; ?>" method="GET" action="membres.php/modifierDroits" class="hidden" onsubmit="return changerDroits(this, <?php echo $numero; ?>);">
+                        <span class="js-el" onclick="displaySelections(this);"> <?php echo $droit; ?> </span>
+                        <form method="GET" action="membres.php/modifierDroits" class="hidden" onsubmit="return changerDroits(this);">
                             <input type="hidden" name="login" value="<?php echo $login; ?>">
                             <?php include 'Templates/selection_droits.php'; ?>
                             <input type="submit">
                         </form>
                     </td>
-                    <td class="modif-suppr" id="modifsuppr<?php echo $numero ?>">
-                        <div class="inline invisible" id="modif<?php echo $numero ?>">
+                    <td class="modif-suppr">
+                        <div class="inline invisible">
                             <form class="inline" name="modifier_membre" method="GET" action="membres.php/modifier">
                                 <input type="hidden" name="login" value="<?php echo $login; ?>"/>
                                 <input type="submit" value="Modifier"/>
                             </form>
                         </div>
-                        <div class="inline invisible" id="suppr<?php echo $numero ?>">
-                            <form class="inline" name="supprimer_membre" method="GET" action="membres.php/supprimer" style="">
+                        <div class="inline invisible">
+                            <form class="inline" name="supprimer_membre" method="GET" action="membres.php/supprimer">
                                 <input type="hidden" name="login" value="<?php echo $login; ?>"/>
-                                <input type="button" value="Supprimer" id="confirme_suppr<?php echo $numero; ?>" onclick="confirme_suppression(<?php echo $numero; ?>);"/>
-                                <input type="hidden" value="Oui" id="supprimer<?php echo $numero; ?>"/>
-                                <input type="hidden" value="Non" id="annuler_suppr<?php echo $numero; ?>"/>
+                                <input type="button" value="Supprimer" onclick="confirm(this);"/>
                             </form>
                         </div>
                     </td>
