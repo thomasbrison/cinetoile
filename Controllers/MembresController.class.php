@@ -42,7 +42,7 @@ class MembresController extends Controller {
     public function ajouter() {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['ajouter'])) {
-                $password = htmlentities(($_POST['password']));
+                $password = htmlentities(($_POST['login']));
                 $membre = $this->getInfos();
                 $this->tableMembre->add($membre->getLogin(), $password, $membre->getDroits(), $membre->getPrenom(), $membre->getNom(), $membre->getEmail(), $membre->getTelephone(), $membre->getEcole(), $membre->getAnnee());
                 header('Location: ' . root . '/membres.php');
