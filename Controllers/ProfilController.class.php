@@ -25,7 +25,7 @@ class ProfilController extends Controller {
             }
             $is_password_changed = $_SESSION['is_password_changed'];
             $titre_page = "Profil de " . $_SESSION['login'];
-            $this->render('Profil/profil', array(), compact('membre', 'titre_page', 'is_password_changed'));
+            $this->render('Profil/profil', array('effets'), compact('membre', 'titre_page', 'is_password_changed'));
         }
     }
 
@@ -65,6 +65,8 @@ class ProfilController extends Controller {
             if (isset($_SESSION['login'])) {
                 $login = $_SESSION['login'];
                 $this->tableMembre->remove($login);
+                unset($_SESSION['login']);
+                unset($_SESSION['droits']);
             }
             header('Location: ' . root . '/index.php');
         }

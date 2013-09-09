@@ -21,13 +21,13 @@ function updateTable(formEl, primaryKeyName, keyName) {
     var primaryKeyValue = formEl.elements[primaryKeyName].value;
     var chosenEl = formEl.elements[keyName];
     var chosenValue = parseInt(chosenEl.value);
-    var chosenText = chosenEl.options[chosenEl.selectedIndex].innerHTML;
+    var chosenHTML = chosenEl.options[chosenEl.selectedIndex].innerHTML;
 
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4 && (xmlhttp.status === 200 || xmlhttp.status === 0)) {
-            displayElement(displayedEl, chosenText);
+            displayElement(displayedEl, chosenHTML);
         }
     };
 
@@ -69,6 +69,41 @@ function cancel(el) {
     parentEl.removeChild(noEl);
 
     el.className = "";
+}
+
+function confirmLink(yesEl) {
+    var parentEl = yesEl.parentNode;
+    var noEl = document.createElement('a');
+    var yesText = yesEl.innerText;
+
+    noEl.className = "button no";
+    noEl.innerHTML = "Non";
+    yesEl.innerHTML = "Oui";
+    yesEl.className += " yes";
+
+    noEl.onclick = function() {
+        cancelLink(yesEl, yesText);
+    };
+    yesEl.onclick = null;
+
+    parentEl.appendChild(noEl);
+
+    return false;
+}
+
+function cancelLink(yesEl, innerText) {
+    var parentEl = yesEl.parentNode;
+    var nbChilds = parentEl.childNodes.length;
+    var noEl = parentEl.childNodes[nbChilds - 1];
+
+    yesEl.innerText = innerText;
+    yesEl.className = 'button';
+
+    yesEl.onclick = function() {
+        return confirmLink(this);
+    }
+
+    parentEl.removeChild(noEl);
 }
 
 

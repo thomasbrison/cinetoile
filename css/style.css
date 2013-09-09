@@ -629,6 +629,14 @@ input[value="Non"] {
     background-color: red;
 }
 
+.yes, .yes:hover {
+    background-color: green;
+}
+
+.no, .no:hover {
+    background-color: red;
+}
+
 textarea {
     width: 90%;
     resize: none;

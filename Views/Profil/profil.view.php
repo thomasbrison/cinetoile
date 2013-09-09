@@ -4,7 +4,7 @@ require_once 'Lib/telephone.php';
 ?>
 
 <?php if ($is_password_changed) : ?>
-<p class="message">Mot de passe modifié avec succès !</p>
+    <p class="message">Mot de passe modifié avec succès !</p>
 <?php endif; ?>
 
 <dl>
@@ -32,6 +32,6 @@ require_once 'Lib/telephone.php';
 
 <div class="options">
     <a class="button" href="profil.php/modifier">Modifier le profil</a>
-    <a class="button" href="profil.php/supprimer">Supprimer le profil</a>
+    <a class="button" href="profil.php/supprimer" onclick="return confirmLink(this);">Supprimer le profil</a>
 </div>
 
