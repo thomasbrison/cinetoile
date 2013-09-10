@@ -57,7 +57,7 @@ switch ($_SESSION['droits']) {
                     <?php endif; ?>
                     <?php if ($_SESSION['droits'] === Rights::$MEMBER) : ?>
                     <li>
-                        <a class="button" href="profil.php">Profil</a>
+                        <a class="button" href="profil.php">Mon profil</a>
                     </li>
                     <?php endif; ?>
                     <?php if ($_SESSION['droits'] <= Rights::$MEMBER) : ?>

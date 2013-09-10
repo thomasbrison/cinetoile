@@ -115,6 +115,10 @@ header nav ul {
     margin: 0;
 }
 
+#nav-header {
+    white-space: nowrap;
+}
+
 nav#nav-header li {
     float: left;
     position: relative;
@@ -134,6 +138,8 @@ nav a.button {
     border-width: 0px 0px 1px 0px;
     background-color: #444444;
     font-weight: bold;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 480px) {
