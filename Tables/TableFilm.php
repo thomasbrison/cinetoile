@@ -8,20 +8,17 @@ require_once('Table.php');
 
 class TableFilm extends Table {
 
-    static $name = 'Film';
-    static $primaryKey = 'id';
-
     public function __construct() {
-        parent::__construct(self::$name, self::$primaryKey);
+        parent::__construct('Film', 'id');
     }
 
     public function consult() {
         $query = "Select *
-            From Film
+            From $this->name
             Order By titre;";
         $sth = $this->dbh->query($query);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
-	$films = array();
+        $films = array();
         foreach ($result as $row) {
             $id = $row['id'];
             $titre = $row['titre'];
@@ -43,11 +40,11 @@ class TableFilm extends Table {
 
     public function consultAsAMember() {
         $query = "Select id, titre, realisateur, annee, pays, acteurs, genre, synopsis, affiche, bande_annonce
-            From Film
+            From $this->name
             Order By titre;";
         $sth = $this->dbh->query($query);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
-	$films = array();
+        $films = array();
         foreach ($result as $row) {
             $id = $row['id'];
             $titre = $row['titre'];
@@ -66,7 +63,7 @@ class TableFilm extends Table {
     }
 
     public function add($titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce) {
-        $query = "Insert into Film(titre, realisateur, annee, pays, acteurs, genre, support,
+        $query = "Insert into $this->name(titre, realisateur, annee, pays, acteurs, genre, support,
             duree, synopsis, affiche, bande_annonce)
             Values ('$titre', '$realisateur', '$annee', '$pays', '$acteurs', '$genre', '$support',
                 '$duree', '$synopsis', '$affiche', '$bande_annonce');";
@@ -74,16 +71,12 @@ class TableFilm extends Table {
     }
 
     public function modify($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce) {
-        $query = "Update Film
+        $query = "Update $this->name
             Set titre = '$titre', realisateur = '$realisateur', annee = '$annee', pays = '$pays',
                 acteurs = '$acteurs', genre = '$genre', support = '$support', duree = '$duree',
                 synopsis = '$synopsis', affiche = '$affiche', bande_annonce = '$bande_annonce' 
             Where id = '$id';";
         $this->dbh->query($query);
-    }
-
-    public function vote($id) {
-        // TODO
     }
 
 }

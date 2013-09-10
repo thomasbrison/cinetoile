@@ -8,16 +8,13 @@ require_once('Table.php');
 
 class TableDiffusion extends Table {
 
-    static $name = 'Diffusion';
-    static $primaryKey = 'date_diffusion';
-
     public function __construct() {
-        parent::__construct(self::$name, self::$primaryKey);
+        parent::__construct('Diffusion', 'date_diffusion');
     }
 
     public function consult() {
         $result = parent::getAll();
-	$diffusions = array();
+        $diffusions = array();
         foreach ($result as $row) {
             $dateDiffusion = $row['date_diffusion'];
             $idFilm = $row['id_film'];
@@ -32,22 +29,16 @@ class TableDiffusion extends Table {
     }
 
     public function add($date, $id_film, $cycle, $commentaire, $affiche, $nb_presents) {
-        $query = "Insert into Diffusion(date_diffusion, id_film, cycle, commentaire, affiche, nb_presents)
+        $query = "Insert into $this->name(date_diffusion, id_film, cycle, commentaire, affiche, nb_presents)
             Values ('$date', '$id_film', '$cycle', '$commentaire', '$affiche', '$nb_presents');";
         $this->dbh->query($query);
     }
 
     public function modify($date, $id_film, $cycle, $commentaire, $affiche, $nb_presents) {
-        $val_nb_presents = (!$nb_presents > 0) ? "null" : "'$nb_presents'";
-        $query = "Update Diffusion
-            Set id_film = '$id_film', cycle = '$cycle', commentaire = '$commentaire', affiche = '$affiche', nb_presents = " . $val_nb_presents . "
+        $query = "Update $this->name
+            Set id_film = '$id_film', cycle = '$cycle', commentaire = '$commentaire', affiche = '$affiche', nb_presents = '$nb_presents'
             Where date_diffusion = '$date';";
         $this->dbh->query($query);
-    }
-
-    public function classifyByDate() {
-        $diffusions = $this->consulterDiffusions();
-        $now = date('c');
     }
 
     public function getAttributes($key) {
@@ -71,8 +62,9 @@ class TableDiffusion extends Table {
         $result = parent::getColumn('date_diffusion');
         foreach ($result as $value) {
             $timeDiffusion = strtotime($value);
-            if ($timeDiffusion > time())
+            if ($timeDiffusion > time()) {
                 $page++;
+            }
         }
         return $page < 0 ? 0 : $page;
     }

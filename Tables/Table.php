@@ -5,8 +5,8 @@ require_once 'Lib/connexion.php';
 abstract class Table {
 
     protected $dbh;
-    private $name;
-    private $primaryKey;
+    protected $name;
+    protected $primaryKey;
 
     protected function __construct($name, $primaryKey) {
         $this->name = $name;

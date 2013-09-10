@@ -49,7 +49,7 @@ class MembresController extends Controller {
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/membres.php');
             } else {
-                $this->render('Membres/ajout_membre');
+                $this->render('Membres/ajout_membre', array('login'));
             }
         }
     }
@@ -65,10 +65,26 @@ class MembresController extends Controller {
             } elseif (isset($_GET['login'])) {
                 $login = htmlentities(utf8_decode($_GET['login']));
                 $membre = $this->tableMembre->getAttributes($login);
-                $this->render('Membres/modification_membre', array(), compact('membre'));
+                $this->render('Membres/modification_membre', array('login'), compact('membre'));
             } else {
                 header('Location: ' . root . '/membres.php');
             }
+        }
+    }
+
+    public function loginExists() {
+        $msgUsed = "Le login est déjà utilisé !";
+        $msgAvailable = "Le login est disponible !";
+        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN) AND isset($_GET['login'])) {
+            $sth = $this->tableMembre->prepareLogin();
+            $row = $this->tableMembre->getLogins($sth, $_GET['login']);
+            if (count($row)) {
+                echo $msgUsed;
+            } else {
+                echo $msgAvailable;
+            }
+        } else {
+            echo $msgUsed;
         }
     }
 

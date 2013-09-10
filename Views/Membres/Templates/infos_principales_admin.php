@@ -2,7 +2,8 @@
     <legend>Informations principales sur le membre</legend>
     <p>
         <label>Login :  </label>
-        <input type="text" name="login" size="25" maxlength="32" value="<?php if (isset($login)) echo $login; ?>" placeholder="Login - sans accents" pattern="([A-za-z0-9]+|Cinétoile)" required autofocus />
+        <input type="text" name="login" size="25" maxlength="32" oninput="checkLogin(this.value);" value="<?php if (isset($login)) echo $login; ?>" placeholder="Login - sans accents" pattern="([A-za-z0-9]+|Cinétoile)" required autofocus />
+        <span id="loginExists"></span>
     </p>
     <?php if (isset($login)) : ?>
         <p>
