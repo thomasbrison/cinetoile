@@ -114,7 +114,7 @@ abstract class Controller {
     }
 
     private function appendMessage($message) {
-        echo "<p class='message'>$message</p>";
+        echo "<nav class='message'>$message</nav>";
     }
 
 }

@@ -94,7 +94,7 @@ function taille($droits, $width_admin, $width_membre) {
                                 </form>
                             </div>
                             <div class="inline invisible">
-                                <form name="supprimer_film" method="GET" action="films.php/supprimer">
+                                <form name="supprimer_film" method="GET" action="films.php/supprimer" onsubmit="return removeFilm(this);">
                                     <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                                     <input type="button" value="Supprimer" onclick="confirm(this);"/>
                                 </form>

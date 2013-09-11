@@ -96,20 +96,27 @@ class FilmsController extends Controller {
 
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            $removed = FALSE;
+            $message = "";
             if (isset($_GET['id'])) {
                 $id = (int) htmlentities(utf8_decode($_GET['id']));
                 $nbDelLines = $this->tableFilm->remove($id);
-                $this->checkRemoved($nbDelLines);
+                $removed = $this->checkRemoved($nbDelLines);
+                $message = $this->writeMessage($removed);
             }
-            header('Location: ' . root . '/films.php');
+            echo ((int) $removed) . $message;
         }
     }
 
     private function checkRemoved($nbDelLines) {
-        if ($nbDelLines) {
-            $_SESSION['message'] = "Le film a été supprimé avec succès !";
+        return (!!$nbDelLines);
+    }
+
+    private function writeMessage($removed) {
+        if ($removed) {
+            return "Le film a été supprimé avec succès !";
         } else {
-            $_SESSION['message'] = "Le film n'a pas pu être supprimé, certainement parce qu'une séance référence encore ce film.";
+            return "Le film n'a pas pu être supprimé, certainement parce qu'une séance référence encore ce film.";
         }
     }
 

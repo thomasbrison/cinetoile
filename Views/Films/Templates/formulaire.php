@@ -2,7 +2,7 @@
 
     <fieldset>
         <legend>Informations obligatoires sur le film</legend>
-        <input type="hidden" name="id" value=<?php echo $id; ?>/>
+        <input type="hidden" name="id" <?php if (isset($id)) echo "value=$id"; ?>/>
         <p>
             <label>Titre :  </label>
             <input type="text" name="titre" size="25" maxlength="64" value="<?php if (isset($titre)) echo $titre; ?>" placeholder="Titre du film" required autofocus/>

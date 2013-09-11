@@ -2,6 +2,13 @@
  * Actions JavaScript générales
  */
 
+function displayMessage(message) {
+    var msgEl = document.createElement('nav');
+    msgEl.className = "message";
+    msgEl.innerText = message;
+    document.body.appendChild(msgEl);
+}
+
 function displaySelections(displayedEl) {
     var formElement = displayedEl.parentNode.querySelector('form');
     displayedEl.className = "js-el hidden";
@@ -69,6 +76,35 @@ function cancel(el) {
     parentEl.removeChild(noEl);
 
     el.className = "";
+}
+
+function removeTable(formEl, primaryKeyName) {
+    var formAction = formEl.getAttribute('action');
+    var primaryKeyValue = formEl.elements[primaryKeyName].value;
+    var rowElement = formEl.parentNode.parentNode.parentNode;
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function() {
+        if (request.readyState === 4 && (request.status === 200 || request.status === 0)) {
+            var response = request.responseText;
+            var removed = parseInt(response[0]);
+            var message = response.substring(1);
+            displayMessage(message);
+            if (removed) {
+                rowElement.parentNode.removeChild(rowElement);
+            }
+        }
+    };
+
+    request.open("GET", formAction + "?" + primaryKeyName + "=" + primaryKeyValue, true);
+    request.send(null);
+
+    return false;
+}
+
+function removeFilm(formEl) {
+    return removeTable(formEl, 'id');
 }
 
 function confirmLink(yesEl) {
