@@ -8,6 +8,4 @@
     <blockquote class="white-spaces"><?php echo $texte_equipe; ?></blockquote>
 </article>
 
-<a class='follow-fb' href='https://www.facebook.com/pages/Cinétoile/189863261082757'>
-    Suis-nous sur Facebook !
-</a>
+<?php include 'Templates/facebook-follow.php'; ?>

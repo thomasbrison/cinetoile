@@ -680,7 +680,7 @@ textarea {
     max-width: 100%;
 }
 
-.follow-fb {
+.fb-follow {
     display: inline-block;
     height: 1.5em;
     background-image: url('../Images/Logos/fb.png');
