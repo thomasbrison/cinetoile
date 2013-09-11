@@ -65,15 +65,15 @@ class TableFilm extends Table {
     public function add($titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce) {
         $query = "Insert into $this->name(titre, realisateur, annee, pays, acteurs, genre, support,
             duree, synopsis, affiche, bande_annonce)
-            Values ('$titre', '$realisateur', '$annee', '$pays', '$acteurs', '$genre', '$support',
-                '$duree', '$synopsis', '$affiche', '$bande_annonce');";
+            Values ('$titre', '$realisateur', $annee, '$pays', '$acteurs', '$genre', $support,
+                $duree, '$synopsis', '$affiche', '$bande_annonce');";
         $this->dbh->query($query);
     }
 
     public function modify($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce) {
         $query = "Update $this->name
-            Set titre = '$titre', realisateur = '$realisateur', annee = '$annee', pays = '$pays',
-                acteurs = '$acteurs', genre = '$genre', support = '$support', duree = '$duree',
+            Set titre = '$titre', realisateur = '$realisateur', annee = $annee, pays = '$pays',
+                acteurs = '$acteurs', genre = '$genre', support = $support, duree = $duree,
                 synopsis = '$synopsis', affiche = '$affiche', bande_annonce = '$bande_annonce' 
             Where id = '$id';";
         $this->dbh->query($query);

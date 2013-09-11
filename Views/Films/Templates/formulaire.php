@@ -2,7 +2,7 @@
 
     <fieldset>
         <legend>Informations obligatoires sur le film</legend>
-        <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+        <input type="hidden" name="id" value=<?php echo $id; ?>/>
         <p>
             <label>Titre :  </label>
             <input type="text" name="titre" size="25" maxlength="64" value="<?php if (isset($titre)) echo $titre; ?>" placeholder="Titre du film" required autofocus/>
@@ -20,7 +20,7 @@
             <select name="annee">
                 <option value=NULL <?php if (!isset($annee)) echo "selected"; ?>>Ann&eacute;e</option>
                 <?php for ($i = 1930; $i <= 2010; $i++) : ?>
-                <option value="<?php echo $i; ?>" <?php if (isset($annee) && $i === $annee) echo "selected"; ?>>
+                <option value=<?php echo $i; ?> <?php if (isset($annee) && $i === $annee) echo "selected"; ?>>
                     <?php echo $i; ?>
                 </option>
                 <?php endfor; ?>
@@ -45,7 +45,7 @@
         <p>
             <label>Support : </label>
             <select name="support">
-                <option value=NULL  <?php if (!isset($support)) echo "selected"; ?>>Choisir le support</option>
+                <option value=NULL <?php if (!isset($support)) echo "selected"; ?>>Choisir le support</option>
                 <option value="DVD" <?php if (isset($support) && $support === "DVD") echo "selected"; ?>>DVD</option>
                 <option value="VHS" <?php if (isset($support) && $support === "VHS") echo "selected"; ?>>VHS</option>
             </select>
@@ -54,18 +54,18 @@
             <label>Dur&eacute;e : </label>
             <span>
                 <select name="heures_duree">
-                    <option value=NULL  <?php if (!isset($array_duration)) echo "selected"; ?>>Heures</option>
+                    <option value=-1 <?php if (isset($array_duration) && !$array_duration['hours']) echo "selected"; ?>>Heures</option>
                     <?php for ($i = 0; $i <= 3; $i++) : ?>
-                    <option value="<?php echo $i; ?>" <?php if (isset($array_duration) && $i === $array_duration['hours']) echo "selected"; ?>>
+                    <option value=<?php echo $i; ?> <?php if (isset($array_duration) && $i === $array_duration['hours']) echo "selected"; ?>>
                         <?php echo $i; ?>
                     </option>
                         <?php endfor; ?>
                 </select>
                 :
                 <select name="minutes_duree">
-                    <option value=NULL  <?php if (!isset($array_duration)) echo "selected"; ?>>Minutes</option>
+                    <option value=-1 <?php if (isset($array_duration) && !$array_duration['minutes']) echo "selected"; ?>>Minutes</option>
                     <?php for ($i = 0; $i <= 59; $i++) : ?>
-                    <option value="<?php echo $i; ?>" <?php if (isset($array_duration) && $i === $array_duration['minutes']) echo "selected"; ?>>
+                    <option value=<?php echo $i; ?> <?php if (isset($array_duration) && $i === $array_duration['minutes']) echo "selected"; ?>>
                         <?php echo $i; ?>
                     </option>
                     <?php endfor; ?>

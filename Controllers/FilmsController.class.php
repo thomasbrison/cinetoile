@@ -47,24 +47,24 @@ class FilmsController extends Controller {
     public function modifier() {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['modifier'])) {
-                $id = htmlentities(utf8_decode($_POST['id']));
+                $id = (int) htmlentities(utf8_decode($_POST['id']));
                 $film = $this->getInfos($id);
                 $this->tableFilm->modify($id, $film->getTitre(), $film->getRealisateur(), $film->getAnnee(), $film->getPays(), $film->getActeurs(), $film->getGenre(), $film->getSupport(), $film->getDuree(), $film->getSynopsis(), $film->getAffiche(), $film->getBandeAnnonce());
                 header('Location: ' . root . '/films.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/films.php');
             } elseif (isset($_GET['id'])) {
-                $id = htmlentities(utf8_decode($_GET['id']));
+                $id = (int) htmlentities(utf8_decode($_GET['id']));
                 $row = $this->tableFilm->getAttributes($id);
                 $titre = $row['titre'];
                 $realisateur = $row['realisateur'];
-                $annee = $row['annee'];
+                $annee = (int) $row['annee'];
                 $pays = $row['pays'];
                 $acteurs = $row['acteurs'];
                 $genre = $row['genre'];
                 $support = $row['support'];
                 $duree = $row['duree'];
-                $array_duration = $this->formatDuration($duree);
+                $array_duration = $this->arrayDuration($duree);
                 $synopsis = $row['synopsis'];
                 $affiche = $row['affiche'];
                 $_SESSION['affiche'] = $affiche;
@@ -76,9 +76,17 @@ class FilmsController extends Controller {
         }
     }
 
-    private function formatDuration($duration) {
-        $hours = 0;
-        $minutes = 0;
+    private function formatDuration($hours, $minutes) {
+        if ($hours != -1 && $minutes != -1) {
+            return $hours . ':' . $minutes;
+        } else {
+            return 'NULL';
+        }
+    }
+
+    private function arrayDuration($duration) {
+        $hours = NULL;
+        $minutes = NULL;
         if ($duration) {
             $hours = (int) substr($duration, 0, 2);
             $minutes = (int) substr($duration, 3, 2);
@@ -126,12 +134,12 @@ class FilmsController extends Controller {
     private function getInfos($id) {
         $titre = htmlentities(utf8_decode($_POST['titre']));
         $realisateur = htmlentities(utf8_decode($_POST['realisateur']));
-        $annee = htmlentities(utf8_decode($_POST['annee']));
+        $annee = ((int) $_POST['annee'] === -1) ? 'NULL' : htmlentities(utf8_decode($_POST['annee']));
         $pays = htmlentities(utf8_decode($_POST['pays']));
         $acteurs = htmlentities(utf8_decode($_POST['acteurs']));
         $genre = htmlentities(utf8_decode($_POST['genre']));
         $support = htmlentities(utf8_decode($_POST['support']));
-        $duree = htmlentities(utf8_decode($_POST['heures_duree'] . ':' . $_POST['minutes_duree']));
+        $duree = $this->formatDuration((int) $_POST['heures_duree'], (int) $_POST['minutes_duree']);
         $synopsis = addslashes($_POST['synopsis']);
         $bande_annonce = htmlentities($_POST['bande_annonce']);
         $affiche = $this->uploadPoster($_POST['etat_affiche'], "Images/Affiches/Films/");
