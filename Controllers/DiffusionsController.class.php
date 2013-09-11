@@ -74,7 +74,7 @@ class DiffusionsController extends Controller {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_GET['date'])) {
                 $date = htmlentities(utf8_decode($_GET['date']));
-                $this->tableDiffusion->remove($date);
+                $nbDelLines = $this->tableDiffusion->remove($date);
             }
             header('Location: ' . root . '/diffusions.php');
         }

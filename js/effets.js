@@ -107,6 +107,10 @@ function removeFilm(formEl) {
     return removeTable(formEl, 'id');
 }
 
+function removeMembre(formEl) {
+    return removeTable(formEl, 'login');
+}
+
 function confirmLink(yesEl) {
     var parentEl = yesEl.parentNode;
     var noEl = document.createElement('a');

@@ -102,7 +102,7 @@ class FilmsController extends Controller {
                 $id = (int) htmlentities(utf8_decode($_GET['id']));
                 $nbDelLines = $this->tableFilm->remove($id);
                 $removed = $this->checkRemoved($nbDelLines);
-                $message = $this->writeMessage($removed);
+                $message = $this->writeRemovedMessage($removed);
             }
             echo ((int) $removed) . $message;
         }
@@ -112,7 +112,7 @@ class FilmsController extends Controller {
         return (!!$nbDelLines);
     }
 
-    private function writeMessage($removed) {
+    private function writeRemovedMessage($removed) {
         if ($removed) {
             return "Le film a été supprimé avec succès !";
         } else {

@@ -87,7 +87,7 @@ require_once 'Lib/telephone.php';
                             </form>
                         </div>
                         <div class="inline invisible">
-                            <form class="inline" name="supprimer_membre" method="GET" action="membres.php/supprimer">
+                            <form class="inline" name="supprimer_membre" method="GET" action="membres.php/supprimer" onsubmit="return removeMembre(this);">
                                 <input type="hidden" name="login" value="<?php echo $login; ?>"/>
                                 <input type="button" value="Supprimer" onclick="confirm(this);"/>
                             </form>

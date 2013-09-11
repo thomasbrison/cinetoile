@@ -100,11 +100,27 @@ class MembresController extends Controller {
 
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            $removed = FALSE;
+            $message = "";
             if (isset($_GET['login'])) {
                 $login = htmlentities(utf8_decode($_GET['login']));
-                $this->tableMembre->remove($login);
+                $nbDelLines = $this->tableMembre->remove($login);
+                $removed = $this->checkRemoved($nbDelLines);
+                $message = $this->writeRemovedMessage($removed);
             }
-            header('Location: ' . root . '/membres.php');
+            echo ((int) $removed) . $message;
+        }
+    }
+
+    private function checkRemoved($nbDelLines) {
+        return (!!$nbDelLines);
+    }
+
+    private function writeRemovedMessage($removed) {
+        if ($removed) {
+            return "Le membre a été supprimé avec succès !";
+        } else {
+            return "Le membre n'a pas pu être supprimé.";
         }
     }
 
