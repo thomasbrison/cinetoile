@@ -19,7 +19,7 @@
             </form>
         </div>
         <div class="inline-block invisible">
-            <form name="supprimer_diffusion" method="GET" action="diffusions.php/supprimer">
+            <form name="supprimer_diffusion" method="GET" action="diffusions.php/supprimer" onsubmit="return removeDiffusion(this);">
                 <input type="hidden" name="date" value="<?php echo $datetime; ?>"/>
                 <input type="button" value="Supprimer" onclick="confirm(this);"/>
             </form>

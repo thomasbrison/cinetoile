@@ -78,10 +78,9 @@ function cancel(el) {
     el.className = "";
 }
 
-function removeTable(formEl, primaryKeyName) {
+function removeTable(formEl, elToRemove, primaryKeyName) {
     var formAction = formEl.getAttribute('action');
     var primaryKeyValue = formEl.elements[primaryKeyName].value;
-    var rowElement = formEl.parentNode.parentNode.parentNode;
 
     var request = new XMLHttpRequest();
 
@@ -92,7 +91,7 @@ function removeTable(formEl, primaryKeyName) {
             var message = response.substring(1);
             displayMessage(message);
             if (removed) {
-                rowElement.parentNode.removeChild(rowElement);
+                elToRemove.parentNode.removeChild(elToRemove);
             }
         }
     };
@@ -104,11 +103,15 @@ function removeTable(formEl, primaryKeyName) {
 }
 
 function removeFilm(formEl) {
-    return removeTable(formEl, 'id');
+    return removeTable(formEl, formEl.parentNode.parentNode.parentNode, 'id');
 }
 
 function removeMembre(formEl) {
-    return removeTable(formEl, 'login');
+    return removeTable(formEl, formEl.parentNode.parentNode.parentNode, 'login');
+}
+
+function removeDiffusion(formEl) {
+    return removeTable(formEl, formEl.parentNode.parentNode.parentNode, 'date');
 }
 
 function confirmLink(yesEl) {

@@ -72,11 +72,27 @@ class DiffusionsController extends Controller {
 
     public function supprimer() {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            $removed = FALSE;
+            $message = "";
             if (isset($_GET['date'])) {
                 $date = htmlentities(utf8_decode($_GET['date']));
                 $nbDelLines = $this->tableDiffusion->remove($date);
+                $removed = $this->checkRemoved($nbDelLines);
+                $message = $this->writeRemovedMessage($removed);
             }
-            header('Location: ' . root . '/diffusions.php');
+            echo ((int) $removed) . $message;
+        }
+    }
+
+    private function checkRemoved($nbDelLines) {
+        return (!!$nbDelLines);
+    }
+
+    private function writeRemovedMessage($removed) {
+        if ($removed) {
+            return "La diffusion a été supprimée avec succès !";
+        } else {
+            return "La diffusion n'a pas pu être supprimée.";
         }
     }
 
