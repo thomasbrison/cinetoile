@@ -1,12 +1,13 @@
 <?php
 
 require_once 'Controller.class.php';
+require_once 'Editable.interface.php';
 require_once 'Beans/Film.class.php';
 require_once 'Beans/Diffusion.class.php';
 require_once 'Tables/TableFilm.php';
 require_once 'Tables/TableDiffusion.php';
 
-class DiffusionsController extends Controller {
+class DiffusionsController extends Controller implements Editable {
 
     private $tableDiffusion;
     private $tableFilm;

@@ -1,10 +1,11 @@
 <?php
 
 require_once 'Controller.class.php';
+require_once 'Editable.interface.php';
 require_once 'Beans/Membre.class.php';
 require_once 'Tables/TableMembre.php';
 
-class MembresController extends Controller {
+class MembresController extends Controller implements Editable {
 
     private $tableMembre;
 
