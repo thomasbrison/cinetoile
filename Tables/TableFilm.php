@@ -62,19 +62,21 @@ class TableFilm extends Table {
         return $films;
     }
 
-    public function add($titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce) {
+    public function add($film) {
+        extract($film->arrayInfos());
         $query = "Insert into $this->name(titre, realisateur, annee, pays, acteurs, genre, support,
             duree, synopsis, affiche, bande_annonce)
             Values ('$titre', '$realisateur', $annee, '$pays', '$acteurs', '$genre', $support,
-                $duree, '$synopsis', '$affiche', '$bande_annonce');";
+                $duree, '$synopsis', '$affiche', '$bandeAnnonce');";
         $this->dbh->query($query);
     }
 
-    public function modify($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce) {
+    public function update($film) {
+        extract($film->arrayInfos());
         $query = "Update $this->name
             Set titre = '$titre', realisateur = '$realisateur', annee = $annee, pays = '$pays',
                 acteurs = '$acteurs', genre = '$genre', support = $support, duree = $duree,
-                synopsis = '$synopsis', affiche = '$affiche', bande_annonce = '$bande_annonce' 
+                synopsis = '$synopsis', affiche = '$affiche', bande_annonce = '$bandeAnnonce'
             Where id = '$id';";
         $this->dbh->query($query);
     }

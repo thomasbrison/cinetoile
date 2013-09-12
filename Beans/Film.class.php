@@ -131,6 +131,22 @@ class Film {
         $this->bandeAnnonce = $bande_annonce;
     }
 
+    public function arrayInfos() {
+        $id = $this->getId();
+        $titre = $this->getTitre();
+        $realisateur = $this->getRealisateur();
+        $annee = $this->getAnnee();
+        $pays = $this->getPays();
+        $acteurs = $this->getActeurs();
+        $genre = $this->getGenre();
+        $support = $this->getSupport();
+        $duree = $this->getDuree();
+        $synopsis = $this->getSynopsis();
+        $affiche = $this->getAffiche();
+        $bandeAnnonce = $this->getBandeAnnonce();
+        return compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'duree', 'synopsis', 'affiche', 'bandeAnnonce');
+    }
+
 }
 
 ?>

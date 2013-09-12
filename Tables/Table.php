@@ -38,6 +38,10 @@ abstract class Table {
 
     abstract function consult();
 
+    abstract function add($object);
+
+    abstract function update($object);
+
     public function remove($key) {
         $query = "DELETE FROM $this->name WHERE $this->primaryKey = '$key';";
         $nbDelLines = $this->dbh->exec($query);
@@ -45,4 +49,5 @@ abstract class Table {
     }
 
 }
+
 ?>

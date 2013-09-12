@@ -35,7 +35,7 @@ class FilmsController extends Controller implements Editable {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['ajouter'])) {
                 $film = $this->getInfos(null);
-                $this->tableFilm->add($film->getTitre(), $film->getRealisateur(), $film->getAnnee(), $film->getPays(), $film->getActeurs(), $film->getGenre(), $film->getSupport(), $film->getDuree(), $film->getSynopsis(), $film->getAffiche(), $film->getBandeAnnonce());
+                $this->tableFilm->add($film);
                 header('Location: ' . root . '/films.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/films.php');
@@ -50,7 +50,7 @@ class FilmsController extends Controller implements Editable {
             if (isset($_POST['modifier'])) {
                 $id = (int) htmlentities(utf8_decode($_POST['id']));
                 $film = $this->getInfos($id);
-                $this->tableFilm->modify($id, $film->getTitre(), $film->getRealisateur(), $film->getAnnee(), $film->getPays(), $film->getActeurs(), $film->getGenre(), $film->getSupport(), $film->getDuree(), $film->getSynopsis(), $film->getAffiche(), $film->getBandeAnnonce());
+                $this->tableFilm->update($film);
                 header('Location: ' . root . '/films.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/films.php');

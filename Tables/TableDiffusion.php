@@ -28,15 +28,17 @@ class TableDiffusion extends Table {
         return $diffusions;
     }
 
-    public function add($date, $id_film, $cycle, $commentaire, $affiche, $nb_presents) {
+    public function add($diffusion) {
+        extract($diffusion->arrayInfos());
         $query = "Insert into $this->name(date_diffusion, id_film, cycle, commentaire, affiche, nb_presents)
-            Values ('$date', '$id_film', '$cycle', '$commentaire', '$affiche', '$nb_presents');";
+            Values ('$date', '$idFilm', '$cycle', '$commentaire', '$affiche', '$nbPresents');";
         $this->dbh->query($query);
     }
 
-    public function modify($date, $id_film, $cycle, $commentaire, $affiche, $nb_presents) {
+    public function update($diffusion) {
+        extract($diffusion->arrayInfos());
         $query = "Update $this->name
-            Set id_film = '$id_film', cycle = '$cycle', commentaire = '$commentaire', affiche = '$affiche', nb_presents = '$nb_presents'
+            Set id_film = '$idFilm', cycle = '$cycle', commentaire = '$commentaire', affiche = '$affiche', nb_presents = '$nbPresents'
             Where date_diffusion = '$date';";
         $this->dbh->query($query);
     }

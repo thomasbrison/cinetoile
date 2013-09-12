@@ -33,14 +33,16 @@ class TableMembre extends Table {
         return $membres;
     }
 
-    public function add($login, $password, $droits, $prenom, $nom, $email, $tel, $ecole, $annee) {
+    public function add($membre) {
+        extract($membre->arrayInfos());
         $query = "Insert into $this->name(login, password, droits, prenom, nom, email, telephone, ecole, annee)
             Values ('$login', PASSWORD('$password'), '$droits', '$prenom',
                 '$nom', '$email', '$tel', '$ecole', '$annee');";
         $this->dbh->query($query);
     }
 
-    public function modify($login, $droits, $prenom, $nom, $email, $tel, $ecole, $annee) {
+    public function update($membre) {
+        extract($membre->arrayInfos());
         $query = "Update $this->name
             Set droits = '$droits', prenom = '$prenom', nom = '$nom', email = '$email',
                 telephone = '$tel', ecole = '$ecole', annee = '$annee'

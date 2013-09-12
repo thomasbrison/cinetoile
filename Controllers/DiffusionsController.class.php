@@ -40,7 +40,7 @@ class DiffusionsController extends Controller implements Editable {
                 $minute = (int) $_POST['minute_diffusion'];
                 $date = "$annee-$mois-$jour $heure:$minute";
                 $diffusion = $this->getInfos($date);
-                $this->tableDiffusion->add($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche(), $diffusion->getNbPresents());
+                $this->tableDiffusion->add($diffusion);
                 header('Location: ' . root . '/diffusions.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/diffusions.php');
@@ -56,7 +56,7 @@ class DiffusionsController extends Controller implements Editable {
             if (isset($_POST['modifier'])) {
                 $date = $_POST['date'];
                 $diffusion = $this->getInfos($date);
-                $this->tableDiffusion->modify($date, $diffusion->getIdFilm(), $diffusion->getCycle(), $diffusion->getCommentaire(), $diffusion->getAffiche(), $diffusion->getNbPresents());
+                $this->tableDiffusion->update($diffusion);
                 header('Location: ' . root . '/diffusions.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/diffusions.php');

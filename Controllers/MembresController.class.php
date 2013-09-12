@@ -45,7 +45,8 @@ class MembresController extends Controller implements Editable {
             if (isset($_POST['ajouter'])) {
                 $password = htmlentities(($_POST['login']));
                 $membre = $this->getInfos();
-                $this->tableMembre->add($membre->getLogin(), $password, $membre->getDroits(), $membre->getPrenom(), $membre->getNom(), $membre->getEmail(), $membre->getTelephone(), $membre->getEcole(), $membre->getAnnee());
+                $membre->setPassword($password);
+                $this->tableMembre->add($membre);
                 header('Location: ' . root . '/membres.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/membres.php');
@@ -59,7 +60,7 @@ class MembresController extends Controller implements Editable {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['modifier'])) {
                 $membre = $this->getInfos();
-                $this->tableMembre->modify($membre->getLogin(), $membre->getDroits(), $membre->getPrenom(), $membre->getNom(), $membre->getEmail(), $membre->getTelephone(), $membre->getEcole(), $membre->getAnnee());
+                $this->tableMembre->update($membre);
                 header('Location: ' . root . '/membres.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/membres.php');

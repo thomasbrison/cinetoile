@@ -14,9 +14,9 @@ class Diffusion {
     protected $affiche;
     protected $nbPresents;
 
-    function __construct($date, $id_film, $cycle = null, $commentaire = null, $affiche = null, $nbPresents = null) {
+    function __construct($date, $idFilm, $cycle = null, $commentaire = null, $affiche = null, $nbPresents = null) {
         $this->date = $date;
-        $this->idFilm = $id_film;
+        $this->idFilm = $idFilm;
         $this->cycle = $cycle;
         $this->commentaire = $commentaire;
         $this->affiche = $affiche;
@@ -65,6 +65,16 @@ class Diffusion {
 
     public function setAffiche($affiche) {
         $this->affiche = $affiche;
+    }
+
+    public function arrayInfos() {
+        $date = $this->date;
+        $idFilm = $this->idFilm;
+        $cycle = $this->cycle;
+        $commentaire = $this->commentaire;
+        $affiche = $this->affiche;
+        $nbPresents = $this->nbPresents;
+        return compact('date', 'idFilm', 'cycle', 'commentaire', 'affiche', 'nbPresents');
     }
 
 }

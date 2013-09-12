@@ -101,6 +101,19 @@ class Membre {
         $this->annee = $annee;
     }
 
+    public function arrayInfos() {
+        $login = $this->login;
+        $password = $this->password;
+        $droits = $this->droits;
+        $prenom = $this->prenom;
+        $nom = $this->nom;
+        $email = $this->email;
+        $telephone = $this->telephone;
+        $ecole = $this->ecole;
+        $annee = $this->annee;
+        return compact('login', 'password', 'droits', 'prenom', 'nom', 'email', 'telephone', 'ecole', 'annee');
+    }
+
 }
 
 ?>
