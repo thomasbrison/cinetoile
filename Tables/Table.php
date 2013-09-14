@@ -2,6 +2,11 @@
 
 require_once 'Lib/connexion.php';
 
+/**
+ * Abstract class for tables in the database
+ *
+ * @author thomas.brison@grenoble-inp.org
+ */
 abstract class Table {
 
     protected $dbh;

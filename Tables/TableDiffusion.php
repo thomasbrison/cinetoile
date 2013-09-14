@@ -1,11 +1,12 @@
 <?php
 
-/*
- * API pour accéder à la table des diffusions
- */
-
 require_once('Table.php');
 
+/**
+ * API pour accéder à la table des diffusions
+ *
+ * @author thomas.brison@grenoble-inp.org
+ */
 class TableDiffusion extends Table {
 
     public function __construct() {
@@ -16,14 +17,7 @@ class TableDiffusion extends Table {
         $result = parent::getAll();
         $diffusions = array();
         foreach ($result as $row) {
-            $dateDiffusion = $row['date_diffusion'];
-            $idFilm = $row['id_film'];
-            $cycle = $row['cycle'];
-            $commentaire = $row['commentaire'];
-            $affiche = $row['affiche'];
-            $nb_presents = $row['nb_presents'];
-            $diffusion = new Diffusion($dateDiffusion, $idFilm, $cycle, $commentaire, $affiche, $nb_presents);
-            $diffusions[] = $diffusion;
+            $diffusions[] = $this->parseRow($row);
         }
         return $diffusions;
     }
@@ -41,6 +35,16 @@ class TableDiffusion extends Table {
             Set id_film = '$idFilm', cycle = '$cycle', commentaire = '$commentaire', affiche = '$affiche', nb_presents = '$nbPresents'
             Where date_diffusion = '$date';";
         $this->dbh->query($query);
+    }
+
+    private function parseRow($row) {
+        $dateDiffusion = $row['date_diffusion'];
+        $idFilm = $row['id_film'];
+        $cycle = $row['cycle'];
+        $commentaire = $row['commentaire'];
+        $affiche = $row['affiche'];
+        $nb_presents = $row['nb_presents'];
+        return new Diffusion($dateDiffusion, $idFilm, $cycle, $commentaire, $affiche, $nb_presents);
     }
 
     public function getAttributes($key) {

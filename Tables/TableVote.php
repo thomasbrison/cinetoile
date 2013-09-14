@@ -1,11 +1,12 @@
 <?php
 
-/*
- * API pour accéder à la table des votes
- */
-
 require_once('Table.php');
 
+/**
+ * API pour accéder à la table des votes
+ *
+ * @author thomas.brison@grenoble-inp.org
+ */
 class TableVote extends Table {
 
     public function __construct() {
@@ -13,18 +14,10 @@ class TableVote extends Table {
     }
 
     public function consult() {
-        $query = "Select *
-            From $this->name;";
-        $sth = $this->dbh->query($query);
-        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        $result = parent::getAll();
         $votes = array();
         foreach ($result as $row) {
-            $id = $row['id'];
-            $login = $row['login'];
-            $date = $row['date'];
-            $id_film = $row['id_film'];
-            $vote = new Vote($id, $login, $date, $id_film);
-            $votes[] = $vote;
+            $votes[] = $this->parseRow($row);
         }
         return $votes;
     }
@@ -42,6 +35,14 @@ class TableVote extends Table {
             Set login = '$login', date = '$date', id_film = $idFilm
             Where id = $id;";
         $this->dbh->query($query);
+    }
+
+    private function parseRow($row) {
+        $id = $row['id'];
+        $login = $row['login'];
+        $date = $row['date'];
+        $id_film = $row['id_film'];
+        return new Vote($id, $login, $date, $id_film);
     }
 
 }

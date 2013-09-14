@@ -1,12 +1,13 @@
 <?php
 
-/*
- * API pour accéder à la table des membres
- */
-
 require_once('Table.php');
 require_once(dirname(__FILE__) . '/../Beans/Membre.class.php');
 
+/**
+ * API pour accéder à la table des membres
+ *
+ * @author thomas.brison@grenoble-inp.org
+ */
 class TableMembre extends Table {
 
     public function __construct() {
@@ -19,16 +20,7 @@ class TableMembre extends Table {
         $sth = $this->dbh->query($query);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
         foreach ($result as $row) {
-            $login = $row['login'];
-            $prenom = $row['prenom'];
-            $nom = $row['nom'];
-            $email = $row['email'];
-            $telephone = $row['telephone'];
-            $ecole = $row['ecole'];
-            $annee = $row['annee'];
-            $droits = (int) $row['droits'];
-            $membre = new Membre($login, null, $droits, $prenom, $nom, $email, $telephone, $ecole, $annee);
-            $membres[] = $membre;
+            $membres[] = $this->parseRow($row);
         }
         return $membres;
     }
@@ -48,6 +40,19 @@ class TableMembre extends Table {
                 telephone = '$tel', ecole = '$ecole', annee = '$annee'
             Where login = '$login';";
         $this->dbh->query($query);
+    }
+
+    private function parseRow($row) {
+        $login = $row['login'];
+        $password = isset($row['password']) ? $row['password'] : NULL;
+        $prenom = $row['prenom'];
+        $nom = $row['nom'];
+        $email = $row['email'];
+        $telephone = $row['telephone'];
+        $ecole = $row['ecole'];
+        $annee = $row['annee'];
+        $droits = (int) $row['droits'];
+        return new Membre($login, $password, $droits, $prenom, $nom, $email, $telephone, $ecole, $annee);
     }
 
     // Fonction permettant de verifier que la combinaison login/password est OK
@@ -102,16 +107,7 @@ class TableMembre extends Table {
 
     public function getAttributes($key) {
         $row = parent::getAttributes($key);
-        $login = $row['login'];
-        $password = $row['password'];
-        $prenom = $row['prenom'];
-        $nom = $row['nom'];
-        $email = $row['email'];
-        $telephone = $row['telephone'];
-        $ecole = $row['ecole'];
-        $annee = $row['annee'];
-        $droits = (int) $row['droits'];
-        return new Membre($login, $password, $droits, $prenom, $nom, $email, $telephone, $ecole, $annee);
+        return $this->parseRow($row);
     }
 
     public function getEmails() {
