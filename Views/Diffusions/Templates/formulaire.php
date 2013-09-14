@@ -111,6 +111,7 @@ if (isset($diffusion)) {
             <input type="file" name="affiche"/>
             <?php endif; ?>
         </p>
+        <?php if ($form_action === "modifier") : ?>
         <p>
             <label>Nombre de personnes présentes :  </label>
             <select name="nb_presents">
@@ -123,6 +124,7 @@ if (isset($diffusion)) {
                 <?php endfor; ?>
             </select>
         </p>
+        <?php endif; ?>
     </fieldset>
 
     <p id="boutons">

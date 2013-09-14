@@ -118,8 +118,7 @@ class DiffusionsController extends Controller implements Editable {
             rmdir($final_dir);
         }
         $affiche = $this->uploadPoster($_POST['etat_affiche'], $final_dir);
-        $diffusion = new Diffusion($date, $id_film, $cycle, $commentaire, $affiche, $nb_presents);
-        return $diffusion;
+        return new Diffusion($date, $id_film, $cycle, $commentaire, $affiche, $nb_presents);
     }
 
 }

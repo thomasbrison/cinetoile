@@ -1,6 +1,7 @@
 <?php
 
 require_once('Table.php');
+require_once('Beans/Film.class.php');
 
 /**
  * API pour accéder à la table des films
@@ -62,7 +63,7 @@ class TableFilm extends Table {
         $id = $row['id'];
         $titre = $row['titre'];
         $realisateur = $row['realisateur'];
-        $annee = $row['annee'];
+        $annee = (int) $row['annee'];
         $pays = $row['pays'];
         $acteurs = $row['acteurs'];
         $genre = $row['genre'];
@@ -72,6 +73,11 @@ class TableFilm extends Table {
         $affiche = $row['affiche'];
         $bandeAnnonce = $row['bande_annonce'];
         return new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bandeAnnonce);
+    }
+
+    public function getAttributes($key) {
+        $row = parent::getAttributes($key);
+        return $this->parseRow($row);
     }
 
 }

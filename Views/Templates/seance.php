@@ -12,16 +12,9 @@ $cycle = $diffusion->getCycle();
 $affiche = $diffusion->getAffiche();
 $commentaire = $diffusion->getCommentaire();
 if (isset($table_film)) {
-    $infos_film = $table_film->getAttributes($id_film);
-    $titre = $infos_film['titre'];
-    $realisateur = $infos_film['realisateur'];
-    $genre = $infos_film['genre'];
-    $annee = $infos_film['annee'];
-    $pays = $infos_film['pays'];
-    $acteurs = $infos_film['acteurs'];
-    $synopsis = $infos_film['synopsis'];
-    $duree = duree_format_duree($infos_film['duree']);
-    $bande_annonce = $infos_film['bande_annonce'];
+    $film = $table_film->getAttributes($id_film);
+    extract($film->arrayInfos());
+    $duree = duree_format_duree($film->getDuree());
 }
 ?>
 
@@ -82,7 +75,7 @@ if (isset($table_film)) {
             <?php echo $synopsis; ?>
         </p>
         <?php endif; ?>
-        <?php if ($bande_annonce) : ?>
+        <?php if ($bandeAnnonce) : ?>
         <br/>
         <p>
             <button class="button big-button" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir la bande-annonce Allociné </button>

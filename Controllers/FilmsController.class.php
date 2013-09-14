@@ -56,20 +56,10 @@ class FilmsController extends Controller implements Editable {
                 header('Location: ' . root . '/films.php');
             } elseif (isset($_GET['id'])) {
                 $id = (int) htmlentities(utf8_decode($_GET['id']));
-                $row = $this->tableFilm->getAttributes($id);
-                $titre = $row['titre'];
-                $realisateur = $row['realisateur'];
-                $annee = (int) $row['annee'];
-                $pays = $row['pays'];
-                $acteurs = $row['acteurs'];
-                $genre = $row['genre'];
-                $support = $row['support'];
-                $duree = $row['duree'];
-                $array_duration = $this->arrayDuration($duree);
-                $synopsis = $row['synopsis'];
-                $affiche = $row['affiche'];
-                $_SESSION['affiche'] = $affiche;
-                $bande_annonce = $row['bande_annonce'];
+                $film = $this->tableFilm->getAttributes($id);
+                $array_duration = $this->arrayDuration($film->getDuree());
+                $_SESSION['affiche'] = $film->getAffiche();
+                extract($film->arrayInfos());
                 $this->render('Films/modification_film', array('effets', 'lightbox'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'array_duration', 'synopsis', 'affiche', 'bande_annonce'));
             } else {
                 header('Location: ' . root . '/films.php');
@@ -151,8 +141,7 @@ class FilmsController extends Controller implements Editable {
         $synopsis = addslashes($_POST['synopsis']);
         $bande_annonce = htmlentities($_POST['bande_annonce']);
         $affiche = $this->uploadPoster($_POST['etat_affiche'], "Images/Affiches/Films/");
-        $film = new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
-        return $film;
+        return new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
     }
 
 }

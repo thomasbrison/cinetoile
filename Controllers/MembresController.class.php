@@ -144,8 +144,7 @@ class MembresController extends Controller implements Editable {
         }
         $ecole = htmlentities($_POST['ecole']);
         $annee = htmlentities($_POST['annee']);
-        $membre = new Membre($login, null, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
-        return $membre;
+        return new Membre($login, null, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
     }
 
 }

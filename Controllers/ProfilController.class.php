@@ -91,8 +91,7 @@ class ProfilController extends Controller {
         }
         $ecole = htmlentities($_POST['ecole']);
         $annee = htmlentities($_POST['annee']);
-        $membre = new Membre($login, $password, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
-        return $membre;
+        return new Membre($login, $password, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
     }
 
 }
