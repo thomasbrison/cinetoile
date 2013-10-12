@@ -38,11 +38,24 @@ class TableVote extends Table {
     }
 
     private function parseRow($row) {
-        $id = $row['id'];
-        $login = $row['login'];
-        $date = $row['date'];
-        $id_film = $row['id_film'];
+        $id = isset($row['id']) ? $row['id'] : NULL;
+        $login = isset($row['login']) ? $row['login'] : NULL;
+        $date = isset($row['date']) ? $row['date'] : NULL;
+        $id_film = isset($row['id_film']) ? $row['id_film'] : NULL;
         return new Vote($id, $login, $date, $id_film);
+    }
+
+    public function selectVotes($login) {
+        $query = "SELECT * "
+                . "FROM $this->name "
+                . "WHERE login = '$login'";
+        $sth = $this->dbh->query($query);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        $votes = array();
+        foreach ($result as $row) {
+            $votes[] = $this->parseRow($row);
+        }
+        return $votes;
     }
 
 }

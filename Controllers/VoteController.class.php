@@ -42,7 +42,8 @@ class VoteController extends Controller implements Editable {
     public function consulter() {
         $titre_page = "Votes";
         if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
-            $votes = $this->tableVote->consult();
+            //$votes = $this->tableVote->consult();
+            $votes = $this->tableVote->selectVotes('avenelt');
             $table_film = $this->tableFilm;
             $table_membre = $this->tableMembre;
             $this->render('Votes/votes', array(), compact('titre_page', 'votes', 'table_film', 'table_membre'));
