@@ -23,66 +23,74 @@ class DiffusionsController extends Controller implements Editable {
     }
 
     public function consulter() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
-            $diffusions = $this->tableDiffusion->consult();
-            $table_film = $this->tableFilm;
-            $this->render('Diffusions/diffusions', array('effets'), compact('diffusions', 'table_film'));
+        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            return;
         }
+
+        $diffusions = $this->tableDiffusion->consult();
+        $table_film = $this->tableFilm;
+        $this->render('Diffusions/diffusions', array('effets'), compact('diffusions', 'table_film'));
     }
 
     public function ajouter() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
-            if (isset($_POST['ajouter'])) {
-                $jour = (int) $_POST['jour_diffusion'];
-                $mois = (int) $_POST['mois_diffusion'];
-                $annee = (int) $_POST['annee_diffusion'];
-                $heure = (int) $_POST['heure_diffusion'];
-                $minute = (int) $_POST['minute_diffusion'];
-                $date = "$annee-$mois-$jour $heure:$minute";
-                $diffusion = $this->getInfos($date);
-                $this->tableDiffusion->add($diffusion);
-                header('Location: ' . root . '/diffusions.php');
-            } elseif (isset($_POST['annuler'])) {
-                header('Location: ' . root . '/diffusions.php');
-            } else {
-                $films = $this->tableFilm->consultAsAMember();
-                $this->render('Diffusions/ajout_diffusion', array(), compact('films'));
-            }
+        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            return;
+        }
+
+        if (isset($_POST['ajouter'])) {
+            $jour = (int) $_POST['jour_diffusion'];
+            $mois = (int) $_POST['mois_diffusion'];
+            $annee = (int) $_POST['annee_diffusion'];
+            $heure = (int) $_POST['heure_diffusion'];
+            $minute = (int) $_POST['minute_diffusion'];
+            $date = "$annee-$mois-$jour $heure:$minute";
+            $diffusion = $this->getInfos($date);
+            $this->tableDiffusion->add($diffusion);
+            header('Location: ' . root . '/diffusions.php');
+        } elseif (isset($_POST['annuler'])) {
+            header('Location: ' . root . '/diffusions.php');
+        } else {
+            $films = $this->tableFilm->consultAsAMember();
+            $this->render('Diffusions/ajout_diffusion', array(), compact('films'));
         }
     }
 
     public function modifier() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
-            if (isset($_POST['modifier'])) {
-                $date = $_POST['date'];
-                $diffusion = $this->getInfos($date);
-                $this->tableDiffusion->update($diffusion);
-                header('Location: ' . root . '/diffusions.php');
-            } elseif (isset($_POST['annuler'])) {
-                header('Location: ' . root . '/diffusions.php');
-            } elseif (isset($_GET['date'])) {
-                $diffusion = $this->tableDiffusion->getAttributes($_GET['date']);
-                $_SESSION['affiche'] = $diffusion->getAffiche();
-                $films = $this->tableFilm->consultAsAMember();
-                $this->render('Diffusions/modification_diffusion', array('effets'), compact('diffusion', 'films'));
-            } else {
-                header('Location: ' . root . '/diffusions.php');
-            }
+        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            return;
+        }
+
+        if (isset($_POST['modifier'])) {
+            $date = $_POST['date'];
+            $diffusion = $this->getInfos($date);
+            $this->tableDiffusion->update($diffusion);
+            header('Location: ' . root . '/diffusions.php');
+        } elseif (isset($_POST['annuler'])) {
+            header('Location: ' . root . '/diffusions.php');
+        } elseif (isset($_GET['date'])) {
+            $diffusion = $this->tableDiffusion->getAttributes($_GET['date']);
+            $_SESSION['affiche'] = $diffusion->getAffiche();
+            $films = $this->tableFilm->consultAsAMember();
+            $this->render('Diffusions/modification_diffusion', array('effets'), compact('diffusion', 'films'));
+        } else {
+            header('Location: ' . root . '/diffusions.php');
         }
     }
 
     public function supprimer() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
-            $removed = FALSE;
-            $message = "";
-            if (isset($_GET['date'])) {
-                $date = htmlentities($_GET['date']);
-                $nbDelLines = $this->tableDiffusion->remove($date);
-                $removed = $this->checkRemoved($nbDelLines);
-                $message = $this->writeRemovedMessage($removed);
-            }
-            echo ((int) $removed) . $message;
+        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            return;
         }
+
+        $removed = FALSE;
+        $message = "";
+        if (isset($_GET['date'])) {
+            $date = htmlentities($_GET['date']);
+            $nbDelLines = $this->tableDiffusion->remove($date);
+            $removed = $this->checkRemoved($nbDelLines);
+            $message = $this->writeRemovedMessage($removed);
+        }
+        echo ((int) $removed) . $message;
     }
 
     private function checkRemoved($nbDelLines) {
@@ -112,7 +120,7 @@ class DiffusionsController extends Controller implements Editable {
         $final_dir = "Images/Affiches/Seances/$str_school_years/$month/$day/";
         // On supprime l'affiche du répertoire lorsqu'elle existe et qu'on veut la modifier/supprimer
         if (!$_POST['etat_affiche'] !== '0') {
-            foreach(glob($final_dir . '*') as $file) {
+            foreach (glob($final_dir . '*') as $file) {
                 unlink($file);
             }
             rmdir($final_dir);

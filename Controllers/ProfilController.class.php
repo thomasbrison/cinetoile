@@ -18,34 +18,38 @@ class ProfilController extends Controller {
     }
 
     public function consulter() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
-            $membre = $this->tableMembre->getAttributes($_SESSION['login']);
-            if (!isset($_SESSION['is_password_changed'])) {
-                $_SESSION['is_password_changed'] = false;
-            }
-            $is_password_changed = $_SESSION['is_password_changed'];
-            $titre_page = "Profil de " . $_SESSION['login'];
-            $this->render('Profil/profil', array('effets'), compact('membre', 'titre_page', 'is_password_changed'));
+        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
+            return;
         }
+
+        $membre = $this->tableMembre->getAttributes($_SESSION['login']);
+        if (!isset($_SESSION['is_password_changed'])) {
+            $_SESSION['is_password_changed'] = false;
+        }
+        $is_password_changed = $_SESSION['is_password_changed'];
+        $titre_page = "Profil de " . $_SESSION['login'];
+        $this->render('Profil/profil', array('effets'), compact('membre', 'titre_page', 'is_password_changed'));
     }
 
     public function modifier() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
-            if (isset($_POST['modifier'])) {
-                $membre = $this->getInfos();
-                $membre->setLogin($_SESSION['login']);
-                $this->tableMembre->modifyInformation($membre);
-                $this->modifyPassword($membre);
-                header('Location: ' . root . '/profil.php');
-            } elseif (isset($_POST['annuler'])) {
-                header('Location: ' . root . '/profil.php');
-            } elseif (isset($_SESSION['login'])) {
-                $login = $_SESSION['login'];
-                $membre = $this->tableMembre->getAttributes($login);
-                $this->render('Membres/modification_membre', array(), compact('membre'));
-            } else {
-                header('Location: ' . root . '/profil.php');
-            }
+        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
+            return;
+        }
+
+        if (isset($_POST['modifier'])) {
+            $membre = $this->getInfos();
+            $membre->setLogin($_SESSION['login']);
+            $this->tableMembre->modifyInformation($membre);
+            $this->modifyPassword($membre);
+            header('Location: ' . root . '/profil.php');
+        } elseif (isset($_POST['annuler'])) {
+            header('Location: ' . root . '/profil.php');
+        } elseif (isset($_SESSION['login'])) {
+            $login = $_SESSION['login'];
+            $membre = $this->tableMembre->getAttributes($login);
+            $this->render('Membres/modification_membre', array(), compact('membre'));
+        } else {
+            header('Location: ' . root . '/profil.php');
         }
     }
 
@@ -61,15 +65,17 @@ class ProfilController extends Controller {
     }
 
     public function supprimer() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
-            if (isset($_SESSION['login'])) {
-                $login = $_SESSION['login'];
-                $this->tableMembre->remove($login);
-                unset($_SESSION['login']);
-                unset($_SESSION['droits']);
-            }
-            header('Location: ' . root . '/index.php');
+        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
+            return;
         }
+
+        if (isset($_SESSION['login'])) {
+            $login = $_SESSION['login'];
+            $this->tableMembre->remove($login);
+            unset($_SESSION['login']);
+            unset($_SESSION['droits']);
+        }
+        header('Location: ' . root . '/index.php');
     }
 
     private function getInfos() {

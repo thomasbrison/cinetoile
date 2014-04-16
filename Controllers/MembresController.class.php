@@ -19,58 +19,64 @@ class MembresController extends Controller implements Editable {
     }
 
     public function consulter() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
-            $titre_page = "Membres";
-            $membres = $this->tableMembre->consult();
-            $emailsTab = $this->tableMembre->getEmails();
-            $emails = "";
-            foreach ($emailsTab as $email) {
-                if (strlen($email)) {
-                    $emails .= $email . ',';
-                }
-            }
-            $membersEmailsTab = $this->tableMembre->getMembersEmails();
-            $membersEmails = "";
-            foreach ($membersEmailsTab as $memberEmail) {
-                if (strlen($memberEmail)) {
-                    $membersEmails .= $memberEmail . ',';
-                }
-            }
-            $this->render('Membres/membres', array('effets'), compact('titre_page', 'membres', 'emails', 'membersEmails'));
+        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            return;
         }
+
+        $titre_page = "Membres";
+        $membres = $this->tableMembre->consult();
+        $emailsTab = $this->tableMembre->getEmails();
+        $emails = "";
+        foreach ($emailsTab as $email) {
+            if (strlen($email)) {
+                $emails .= $email . ',';
+            }
+        }
+        $membersEmailsTab = $this->tableMembre->getMembersEmails();
+        $membersEmails = "";
+        foreach ($membersEmailsTab as $memberEmail) {
+            if (strlen($memberEmail)) {
+                $membersEmails .= $memberEmail . ',';
+            }
+        }
+        $this->render('Membres/membres', array('effets'), compact('titre_page', 'membres', 'emails', 'membersEmails'));
     }
 
     public function ajouter() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
-            if (isset($_POST['ajouter'])) {
-                $password = htmlentities(($_POST['login']));
-                $membre = $this->getInfos();
-                $membre->setPassword($password);
-                $this->tableMembre->add($membre);
-                header('Location: ' . root . '/membres.php');
-            } elseif (isset($_POST['annuler'])) {
-                header('Location: ' . root . '/membres.php');
-            } else {
-                $this->render('Membres/ajout_membre', array('login'));
-            }
+        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            return;
+        }
+
+        if (isset($_POST['ajouter'])) {
+            $password = htmlentities(($_POST['login']));
+            $membre = $this->getInfos();
+            $membre->setPassword($password);
+            $this->tableMembre->add($membre);
+            header('Location: ' . root . '/membres.php');
+        } elseif (isset($_POST['annuler'])) {
+            header('Location: ' . root . '/membres.php');
+        } else {
+            $this->render('Membres/ajout_membre', array('login'));
         }
     }
 
     public function modifier() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
-            if (isset($_POST['modifier'])) {
-                $membre = $this->getInfos();
-                $this->tableMembre->update($membre);
-                header('Location: ' . root . '/membres.php');
-            } elseif (isset($_POST['annuler'])) {
-                header('Location: ' . root . '/membres.php');
-            } elseif (isset($_GET['login'])) {
-                $login = htmlentities($_GET['login']);
-                $membre = $this->tableMembre->getAttributes($login);
-                $this->render('Membres/modification_membre', array('login'), compact('membre'));
-            } else {
-                header('Location: ' . root . '/membres.php');
-            }
+        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            return;
+        }
+
+        if (isset($_POST['modifier'])) {
+            $membre = $this->getInfos();
+            $this->tableMembre->update($membre);
+            header('Location: ' . root . '/membres.php');
+        } elseif (isset($_POST['annuler'])) {
+            header('Location: ' . root . '/membres.php');
+        } elseif (isset($_GET['login'])) {
+            $login = htmlentities($_GET['login']);
+            $membre = $this->tableMembre->getAttributes($login);
+            $this->render('Membres/modification_membre', array('login'), compact('membre'));
+        } else {
+            header('Location: ' . root . '/membres.php');
         }
     }
 
@@ -91,27 +97,31 @@ class MembresController extends Controller implements Editable {
     }
 
     public function modifierDroits() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
-            if (isset($_GET['login']) && isset($_GET['droits'])) {
-                $login = htmlentities($_GET['login']);
-                $droits = htmlentities($_GET['droits']);
-                $this->tableMembre->modifyRights($login, $droits);
-            }
+        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            return;
+        }
+
+        if (isset($_GET['login']) && isset($_GET['droits'])) {
+            $login = htmlentities($_GET['login']);
+            $droits = htmlentities($_GET['droits']);
+            $this->tableMembre->modifyRights($login, $droits);
         }
     }
 
     public function supprimer() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
-            $removed = FALSE;
-            $message = "";
-            if (isset($_GET['login'])) {
-                $login = htmlentities($_GET['login']);
-                $nbDelLines = $this->tableMembre->remove($login);
-                $removed = $this->checkRemoved($nbDelLines);
-                $message = $this->writeRemovedMessage($removed);
-            }
-            echo ((int) $removed) . $message;
+        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+            return;
         }
+
+        $removed = FALSE;
+        $message = "";
+        if (isset($_GET['login'])) {
+            $login = htmlentities($_GET['login']);
+            $nbDelLines = $this->tableMembre->remove($login);
+            $removed = $this->checkRemoved($nbDelLines);
+            $message = $this->writeRemovedMessage($removed);
+        }
+        echo ((int) $removed) . $message;
     }
 
     private function checkRemoved($nbDelLines) {
@@ -148,5 +158,4 @@ class MembresController extends Controller implements Editable {
     }
 
 }
-
 ?>

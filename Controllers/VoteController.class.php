@@ -27,27 +27,31 @@ class VoteController extends Controller implements Editable {
     }
 
     public function ajouter() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$MEMBER)) {
-            if (isset($_POST['add'])) {
-                $this->tableVote->add($$this->parsePost());
-                header('Location: ' . root . '/votes.php');
-            } elseif (isset($_POST['cancel'])) {
-                header('Location: ' . root . '/votes.php');
-            } else {
-                $this->render('Votes/ajouter');
-            }
+        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$MEMBER)) {
+            return;
+        }
+
+        if (isset($_POST['add'])) {
+            $this->tableVote->add($$this->parsePost());
+            header('Location: ' . root . '/votes.php');
+        } elseif (isset($_POST['cancel'])) {
+            header('Location: ' . root . '/votes.php');
+        } else {
+            $this->render('Votes/ajouter');
         }
     }
 
     public function consulter() {
-        $titre_page = "Votes";
-        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
-            //$votes = $this->tableVote->consult();
-            $votes = $this->tableVote->selectVotes('avenelt');
-            $table_film = $this->tableFilm;
-            $table_membre = $this->tableMembre;
-            $this->render('Votes/votes', array(), compact('titre_page', 'votes', 'table_film', 'table_membre'));
+        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
+            return;
         }
+
+        $titre_page = "Votes";
+        //$votes = $this->tableVote->consult();
+        $votes = $this->tableVote->selectVotes('avenelt');
+        $table_film = $this->tableFilm;
+        $table_membre = $this->tableMembre;
+        $this->render('Votes/votes', array(), compact('titre_page', 'votes', 'table_film', 'table_membre'));
     }
 
     public function defaultAction() {
@@ -59,17 +63,19 @@ class VoteController extends Controller implements Editable {
     }
 
     public function supprimer() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
-            $removed = FALSE;
-            $message = "";
-            if (isset($_GET['id'])) {
-                $id = (int) htmlentities($_GET['id']);
-                $nbDelLines = $this->tableVote->remove($id);
-                $removed = $this->checkRemoved($nbDelLines);
-                $message = $this->writeRemovedMessage($removed);
-            }
-            echo ((int) $removed) . $message;
+        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
+            return;
         }
+
+        $removed = FALSE;
+        $message = "";
+        if (isset($_GET['id'])) {
+            $id = (int) htmlentities($_GET['id']);
+            $nbDelLines = $this->tableVote->remove($id);
+            $removed = $this->checkRemoved($nbDelLines);
+            $message = $this->writeRemovedMessage($removed);
+        }
+        echo ((int) $removed) . $message;
     }
 
     private function checkRemoved($nbDelLines) {
