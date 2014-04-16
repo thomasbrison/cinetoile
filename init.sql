@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `Membre` (
 
 -- password à changer
 INSERT INTO Membre (login,password,droits,prenom,nom,email,telephone,ecole,annee)
-VALUES ('Cin&eacute;toile',PASSWORD('siteweb'),'3','Cin&eacute;toile',NULL,'cinetoile.grenoble@gmail.com',NULL,NULL,NULL);
+VALUES ('Cinetoile',PASSWORD('siteweb'),'3','Cinétoile',NULL,'cinetoile.grenoble@gmail.com',NULL,NULL,NULL);
 
 --
 -- Contraintes pour les tables exportées
