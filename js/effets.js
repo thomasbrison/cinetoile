@@ -2,11 +2,19 @@
  * Actions JavaScript générales
  */
 
-function displayMessage(message) {
-    var msgEl = document.createElement('nav');
-    msgEl.className = "message";
+function displayMessage(message, hideTimeout) {
+    var msgEl = document.getElementById('message');
+    if (!msgEl) {
+        msgEl = document.createElement('nav');
+        msgEl.id = "message";
+        document.body.appendChild(msgEl);
+    } else {
+        msgEl.style.display = 'block';
+    }
     msgEl.innerText = message;
-    document.body.appendChild(msgEl);
+    setTimeout(function() {
+        msgEl.style.display = 'none';
+    }, hideTimeout || 3000);
 }
 
 function displaySelections(displayedEl) {

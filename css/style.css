@@ -593,7 +593,7 @@ dd {
     min-height: 2em;
 }
 
-.message {
+#message {
     background-color: #444444;
     color: white;
     font-weight: bold;
