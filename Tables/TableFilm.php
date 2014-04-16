@@ -14,6 +14,10 @@ class TableFilm extends Table {
         parent::__construct('Film', 'id');
     }
 
+    /**
+     * Select all the entries of the Film table and containing all the information, ordered by title.
+     * @return array An array of Film
+     */
     public function consult() {
         $query = "Select *
             From $this->name
@@ -27,6 +31,11 @@ class TableFilm extends Table {
         return $films;
     }
 
+    /**
+     * Select all the entries of the Film table ordered by title and containing
+     * the id, the title, the director, the year, the country, the kind, the synopsis, the poster and the trailer.
+     * @return array An array of Film
+     */
     public function consultAsAMember() {
         $query = "Select id, titre, realisateur, annee, pays, acteurs, genre, synopsis, affiche, bande_annonce
             From $this->name
@@ -104,6 +113,11 @@ class TableFilm extends Table {
         return $sth->execute();
     }
 
+    /**
+     * Parse a row given by the query method of the PDOStatement.
+     * @param array $row Row given by the query method of the PDOStatement.
+     * @return Film
+     */
     private function parseRow($row) {
         $id = $row['id'];
         $titre = $row['titre'];
@@ -120,6 +134,11 @@ class TableFilm extends Table {
         return new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bandeAnnonce);
     }
 
+    /**
+     * Select a row in the Film table.
+     * @param int $key The primary key of the film
+     * @return Film An film containing the results of the row
+     */
     public function getAttributes($key) {
         $row = parent::getAttributes($key);
         return $this->parseRow($row);

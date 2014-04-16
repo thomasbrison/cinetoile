@@ -13,11 +13,13 @@ abstract class Table {
      * @var PDO
      */
     protected $dbh;
+
     /**
      *
      * @var string Table name
      */
     protected $name;
+
     /**
      *
      * @var mixed Name of primary key
@@ -56,9 +58,9 @@ abstract class Table {
     }
 
     /**
-     * Select a row 
+     * Select a row in the table.
      * @param mixed $key The primary key of the entry
-     * @return array An associative array containing the results of the row
+     * @return array A bean containing the results of the row
      */
     public function getAttributes($key) {
         $query = "SELECT * FROM $this->name WHERE $this->primaryKey = :key;";
