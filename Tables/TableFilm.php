@@ -40,18 +40,47 @@ class TableFilm extends Table {
         return $films;
     }
 
+    /**
+     * Bind params to an existing PDOStatement.
+     * The query of the statement must contain the following values :
+     * :titre, :realisateur, :annee, :pays, :acteurs, :genre, :support, :duree, :synopsis, :affiche, :bande_annonce
+     * @param PDOStatement $sth
+     * @param Film $film
+     */
+    private function bindParams(&$sth, $film) {
+        $sth->bindParam(':titre', $film->getTitre(), PDO::PARAM_STR);
+        $sth->bindParam(':realisateur', $film->getRealisateur(), PDO::PARAM_STR);
+        $sth->bindParam(':annee', $film->getAnnee(), PDO::PARAM_INT);
+        $sth->bindParam(':pays', $film->getPays(), PDO::PARAM_STR);
+        $sth->bindParam(':acteurs', $film->getActeurs(), PDO::PARAM_STR);
+        $sth->bindParam(':genre', $film->getGenre(), PDO::PARAM_STR);
+        $sth->bindParam(':support', $film->getSupport(), PDO::PARAM_STR);
+        $sth->bindParam(':duree', $film->getDuree(), PDO::PARAM_STR);
+        $sth->bindParam(':synopsis', $film->getSynopsis(), PDO::PARAM_STR);
+        $sth->bindParam(':affiche', $film->getAffiche(), PDO::PARAM_STR);
+        $sth->bindParam(':bande_annonce', $film->getBandeAnnonce(), PDO::PARAM_STR);
+    }
+
+    /**
+     * Add a film in the database
+     * @param Film $film
+     * @return bool True if the film has correctly been added, false if not
+     */
     public function add($film) {
         extract($film->arrayInfos());
         $query = "Insert into $this->name(titre, realisateur, annee, pays, acteurs, genre, support,
             duree, synopsis, affiche, bande_annonce)
-            Values ('$titre', '$realisateur', $annee, '$pays', '$acteurs', '$genre', $support,
-                $duree, '$synopsis', '$affiche', '$bandeAnnonce');";
-        $this->dbh->query($query);
+            Values (:titre, :realisateur, :annee, :pays, :acteurs, :genre, :support,
+                :duree, :synopsis, :affiche, :bande_annonce);";
+        $sth = $this->dbh->prepare($query);
+        $this->bindParams($sth, $film);
+        return $sth->execute();
     }
 
     /**
      * Update a film in the database
      * @param Film $film
+     * @return bool True if the film has correctly been updated, false if not
      */
     public function update($film) {
         $query = "Update $this->name
