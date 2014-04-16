@@ -127,7 +127,7 @@ class TableFilm extends Table {
     /**
      * Select a row in the Film table.
      * @param int $key The primary key of the film
-     * @return Film An film containing the results of the row
+     * @return Film A film containing the results of the row
      */
     public function getAttributes($key) {
         $row = parent::getAttributes($key);
