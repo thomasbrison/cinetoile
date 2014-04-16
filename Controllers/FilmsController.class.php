@@ -50,7 +50,7 @@ class FilmsController extends Controller implements Editable {
     }
 
     public function modifier() {
-        if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             return;
         }
 
