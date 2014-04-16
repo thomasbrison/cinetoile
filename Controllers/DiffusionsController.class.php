@@ -76,7 +76,7 @@ class DiffusionsController extends Controller implements Editable {
             $removed = FALSE;
             $message = "";
             if (isset($_GET['date'])) {
-                $date = htmlentities(utf8_decode($_GET['date']));
+                $date = htmlentities($_GET['date']);
                 $nbDelLines = $this->tableDiffusion->remove($date);
                 $removed = $this->checkRemoved($nbDelLines);
                 $message = $this->writeRemovedMessage($removed);

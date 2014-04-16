@@ -67,7 +67,7 @@ class IndexController extends Controller {
             if (!isset($_POST['connexion'])) {
                 $this->render('authentification');
             } else {
-                $login = htmlentities(utf8_decode($_POST['login']));
+                $login = htmlentities($_POST['login']);
                 $password = htmlentities($_POST['password']);
                 $droits = $this->tableMembre->authenticate($login, $password);
                 if ($droits === Rights::$USER) {

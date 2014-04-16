@@ -48,14 +48,14 @@ class FilmsController extends Controller implements Editable {
     public function modifier() {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_POST['modifier'])) {
-                $id = (int) htmlentities(utf8_decode($_POST['id']));
+                $id = (int) htmlentities($_POST['id']);
                 $film = $this->getInfos($id);
                 $this->tableFilm->update($film);
                 header('Location: ' . root . '/films.php');
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/films.php');
             } elseif (isset($_GET['id'])) {
-                $id = (int) htmlentities(utf8_decode($_GET['id']));
+                $id = (int) htmlentities($_GET['id']);
                 $film = $this->tableFilm->getAttributes($id);
                 $array_duration = $this->arrayDuration($film->getDuree());
                 $_SESSION['affiche'] = $film->getAffiche();
@@ -90,7 +90,7 @@ class FilmsController extends Controller implements Editable {
             $removed = FALSE;
             $message = "";
             if (isset($_GET['id'])) {
-                $id = (int) htmlentities(utf8_decode($_GET['id']));
+                $id = (int) htmlentities($_GET['id']);
                 $nbDelLines = $this->tableFilm->remove($id);
                 $removed = $this->checkRemoved($nbDelLines);
                 $message = $this->writeRemovedMessage($removed);
@@ -130,13 +130,13 @@ class FilmsController extends Controller implements Editable {
     }
 
     private function getInfos($id) {
-        $titre = htmlentities(utf8_decode($_POST['titre']));
-        $realisateur = htmlentities(utf8_decode($_POST['realisateur']));
-        $annee = ((int) $_POST['annee'] === -1) ? 'NULL' : htmlentities(utf8_decode($_POST['annee']));
-        $pays = htmlentities(utf8_decode($_POST['pays']));
-        $acteurs = htmlentities(utf8_decode($_POST['acteurs']));
-        $genre = htmlentities(utf8_decode($_POST['genre']));
-        $support = htmlentities(utf8_decode($_POST['support']));
+        $titre = htmlentities($_POST['titre']);
+        $realisateur = htmlentities($_POST['realisateur']);
+        $annee = ((int) $_POST['annee'] === -1) ? 'NULL' : htmlentities($_POST['annee']);
+        $pays = htmlentities($_POST['pays']);
+        $acteurs = htmlentities($_POST['acteurs']);
+        $genre = htmlentities($_POST['genre']);
+        $support = htmlentities($_POST['support']);
         $duree = $this->formatDuration((int) $_POST['heures_duree'], (int) $_POST['minutes_duree']);
         $synopsis = addslashes($_POST['synopsis']);
         $bande_annonce = htmlentities($_POST['bande_annonce']);

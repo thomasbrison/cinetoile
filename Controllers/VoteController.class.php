@@ -63,7 +63,7 @@ class VoteController extends Controller implements Editable {
             $removed = FALSE;
             $message = "";
             if (isset($_GET['id'])) {
-                $id = (int) htmlentities(utf8_decode($_GET['id']));
+                $id = (int) htmlentities($_GET['id']);
                 $nbDelLines = $this->tableVote->remove($id);
                 $removed = $this->checkRemoved($nbDelLines);
                 $message = $this->writeRemovedMessage($removed);

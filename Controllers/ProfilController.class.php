@@ -73,11 +73,11 @@ class ProfilController extends Controller {
     }
 
     private function getInfos() {
-        $login = htmlentities(utf8_decode($_POST['login']));
-        $password = htmlentities(utf8_decode($_POST['password']));
+        $login = htmlentities($_POST['login']);
+        $password = htmlentities($_POST['password']);
         $droits = htmlentities($_POST['droits']);
-        $prenom = htmlentities(utf8_decode($_POST['prenom']));
-        $nom = htmlentities(utf8_decode($_POST['nom']));
+        $prenom = htmlentities($_POST['prenom']);
+        $nom = htmlentities($_POST['nom']);
         $email = htmlentities($_POST['email']);
         $tel1 = htmlentities($_POST['tel1']);
         $tel2 = htmlentities($_POST['tel2']);

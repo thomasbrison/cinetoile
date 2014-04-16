@@ -65,7 +65,7 @@ class MembresController extends Controller implements Editable {
             } elseif (isset($_POST['annuler'])) {
                 header('Location: ' . root . '/membres.php');
             } elseif (isset($_GET['login'])) {
-                $login = htmlentities(utf8_decode($_GET['login']));
+                $login = htmlentities($_GET['login']);
                 $membre = $this->tableMembre->getAttributes($login);
                 $this->render('Membres/modification_membre', array('login'), compact('membre'));
             } else {
@@ -93,7 +93,7 @@ class MembresController extends Controller implements Editable {
     public function modifierDroits() {
         if ($this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
             if (isset($_GET['login']) && isset($_GET['droits'])) {
-                $login = htmlentities(utf8_decode($_GET['login']));
+                $login = htmlentities($_GET['login']);
                 $droits = htmlentities($_GET['droits']);
                 $this->tableMembre->modifyRights($login, $droits);
             }
@@ -105,7 +105,7 @@ class MembresController extends Controller implements Editable {
             $removed = FALSE;
             $message = "";
             if (isset($_GET['login'])) {
-                $login = htmlentities(utf8_decode($_GET['login']));
+                $login = htmlentities($_GET['login']);
                 $nbDelLines = $this->tableMembre->remove($login);
                 $removed = $this->checkRemoved($nbDelLines);
                 $message = $this->writeRemovedMessage($removed);
@@ -127,10 +127,10 @@ class MembresController extends Controller implements Editable {
     }
 
     private function getInfos() {
-        $login = htmlentities(utf8_decode($_POST['login']));
+        $login = htmlentities($_POST['login']);
         $droits = htmlentities($_POST['droits']);
-        $prenom = htmlentities(utf8_decode($_POST['prenom']));
-        $nom = htmlentities(utf8_decode($_POST['nom']));
+        $prenom = htmlentities($_POST['prenom']);
+        $nom = htmlentities($_POST['nom']);
         $email = htmlentities($_POST['email']);
         $tel1 = htmlentities($_POST['tel1']);
         $tel2 = htmlentities($_POST['tel2']);
