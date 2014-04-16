@@ -108,9 +108,9 @@ class DiffusionsController extends Controller implements Editable {
     private function getInfos($date) {
         require_once 'Lib/dates.php';
         $id_film = $_POST['id_film'];
-        $cycle = $_POST['cycle'];
-        $commentaire = addslashes($_POST['commentaire']);
-        $nb_presents = (int) $_POST['nb_presents'];
+        $cycle = parse_input($_POST['cycle']);
+        $commentaire = parse_input($_POST['commentaire']);
+        $nb_presents = (empty($_POST['nb_presents']) || (int) $_POST['nb_presents'] === -1) ? NULL : (int) $_POST['nb_presents'];
         $datetime = new DateTime($date);
         $year = $datetime->format('Y');
         $month = $datetime->format('m');

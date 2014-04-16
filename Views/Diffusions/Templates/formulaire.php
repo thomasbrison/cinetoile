@@ -115,8 +115,7 @@ if (isset($diffusion)) {
         <p>
             <label>Nombre de personnes présentes :  </label>
             <select name="nb_presents">
-                    <option value="">
-                    </option>
+                <option value=-1></option>
                 <?php for ($i = 1; $i <= 100; $i++) : ?>
                     <option value="<?php echo $i; ?>" <?php if (isset($nb_presents) && (int) $nb_presents === $i) echo "selected"; ?>>
                         <?php echo $i; ?>
