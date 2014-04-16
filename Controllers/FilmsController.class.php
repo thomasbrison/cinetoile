@@ -140,16 +140,16 @@ class FilmsController extends Controller implements Editable {
     }
 
     private function getInfos($id) {
-        $titre = htmlentities($_POST['titre']);
-        $realisateur = htmlentities($_POST['realisateur']);
-        $annee = ((int) $_POST['annee'] === -1) ? NULL : htmlentities($_POST['annee']);
-        $pays = htmlentities($_POST['pays']);
-        $acteurs = htmlentities($_POST['acteurs']);
-        $genre = htmlentities($_POST['genre']);
-        $support = htmlentities($_POST['support']);
+        $titre = parse_input($_POST['titre']);
+        $realisateur = parse_input($_POST['realisateur']);
+        $annee = ((int) $_POST['annee'] === -1) ? NULL : (int) $_POST['annee'];
+        $pays = parse_input($_POST['pays']);
+        $acteurs = parse_input($_POST['acteurs']);
+        $genre = parse_input($_POST['genre']);
+        $support = parse_input($_POST['support']);
         $duree = $this->formatDuration((int) $_POST['heures_duree'], (int) $_POST['minutes_duree']);
-        $synopsis = addslashes($_POST['synopsis']);
-        $bande_annonce = htmlentities($_POST['bande_annonce']);
+        $synopsis = parse_input($_POST['synopsis']);
+        $bande_annonce = addslashes($_POST['bande_annonce']);
         $affiche = $this->uploadPoster($_POST['etat_affiche'], "Images/Affiches/Films/");
         return new Film($id, $titre, $realisateur, $annee, $pays, $acteurs, $genre, $support, $duree, $synopsis, $affiche, $bande_annonce);
     }

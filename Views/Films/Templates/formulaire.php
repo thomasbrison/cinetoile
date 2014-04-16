@@ -18,7 +18,7 @@
         <p>
             <label>Ann&eacute;e :  </label>
             <select name="annee">
-                <option value=NULL <?php if (!isset($annee)) echo "selected"; ?>>Ann&eacute;e</option>
+                <option value=-1 <?php if (!isset($annee)) echo "selected"; ?>>Ann&eacute;e</option>
                 <?php for ($i = 1930; $i <= 2010; $i++) : ?>
                 <option value=<?php echo $i; ?> <?php if (isset($annee) && $i === $annee) echo "selected"; ?>>
                     <?php echo $i; ?>

@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Lib/Rights.class.php';
+require_once 'Lib/functions.php';
 
 abstract class Controller {
 
