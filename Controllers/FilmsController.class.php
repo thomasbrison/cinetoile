@@ -142,7 +142,7 @@ class FilmsController extends Controller implements Editable {
     private function getInfos($id) {
         $titre = htmlentities($_POST['titre']);
         $realisateur = htmlentities($_POST['realisateur']);
-        $annee = ((int) $_POST['annee'] === -1) ? 'NULL' : htmlentities($_POST['annee']);
+        $annee = ((int) $_POST['annee'] === -1) ? NULL : htmlentities($_POST['annee']);
         $pays = htmlentities($_POST['pays']);
         $acteurs = htmlentities($_POST['acteurs']);
         $genre = htmlentities($_POST['genre']);
