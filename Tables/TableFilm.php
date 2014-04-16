@@ -98,17 +98,7 @@ class TableFilm extends Table {
                 synopsis = :synopsis, affiche = :affiche, bande_annonce = :bande_annonce
             Where id = :id;";
         $sth = $this->dbh->prepare($query);
-        $sth->bindParam(':titre', $film->getTitre(), PDO::PARAM_STR);
-        $sth->bindParam(':realisateur', $film->getRealisateur(), PDO::PARAM_STR);
-        $sth->bindParam(':annee', $film->getAnnee(), PDO::PARAM_INT);
-        $sth->bindParam(':pays', $film->getPays(), PDO::PARAM_STR);
-        $sth->bindParam(':acteurs', $film->getActeurs(), PDO::PARAM_STR);
-        $sth->bindParam(':genre', $film->getGenre(), PDO::PARAM_STR);
-        $sth->bindParam(':support', $film->getSupport(), PDO::PARAM_STR);
-        $sth->bindParam(':duree', $film->getDuree(), PDO::PARAM_STR);
-        $sth->bindParam(':synopsis', $film->getSynopsis(), PDO::PARAM_STR);
-        $sth->bindParam(':affiche', $film->getAffiche(), PDO::PARAM_STR);
-        $sth->bindParam(':bande_annonce', $film->getBandeAnnonce(), PDO::PARAM_STR);
+        $this->bindParams($sth, $film);
         $sth->bindParam(':id', $film->getId(), PDO::PARAM_INT);
         return $sth->execute();
     }
