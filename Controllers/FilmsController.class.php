@@ -77,7 +77,7 @@ class FilmsController extends Controller implements Editable {
         if ($hours != -1 && $minutes != -1) {
             return $hours . ':' . $minutes;
         } else {
-            return 'NULL';
+            return NULL;
         }
     }
 
