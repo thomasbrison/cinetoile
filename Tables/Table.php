@@ -66,7 +66,10 @@ abstract class Table {
         $query = "SELECT * FROM $this->name WHERE $this->primaryKey = :key;";
         $sth = $this->dbh->prepare($query);
         $sth->bindParam(':key', $key);
-        return $sth->fetch(PDO::FETCH_ASSOC);
+        if ($sth->execute()) {
+            return $sth->fetch(PDO::FETCH_ASSOC);
+        }
+        return NULL;
     }
 
     /**
