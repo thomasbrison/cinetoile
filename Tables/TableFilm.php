@@ -108,7 +108,7 @@ class TableFilm extends Table {
         $id = $row['id'];
         $titre = $row['titre'];
         $realisateur = $row['realisateur'];
-        $annee = (int) $row['annee'];
+        $annee = isset($row['annee']) ? (int) $row['annee'] : NULL;
         $pays = $row['pays'];
         $acteurs = $row['acteurs'];
         $genre = $row['genre'];
