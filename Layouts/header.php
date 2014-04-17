@@ -33,6 +33,7 @@ switch ($_SESSION['droits']) {
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <link rel="icon" href="Images/Logos/favicon.ico"/>
+        <script type="text/javascript" src="js/main.js"></script>
 	<?php foreach ($js_array as $fichier) : ?>
         <script type="text/javascript" src="js/<?php echo $fichier; ?>.js"></script>
         <?php endforeach; ?>
@@ -43,7 +44,7 @@ switch ($_SESSION['droits']) {
         <title> <?php echo $titre_page; ?> </title>
     </head>
 
-    <body>
+    <body onload="onload();">
         <header>
             <nav id="nav-header" class="<?php echo $class_nav; ?>">
                 <ul>

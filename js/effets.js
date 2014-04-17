@@ -2,21 +2,6 @@
  * Actions JavaScript générales
  */
 
-function displayMessage(message, hideTimeout) {
-    var msgEl = document.getElementById('message');
-    if (!msgEl) {
-        msgEl = document.createElement('nav');
-        msgEl.id = "message";
-        document.body.appendChild(msgEl);
-    } else {
-        msgEl.style.display = 'block';
-    }
-    msgEl.innerText = message;
-    setTimeout(function() {
-        msgEl.style.display = 'none';
-    }, hideTimeout || 3000);
-}
-
 function displaySelections(displayedEl) {
     var formElement = displayedEl.parentNode.querySelector('form');
     displayedEl.className = "js-el hidden";
@@ -176,12 +161,12 @@ function zoom_affiches() {
     var affiches = document.getElementsByName('affiche');
     var length = affiches.length;
 
-    for (i=0; i<affiches.length; i++) {
+    for (i = 0; i < affiches.length; i++) {
         affiches[i].id = "affiche" + i;
         click["affiche" + i] = false;
     }
 
-    for (i=0; i<length; i++) {
+    for (i = 0; i < length; i++) {
 
         affiches[i].onmouseover = function() {
             zoom(this);
@@ -211,7 +196,7 @@ function clicdroit() {
     var i;
     var length = img.length;
 
-    for (i=0; i<length; i++) {
+    for (i = 0; i < length; i++) {
         img[i].oncontextmenu = function() {
             compteur++;
             if (compteur > 3) {
@@ -222,11 +207,11 @@ function clicdroit() {
     }
 }
 
-function zoom(img){
+function zoom(img) {
     img.className = "grande_affiche";
 }
 
-function dezoom(img){
+function dezoom(img) {
     img.className = "affiche";
 }
 
@@ -281,8 +266,8 @@ function suppr_affiche() {
     var p = boutons.getElementsByTagName("p")[0];
 
     input_etat_affiche.value = "2";
-    balises_boutons[balises_boutons.length-2].style.display = "none";
-    balises_boutons[balises_boutons.length-1].style.display = "none";
+    balises_boutons[balises_boutons.length - 2].style.display = "none";
+    balises_boutons[balises_boutons.length - 1].style.display = "none";
     p.innerHTML = "Affiche supprimée !";
 }
 

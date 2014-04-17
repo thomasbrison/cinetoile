@@ -37,6 +37,7 @@ abstract class Controller {
         }
         require($this->root() . '/Views/' . $file_name . '.view.php');
         echo "</section>";
+        append_message();
         include($this->root() . '/Layouts/footer.php');
     }
 

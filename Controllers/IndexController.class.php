@@ -70,11 +70,8 @@ class IndexController extends Controller {
                 $login = htmlentities($_POST['login']);
                 $password = htmlentities($_POST['password']);
                 $droits = $this->tableMembre->authenticate($login, $password);
-                if ($droits === Rights::$USER) {
-                    ?>
-                    <script>alert("Nom d'utilisateur ou mot de passe incorrect !");</script>
-                    <?php
-
+                if ($droits < Rights::$MEMBER) {
+                    create_message("Nom d'utilisateur ou mot de passe incorrect !");
                     $this->render('authentification');
                 } else {
                     $_SESSION['login'] = $login;
