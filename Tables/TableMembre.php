@@ -40,7 +40,7 @@ class TableMembre extends Table {
         $sth = $this->dbh->prepare($query);
         $sth->bindParam(':login', $membre->getLogin(), PDO::PARAM_STR);
         $sth->bindParam(':password', $membre->getPassword(), PDO::PARAM_STR);
-        $sth->bindParam(':droits', $membre->getDroits(), PDO::PARAM_INT);
+        $sth->bindParam(':droits', $membre->getDroits(), PDO::PARAM_STR);
         $sth->bindParam(':prenom', $membre->getPrenom(), PDO::PARAM_STR);
         $sth->bindParam(':nom', $membre->getNom(), PDO::PARAM_STR);
         $sth->bindParam(':email', $membre->getEmail(), PDO::PARAM_STR);
@@ -62,7 +62,7 @@ class TableMembre extends Table {
                 ecole = :ecole, annee = :annee
             Where login = :login;";
         $sth = $this->dbh->prepare($query);
-        $sth->bindParam(':droits', $membre->getDroits(), PDO::PARAM_INT);
+        $sth->bindParam(':droits', $membre->getDroits(), PDO::PARAM_STR);
         $sth->bindParam(':prenom', $membre->getPrenom(), PDO::PARAM_STR);
         $sth->bindParam(':nom', $membre->getNom(), PDO::PARAM_STR);
         $sth->bindParam(':email', $membre->getEmail(), PDO::PARAM_STR);
@@ -178,7 +178,7 @@ class TableMembre extends Table {
             Set droits = :droits
             Where login = :login;";
         $sth = $this->dbh->prepare($query);
-        $sth->bindParam(':droits', $droits, PDO::PARAM_INT);
+        $sth->bindParam(':droits', $droits, PDO::PARAM_STR);
         $sth->bindParam(':login', $login, PDO::PARAM_STR);
         return $sth->execute();
     }
@@ -209,7 +209,7 @@ class TableMembre extends Table {
         require_once 'Lib/Rights.class.php';
         $query = "SELECT email FROM $this->name WHERE droits = :droits;";
         $sth = $this->dbh->prepare($query);
-        $sth->bindParam(':droits', Rights::$MEMBER, PDO::PARAM_INT);
+        $sth->bindParam(':droits', Rights::$MEMBER, PDO::PARAM_STR);
         if ($sth->execute()) {
             return $sth->fetchAll(PDO::FETCH_COLUMN);
         }
