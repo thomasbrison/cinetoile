@@ -137,11 +137,11 @@ class MembresController extends Controller implements Editable {
     }
 
     private function getInfos() {
-        $login = htmlentities($_POST['login']);
-        $droits = htmlentities($_POST['droits']);
-        $prenom = htmlentities($_POST['prenom']);
-        $nom = htmlentities($_POST['nom']);
-        $email = htmlentities($_POST['email']);
+        $login = parse_input($_POST['login']);
+        $droits = parse_input($_POST['droits']);
+        $prenom = parse_input($_POST['prenom']);
+        $nom = parse_input($_POST['nom']);
+        $email = parse_input($_POST['email']);
         $tel1 = htmlentities($_POST['tel1']);
         $tel2 = htmlentities($_POST['tel2']);
         $tel3 = htmlentities($_POST['tel3']);
@@ -152,8 +152,8 @@ class MembresController extends Controller implements Editable {
         } else {
             $tel = null;
         }
-        $ecole = htmlentities($_POST['ecole']);
-        $annee = htmlentities($_POST['annee']);
+        $ecole = parse_input($_POST['ecole']);
+        $annee = parse_input($_POST['annee']);
         return new Membre($login, null, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
     }
 

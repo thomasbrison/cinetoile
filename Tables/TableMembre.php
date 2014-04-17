@@ -86,7 +86,7 @@ class TableMembre extends Table {
         $email = $row['email'];
         $telephone = $row['telephone'];
         $ecole = $row['ecole'];
-        $annee = isset($row['annee']) ? (int) $row['annee'] : NULL;
+        $annee = isset($row['annee']) ? $row['annee'] : NULL;
         $droits = (int) $row['droits'];
         return new Membre($login, $password, $droits, $prenom, $nom, $email, $telephone, $ecole, $annee);
     }
