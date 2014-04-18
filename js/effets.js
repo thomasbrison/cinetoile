@@ -82,7 +82,7 @@ function removeTable(formEl, elToRemove, primaryKeyName) {
             var response = request.responseText;
             var removed = parseInt(response[0]);
             var message = response.substring(1);
-            displayMessage(message);
+            displayHidingMessage(message);
             if (removed) {
                 elToRemove.parentNode.removeChild(elToRemove);
             }
