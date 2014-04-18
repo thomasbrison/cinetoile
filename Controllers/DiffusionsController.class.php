@@ -38,13 +38,7 @@ class DiffusionsController extends Controller implements Editable {
         }
 
         if (isset($_POST['ajouter'])) {
-            $jour = (int) $_POST['jour_diffusion'];
-            $mois = (int) $_POST['mois_diffusion'];
-            $annee = (int) $_POST['annee_diffusion'];
-            $heure = (int) $_POST['heure_diffusion'];
-            $minute = (int) $_POST['minute_diffusion'];
-            $date = "$annee-$mois-$jour $heure:$minute";
-            $diffusion = $this->getInfos($date);
+            $diffusion = $this->getInfos(null);
             $this->tableDiffusion->add($diffusion);
             header('Location: ' . root . '/diffusions.php');
         } elseif (isset($_POST['annuler'])) {
@@ -61,14 +55,14 @@ class DiffusionsController extends Controller implements Editable {
         }
 
         if (isset($_POST['modifier'])) {
-            $date = $_POST['date'];
-            $diffusion = $this->getInfos($date);
+            $id = (int) htmlentities($_POST['id']);
+            $diffusion = $this->getInfos($id);
             $this->tableDiffusion->update($diffusion);
             header('Location: ' . root . '/diffusions.php');
         } elseif (isset($_POST['annuler'])) {
             header('Location: ' . root . '/diffusions.php');
-        } elseif (isset($_GET['date'])) {
-            $diffusion = $this->tableDiffusion->getAttributes($_GET['date']);
+        } elseif (isset($_GET['id'])) {
+            $diffusion = $this->tableDiffusion->getAttributes((int) $_GET['id']);
             $_SESSION['affiche'] = $diffusion->getAffiche();
             $films = $this->tableFilm->consultAsAMember();
             $this->render('Diffusions/modification_diffusion', array('effets'), compact('diffusion', 'films'));
@@ -84,9 +78,9 @@ class DiffusionsController extends Controller implements Editable {
 
         $removed = FALSE;
         $message = "";
-        if (isset($_GET['date'])) {
-            $date = htmlentities($_GET['date']);
-            $nbDelLines = $this->tableDiffusion->remove($date);
+        if (isset($_GET['id'])) {
+            $id = (int) htmlentities($_GET['id']);
+            $nbDelLines = $this->tableDiffusion->remove($id);
             $removed = $this->checkRemoved($nbDelLines);
             $message = $this->writeRemovedMessage($removed);
         }
@@ -105,8 +99,14 @@ class DiffusionsController extends Controller implements Editable {
         }
     }
 
-    private function getInfos($date) {
+    private function getInfos($id) {
         require_once 'Lib/dates.php';
+        $jour = (int) $_POST['jour_diffusion'];
+        $mois = (int) $_POST['mois_diffusion'];
+        $annee = (int) $_POST['annee_diffusion'];
+        $heure = (int) $_POST['heure_diffusion'];
+        $minute = (int) $_POST['minute_diffusion'];
+        $date = "$annee-$mois-$jour $heure:$minute";
         $id_film = $_POST['id_film'];
         $cycle = parse_input($_POST['cycle']);
         $commentaire = parse_input($_POST['commentaire']);
@@ -126,7 +126,7 @@ class DiffusionsController extends Controller implements Editable {
             rmdir($final_dir);
         }
         $affiche = $this->uploadPoster($_POST['etat_affiche'], $final_dir);
-        return new Diffusion($date, $id_film, $cycle, $commentaire, $affiche, $nb_presents);
+        return new Diffusion($id, $date, $id_film, $cycle, $commentaire, $affiche, $nb_presents);
     }
 
 }

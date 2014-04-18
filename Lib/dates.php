@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Convert the month number (from 1 to 12) to the month word in french.
+ * @param int $month_number
+ * @return string
+ */
 function date_format_month_to_string($month_number) {
     switch ($month_number) {
         case 1 :
@@ -42,6 +47,11 @@ function date_format_month_to_string($month_number) {
     return $month;
 }
 
+/**
+ * Parse a date string into an array containing a displayable date in french and a displayable time in french.
+ * @param string $datetime
+ * @return array The key 'date' contains the date and the key 'time' contains the time
+ */
 function date_format_to_string($datetime) {
     $date_diff = date("d m Y H i", strtotime($datetime));
     $mon_nb = date("n", strtotime($datetime));
@@ -54,7 +64,7 @@ function date_format_to_string($datetime) {
 }
 
 /**
- * Returns an array containing the school year of a date
+ * Return an array containing the school year of a date.
  * The key "first_year" contains the first year of the period, finishing in July
  * The key "second_year" contains the second year of the period, beginning in August
  *
@@ -70,7 +80,7 @@ function date_get_school_year($year, $month) {
 }
 
 /**
- * Returns an array containing the current school year
+ * Return an array containing the current school year.
  * The key "first_year" contains the first year of the period, finishing in July
  * The key "second_year" contains the second year of the period, beginning in August
  *

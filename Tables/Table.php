@@ -41,8 +41,11 @@ abstract class Table {
      * Select all from a database.
      * @return array An associative array containing the results by row
      */
-    public function getAll() {
-        $query = "SELECT * FROM $this->name;";
+    public function getAll($orderBy = NULL) {
+        $query = "SELECT * FROM $this->name";
+        if (isset($orderBy)) {
+            $query .= " ORDER BY $orderBy";
+        }
         $sth = $this->dbh->query($query);
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }

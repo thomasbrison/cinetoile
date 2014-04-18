@@ -10,15 +10,15 @@ require_once('Table.php');
 class TableDiffusion extends Table {
 
     public function __construct() {
-        parent::__construct('Diffusion', 'date_diffusion');
+        parent::__construct('Diffusion', 'id');
     }
 
     /**
-     * Select all the entries of the Diffusion table and containing all the information.
+     * Select all the entries of the Diffusion table and containing all the information, ordered by date of diffusion.
      * @return array An array of Diffusion
      */
     public function consult() {
-        $result = parent::getAll();
+        $result = parent::getAll('date_diffusion ASC');
         $diffusions = array();
         foreach ($result as $row) {
             $diffusions[] = $this->parseRow($row);
@@ -62,10 +62,11 @@ class TableDiffusion extends Table {
      */
     public function update($diffusion) {
         $query = "Update $this->name
-            Set id_film = :id_film, cycle = :cycle, commentaire = :commentaire, affiche = :affiche, nb_presents = :nb_presents
-            Where date_diffusion = :date_diffusion;";
+            Set date_diffusion = :date_diffusion, id_film = :id_film, cycle = :cycle, commentaire = :commentaire, affiche = :affiche, nb_presents = :nb_presents
+            Where id = :id;";
         $sth = $this->dbh->prepare($query);
         $this->bindParams($sth, $diffusion);
+        $sth->bindParam(':id', $diffusion->getId(), PDO::PARAM_INT);
         return $sth->execute();
     }
 
@@ -75,13 +76,14 @@ class TableDiffusion extends Table {
      * @return Diffusion
      */
     private function parseRow($row) {
+        $id = (int) $row['id'];
         $dateDiffusion = $row['date_diffusion'];
-        $idFilm = $row['id_film'];
+        $idFilm = (int) $row['id_film'];
         $cycle = $row['cycle'];
         $commentaire = $row['commentaire'];
         $affiche = $row['affiche'];
         $nb_presents = $row['nb_presents'];
-        return new Diffusion($dateDiffusion, $idFilm, $cycle, $commentaire, $affiche, $nb_presents);
+        return new Diffusion($id, $dateDiffusion, $idFilm, $cycle, $commentaire, $affiche, $nb_presents);
     }
 
     /**
@@ -91,13 +93,7 @@ class TableDiffusion extends Table {
      */
     public function getAttributes($key) {
         $row = parent::getAttributes($key);
-        $dateDiffusion = $row['date_diffusion'];
-        $idFilm = $row['id_film'];
-        $cycle = $row['cycle'];
-        $commentaire = $row['commentaire'];
-        $affiche = $row['affiche'];
-        $nb_presents = $row['nb_presents'];
-        return new Diffusion($dateDiffusion, $idFilm, $cycle, $commentaire, $affiche, $nb_presents);
+        return $this->parseRow($row);
     }
 
     /**

@@ -2,10 +2,14 @@
 require_once 'Lib/dates.php';
 
 if (isset($diffusion)) {
+    $id = $diffusion->getId();
     $datetime = $diffusion->getDate();
-    $date_and_hour_array = date_format_to_string($datetime);
-    $date = $date_and_hour_array['date'];
-    $heure = $date_and_hour_array['time'];
+    $timestamp = strtotime($datetime);
+    $day_nb = (int) date('j', $timestamp);
+    $mon_nb = (int) date('n', $timestamp);
+    $yea_nb = (int) date('Y', $timestamp);
+    $hour_nb = (int) date('G', $timestamp);
+    $min_nb = (int) date('i', $timestamp);
     $id_film = $diffusion->getIdFilm();
     $cycle = $diffusion->getCycle();
     $affiche = $diffusion->getAffiche();
@@ -18,16 +22,16 @@ if (isset($diffusion)) {
 
     <fieldset>
         <legend></legend>
-        <?php if (isset($datetime)) : ?>
-        <input type="hidden" name="date" value="<?php echo $datetime; ?>"/>
-        <?php else : ?>
+        <?php if (isset($id)) : ?>
+        <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+        <?php endif; ?>
         <p>
             <label>Date : </label>
             <span>
                 <select name="jour_diffusion">
                     <option value=NULL>Jour</option>
                     <?php for ($i = 1; $i <= 31; $i++) : ?>
-                    <option value="<?php echo $i; ?>">
+                    <option value="<?php echo $i; ?>" <?php if (isset($day_nb) && $day_nb === $i) echo "selected"; ?>>
                         <?php echo $i; ?>
                     </option>
                     <?php endfor; ?>
@@ -38,7 +42,7 @@ if (isset($diffusion)) {
                     for ($i = 1; $i <= 12; $i++) :
                         $mois = date_format_month_to_string($i);
                         ?>
-                    <option value="<?php echo $i; ?>">
+                    <option value="<?php echo $i; ?>" <?php if (isset($mon_nb) && $mon_nb === $i) echo "selected"; ?>>
                         <?php echo $mois; ?>
                     </option>
                     <?php endfor; ?>
@@ -46,7 +50,7 @@ if (isset($diffusion)) {
                 <select name="annee_diffusion">
                     <option value=NULL>Annee</option>
                     <?php for ($i = 2013; $i <= 2020; $i++) : ?>
-                    <option value="<?php echo $i; ?>">
+                    <option value="<?php echo $i; ?>" <?php if (isset($yea_nb) && $yea_nb === $i) echo "selected"; ?>>
                         <?php echo $i; ?>
                     </option>
                     <?php endfor; ?>
@@ -55,7 +59,7 @@ if (isset($diffusion)) {
                 <select name="heure_diffusion">
                     <option value=NULL>Heure</option>
                     <?php for ($i = 0; $i <= 23; $i++) : ?>
-                    <option value="<?php echo $i; ?>">
+                    <option value="<?php echo $i; ?>" <?php if (isset($hour_nb) && $hour_nb === $i) echo "selected"; ?>>
                         <?php echo $i; ?>
                     </option>
                     <?php endfor; ?>
@@ -64,14 +68,13 @@ if (isset($diffusion)) {
                 <select name="minute_diffusion">
                     <option value=NULL>Minutes</option>
                     <?php for ($i = 0; $i <= 59; $i = $i + 5) : ?>
-                    <option value="<?php echo $i; ?>">
+                    <option value="<?php echo $i; ?>" <?php if (isset($min_nb) && $min_nb === $i) echo "selected"; ?>>
                         <?php echo $i; ?>
                     </option>
                     <?php endfor; ?>
                 </select>
             </span>
         </p>
-        <?php endif; ?>
         <p>
             <label>Film :  </label>
             <select name="id_film">

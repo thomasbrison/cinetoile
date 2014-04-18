@@ -14,6 +14,7 @@ require_once 'Lib/dates.php';
 $diffusions = array_reverse($diffusions);
 foreach ($diffusions as $numero => $diffusion) :
     $numero++;
+    $id = $diffusion->getId();
     $datetime = $diffusion->getDate();
     $date_and_hour_array = date_format_to_string($datetime);
     $date = $date_and_hour_array['date'];

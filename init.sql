@@ -34,13 +34,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `Diffusion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `date_diffusion` datetime NOT NULL,
   `id_film` int(11) NOT NULL,
   `cycle` varchar(48) DEFAULT NULL,
   `commentaire` varchar(256) DEFAULT NULL,
   `affiche` varchar(64) DEFAULT NULL,
   `nb_presents` int(11) DEFAULT NULL,
-  PRIMARY KEY (`date_diffusion`),
+  PRIMARY KEY (`id`),
   KEY `id_film` (`id_film`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

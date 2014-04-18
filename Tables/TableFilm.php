@@ -19,11 +19,7 @@ class TableFilm extends Table {
      * @return array An array of Film
      */
     public function consult() {
-        $query = "Select *
-            From $this->name
-            Order By titre;";
-        $sth = $this->dbh->query($query);
-        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        $result = parent::getAll("titre ASC");
         $films = array();
         foreach ($result as $row) {
             $films[] = $this->parseRow($row);
