@@ -34,11 +34,8 @@ switch ($_SESSION['droits']) {
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <link rel="icon" href="Images/Logos/favicon.ico"/>
-        <script type="text/javascript" src="js/message.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
-        <?php foreach ($js_array as $fichier) : ?>
-            <script type="text/javascript" src="js/<?php echo $fichier; ?>.js"></script>
-        <?php endforeach; ?>
+        <script type="text/javascript" src="js/cinetoile.js"></script>
+        <script type="text/javascript" src="js/facebook.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/style_film.css" />
         <link rel="stylesheet" type="text/css" href="css/tables.css" />
