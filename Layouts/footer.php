@@ -3,7 +3,6 @@ require_once 'Lib/dates.php';
 $current_school_year = date_get_current_school_year();
 ?>
 
-
 <footer>
     <img id="logo-cinetoile" class="logo" src="Images/Logos/cinetoile.png">
     <img id="logo-gc" class="logo" src="Images/Logos/gc.png">
@@ -19,5 +18,3 @@ $current_school_year = date_get_current_school_year();
         </p>
     </div>
 </footer>
-</body>
-</html>

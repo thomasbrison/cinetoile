@@ -25,20 +25,11 @@ abstract class Controller {
         defined('root') || define('root', $matches[0]);  // Cette ligne peut poser problème selon la configuration Apache ; ajouter le nom du dossier si nécessaire
     }
 
-    protected function render($file_name, $js_array = array(), $var_array = null) {
+    protected function render($view, $js_array = array(), $var_array = null) {
         if ($var_array) {
             extract($var_array);
         }
-        include($this->root() . '/Layouts/header.php');
-        echo "<section id=\"main\">";
-        if (isset($_SESSION['message'])) {
-            $this->appendMessage($_SESSION['message']);
-            unset($_SESSION['message']);
-        }
-        require($this->root() . '/Views/' . $file_name . '.view.php');
-        echo "</section>";
-        append_message();
-        include($this->root() . '/Layouts/footer.php');
+        include($this->root() . '/Layouts/template.php');
     }
 
     protected function renderAjax($file_name, $var_array = null) {
@@ -91,7 +82,9 @@ abstract class Controller {
         } else {
             $path = NULL;
         }
-        $_SESSION['message'] = $message;
+        if ($error !== UPLOAD_ERR_NO_FILE) {
+            create_message($message);
+        }
         return $path;
     }
 
@@ -113,10 +106,6 @@ abstract class Controller {
                 die("Etat de l'affiche non autorisé.");
         endswitch;
         return $poster_path;
-    }
-
-    private function appendMessage($message) {
-        echo "<nav class='message'>$message</nav>";
     }
 
 }

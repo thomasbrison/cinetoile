@@ -149,11 +149,6 @@ function cancelLink(yesEl, innerText) {
 
 var cacher_input_voter = true;
 
-window.onload = function() {
-    zoom_affiches();
-    clicdroit();
-};
-
 function zoom_affiches() {
     var click = [];
     var i;
