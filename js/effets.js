@@ -104,7 +104,7 @@ function removeMembre(formEl) {
 }
 
 function removeDiffusion(formEl) {
-    return removeTable(formEl, formEl.parentNode.parentNode.parentNode, 'date');
+    return removeTable(formEl, formEl.parentNode.parentNode.parentNode, 'id');
 }
 
 function confirmLink(yesEl) {
