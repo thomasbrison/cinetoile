@@ -14,14 +14,13 @@ var MessageEl = function() {
     var elTag = 'nav';
     var elId = 'message';
     var timeoutAttribute = 'js-timeout';
+    var isAttached = false;
 
     init = function() {
         el = document.getElementById(elId);
         if (!el) {
             el = document.createElement(elTag);
             el.id = elId;
-            el.innerText = '';
-            document.body.appendChild(el);
         }
     };
 
@@ -34,7 +33,7 @@ var MessageEl = function() {
         el.removeAttribute(timeoutAttribute);
         setTimeout(function() {
             el.style.display = 'none';
-            el.innerText = null;
+            el.innerText = '';
         }, hideTimeout || 3000);
     };
 
@@ -47,7 +46,14 @@ var MessageEl = function() {
         if (!message || !message.content.length)
             return;
         if (el.innerText && el.innerText.length) {
+            // There is already a text in the element.
+            // We append the message to the current message, spaced by a new line.
             el.innerText += "\n";
+        }
+        if (!isAttached) {
+            // There is no message yet in the document.
+            document.body.appendChild(el);
+            isAttached = true;
         }
         el.style.display = 'block';
         el.innerText += message.content;
