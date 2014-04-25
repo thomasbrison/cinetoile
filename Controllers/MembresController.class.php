@@ -1,18 +1,9 @@
 <?php
 
-require_once 'Controller.class.php';
+require_once 'AbstractMembreController.class.php';
 require_once 'Editable.interface.php';
-require_once 'Beans/Membre.class.php';
-require_once 'Tables/TableMembre.php';
 
-class MembresController extends Controller implements Editable {
-
-    private $tableMembre;
-
-    public function __construct() {
-        $this->tableMembre = new TableMembre();
-        parent::__construct();
-    }
+class MembresController extends AbstractMembreController implements Editable {
 
     public function defaultAction() {
         $this->consulter();
@@ -49,7 +40,7 @@ class MembresController extends Controller implements Editable {
 
         if (isset($_POST['ajouter'])) {
             $password = htmlentities(($_POST['login']));
-            $membre = $this->getInfos();
+            $membre = $this->parseInputs($_POST);
             $membre->setPassword($password);
             $this->tableMembre->add($membre);
             header('Location: ' . root . '/membres.php');
@@ -66,8 +57,9 @@ class MembresController extends Controller implements Editable {
         }
 
         if (isset($_POST['modifier'])) {
-            $membre = $this->getInfos();
+            $membre = $this->parseInputs($_POST);
             $this->tableMembre->update($membre);
+            $this->updatePassword($membre->getLogin(), $_POST['password1'], $_POST['password2'], "Mot de passe modifié !", "Les mots de passe sont différents. Le mot de passe n'a pas été modifié.");
             header('Location: ' . root . '/membres.php');
         } elseif (isset($_POST['annuler'])) {
             header('Location: ' . root . '/membres.php');
@@ -134,27 +126,6 @@ class MembresController extends Controller implements Editable {
         } else {
             return "Le membre n'a pas pu être supprimé.";
         }
-    }
-
-    private function getInfos() {
-        $login = parse_input($_POST['login']);
-        $droits = parse_input($_POST['droits']);
-        $prenom = parse_input($_POST['prenom']);
-        $nom = parse_input($_POST['nom']);
-        $email = parse_input($_POST['email']);
-        $tel1 = htmlentities($_POST['tel1']);
-        $tel2 = htmlentities($_POST['tel2']);
-        $tel3 = htmlentities($_POST['tel3']);
-        $tel4 = htmlentities($_POST['tel4']);
-        $tel5 = htmlentities($_POST['tel5']);
-        if ($tel1 AND $tel2 AND $tel3 AND $tel4 AND $tel5) {
-            $tel = "$tel1$tel2$tel3$tel4$tel5";
-        } else {
-            $tel = null;
-        }
-        $ecole = parse_input($_POST['ecole']);
-        $annee = parse_input($_POST['annee']);
-        return new Membre($login, null, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
     }
 
 }

@@ -1,17 +1,8 @@
 <?php
 
-require_once 'Controller.class.php';
-require_once 'Beans/Membre.class.php';
-require_once 'Tables/TableMembre.php';
+require_once 'AbstractMembreController.class.php';
 
-class ProfilController extends Controller {
-
-    private $tableMembre;
-
-    public function __construct() {
-        $this->tableMembre = new TableMembre();
-        parent::__construct();
-    }
+class ProfilController extends AbstractMembreController {
 
     public function defaultAction() {
         $this->consulter();
@@ -23,12 +14,8 @@ class ProfilController extends Controller {
         }
 
         $membre = $this->tableMembre->getAttributes($_SESSION['login']);
-        if (!isset($_SESSION['is_password_changed'])) {
-            $_SESSION['is_password_changed'] = false;
-        }
-        $is_password_changed = $_SESSION['is_password_changed'];
         $titre_page = "Profil de " . $_SESSION['login'];
-        $this->render('Profil/profil', array('effets'), compact('membre', 'titre_page', 'is_password_changed'));
+        $this->render('Profil/profil', array('effets'), compact('membre', 'titre_page'));
     }
 
     public function modifier() {
@@ -37,10 +24,18 @@ class ProfilController extends Controller {
         }
 
         if (isset($_POST['modifier'])) {
-            $membre = $this->getInfos();
+            $membre = $this->parseInputs($_POST);
             $membre->setLogin($_SESSION['login']);
             $this->tableMembre->modifyInformation($membre);
-            $this->modifyPassword($membre);
+            $login = $membre->getLogin();
+            $current_passwd = $_POST['current_password'];
+            if (!empty($current_passwd)) {
+                if ($this->tableMembre->authenticate($login, $current_passwd) >= Rights::$MEMBER) {
+                    $this->updatePassword($login, $_POST['password1'], $_POST['password2'], "Mot de passe modifié !", "Les mots de passe sont différents. Le mot de passe n'a pas été modifié.");
+                } else {
+                    create_message("Le mot de passe actuel est erroné.");
+                }
+            }
             header('Location: ' . root . '/profil.php');
         } elseif (isset($_POST['annuler'])) {
             header('Location: ' . root . '/profil.php');
@@ -50,17 +45,6 @@ class ProfilController extends Controller {
             $this->render('Membres/modification_membre', array(), compact('membre'));
         } else {
             header('Location: ' . root . '/profil.php');
-        }
-    }
-
-    /**
-     * Modify a member's password in the table
-     * @param Membre $membre should have a not null login
-     */
-    private function modifyPassword($membre) {
-        if ($membre->getPassword() && strlen($membre->getPassword())) {
-            $this->tableMembre->modifyPassword($membre->getLogin(), $membre->getPassword());
-            $_SESSION['is_password_changed'] = true;
         }
     }
 
@@ -76,28 +60,6 @@ class ProfilController extends Controller {
             unset($_SESSION['droits']);
         }
         header('Location: ' . root . '/index.php');
-    }
-
-    private function getInfos() {
-        $login = htmlentities($_POST['login']);
-        $password = htmlentities($_POST['password']);
-        $droits = htmlentities($_POST['droits']);
-        $prenom = htmlentities($_POST['prenom']);
-        $nom = htmlentities($_POST['nom']);
-        $email = htmlentities($_POST['email']);
-        $tel1 = htmlentities($_POST['tel1']);
-        $tel2 = htmlentities($_POST['tel2']);
-        $tel3 = htmlentities($_POST['tel3']);
-        $tel4 = htmlentities($_POST['tel4']);
-        $tel5 = htmlentities($_POST['tel5']);
-        if ($tel1 AND $tel2 AND $tel3 AND $tel4 AND $tel5) {
-            $tel = "$tel1$tel2$tel3$tel4$tel5";
-        } else {
-            $tel = null;
-        }
-        $ecole = htmlentities($_POST['ecole']);
-        $annee = htmlentities($_POST['annee']);
-        return new Membre($login, $password, $droits, $prenom, $nom, $email, $tel, $ecole, $annee);
     }
 
 }

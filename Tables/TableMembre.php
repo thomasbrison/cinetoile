@@ -135,7 +135,7 @@ class TableMembre extends Table {
      * @param Membre $membre
      * @return bool True if the entry has correctly been updated, false if not
      */
-    public function modifyInformation(Membre $membre) {
+    public function modifyInformation($membre) {
         $query = "Update $this->name
             Set prenom = :prenom, nom = :nom, email = :email, telephone = :telephone,
                 ecole = :ecole, annee = :annee

@@ -7,8 +7,12 @@
     </p>
     <?php if (isset($login)) : ?>
         <p>
-            <label>Mot de passe : </label>
-            <input type="password" name="password" size="25" maxlength="64" placeholder="Mot de passe" <?php if (!isset($login)) echo "required"; ?> />
+            <label>Nouveau mot de passe : </label>
+            <input type="password" name="password1" size="25" maxlength="64" placeholder="Mot de passe" />
+        </p>
+        <p>
+            <label>Nouveau mot de passe (confirmation) : </label>
+            <input type="password" name="password2" size="25" maxlength="64" placeholder="Mot de passe" />
         </p>
     <?php endif; ?>
     <?php if (isset($droits)) : ?>

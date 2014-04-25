@@ -3,10 +3,6 @@ require_once 'Lib/annee-scolaire.php';
 require_once 'Lib/telephone.php';
 ?>
 
-<?php if ($is_password_changed) : ?>
-    <p class="message">Mot de passe modifié avec succès !</p>
-<?php endif; ?>
-
 <dl>
     <dt>Login : </dt>
     <dd><?php echo $membre->getLogin(); ?></dd>
