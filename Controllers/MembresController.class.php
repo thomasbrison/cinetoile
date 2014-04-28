@@ -113,7 +113,10 @@ class MembresController extends AbstractMembreController implements Editable {
             $removed = $this->checkRemoved($nbDelLines);
             $message = $this->writeRemovedMessage($removed);
         }
-        echo ((int) $removed) . $message;
+        echo json_encode(array(
+            "success" => $removed,
+            "message" => $message
+        ));
     }
 
     private function checkRemoved($nbDelLines) {

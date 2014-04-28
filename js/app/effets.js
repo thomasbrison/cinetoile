@@ -79,9 +79,9 @@ function removeTable(formEl, elToRemove, primaryKeyName) {
 
     request.onreadystatechange = function() {
         if (request.readyState === 4 && (request.status === 200 || request.status === 0)) {
-            var response = request.responseText;
-            var removed = parseInt(response[0]);
-            var message = response.substring(1);
+            var response = JSON.parse(request.responseText);
+            var removed = response.success;
+            var message = response.message;
             new MessageEl().displayHiding(new Message(message, 3000));
             if (removed) {
                 elToRemove.parentNode.removeChild(elToRemove);
