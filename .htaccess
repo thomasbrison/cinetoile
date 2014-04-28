@@ -1,0 +1,5 @@
+DirectoryIndex public/index.php
+php_value include_path ".;C:\wamp\www\cinetoile\src"
+RewriteEngine On
+RewriteBase /cinetoile/
+RewriteRule ^((?!public/).*)$ public/$1
