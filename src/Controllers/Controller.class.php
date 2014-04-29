@@ -8,20 +8,11 @@ abstract class Controller {
 
     public function __construct() {
         session_start();
-        $this->setRootWebApp();
         $this->setDefaultSessionRights();
     }
 
     private function root() {
         return dirname(__FILE__) . '/..';
-    }
-
-    protected function setRootWebApp() {
-        // Définition d'une constante nommée root permettant de reconnaître
-        // la racine de l'application. Ceci est pratique dans les vues lors
-        // de l'appel de contrôleurs.
-        preg_match('@/[^/]+@', $_SERVER["PHP_SELF"], $matches);
-        defined('root') || define('root', $matches[0]);  // Cette ligne peut poser problème selon la configuration Apache ; ajouter le nom du dossier si nécessaire
     }
 
     protected function render($view, $js_array = array(), $var_array = null) {
@@ -38,15 +29,6 @@ abstract class Controller {
     }
 
     abstract function defaultAction();
-
-    private function executeAction() {
-        $action = substr(strrchr($_SERVER["PHP_SELF"], "/"), 1);
-        if (strpos($action, ".php")) {
-            $this->defaultAction();
-        } else {
-            $this->$action();
-        }
-    }
 
     // Appel à un contrôleur avec une action qui n'existe pas
     public function __call($name, $arguments) {

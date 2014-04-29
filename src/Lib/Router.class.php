@@ -11,7 +11,7 @@ class Router {
     private static $controllers = array();
 
     private static function parseUriPath() {
-        $website_folder = '/cinetoile/'; // Set it to / if the folder is at the document root
+        $website_folder = root . '/';
         $request_uri = parse_url(filter_input(INPUT_SERVER, 'REQUEST_URI'), PHP_URL_PATH);
         $request = substr($request_uri, strpos($request_uri, $website_folder) + strlen($website_folder));
         $paths = explode('/', $request);
@@ -82,7 +82,17 @@ class Router {
         }
     }
 
+    // Définition d'une constante nommée root permettant de reconnaître
+    // la racine de l'application. Ceci est pratique dans les vues lors
+    // de l'appel de contrôleurs.
+    public static function setRootWebApp() {
+        $matches = array();
+        preg_match('@/[^/]+@', filter_input(INPUT_SERVER, "PHP_SELF"), $matches);
+        defined('root') || define('root', $matches[0]);
+    }
+
     public static function route() {
+        self::setRootWebApp();
         $paths = self::parseUriPath();
         $controller = self::parseController($paths);
         $method = self::parseMethodName($paths);
