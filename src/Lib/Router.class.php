@@ -7,10 +7,16 @@
  */
 class Router {
 
-    // Keep controllers in cache
+    /**
+     * @var array Keep controllers in cache
+     */
     private static $controllers = array();
 
-    private static function parseUriPath() {
+    /**
+     * Parse the request URI and return an array that contains every not empty element between slashes.
+     * @return array
+     */
+    private static function parseRequestUri() {
         $website_folder = root . '/';
         $request_uri = parse_url(filter_input(INPUT_SERVER, 'REQUEST_URI'), PHP_URL_PATH);
         $request = substr($request_uri, strpos($request_uri, $website_folder) + strlen($website_folder));
@@ -23,27 +29,47 @@ class Router {
         return $paths;
     }
 
-    private static function parseControllerName(array $paths) {
-        if (empty($paths)) {
+    /**
+     * Get the controller name in the parsed request URI or index if it is empty.
+     * @param array $parsedRequest Parsed request URI
+     * @return string Controller name without "Controller" at the end
+     */
+    private static function getControllerName(array $parsedRequest) {
+        if (empty($parsedRequest)) {
             return 'index';
         } else {
-            return $paths[0];
+            return $parsedRequest[0];
         }
     }
 
-    private static function parseControllerClassName(array $paths) {
-        return ucfirst(self::parseControllerName($paths)) . 'Controller';
+    /**
+     * Get the controller class name in the parsed request URI or IndexController if it is empty.
+     * @param array $parsedRequest Parsed request URI
+     * @return string Controller class name
+     */
+    private static function getControllerClassName(array $parsedRequest) {
+        return ucfirst(self::getControllerName($parsedRequest)) . 'Controller';
     }
 
-    private static function parseControllerFilename(array $paths) {
-        $controllerClassName = self::parseControllerClassName($paths);
+    /**
+     * Get the controller class name in the parsed request URI or IndexController if it is empty.
+     * @param array $parsedRequest Parsed request URI
+     * @return type
+     */
+    private static function getControllerFilename(array $parsedRequest) {
+        $controllerClassName = self::getControllerClassName($parsedRequest);
         return 'Controllers/' . $controllerClassName . '.class.php';
     }
 
-    private static function parseController(array $paths) {
-        $controllerName = self::parseControllerName($paths);
-        $controllerClassName = self::parseControllerClassName($paths);
-        if (!stream_resolve_include_path(self::parseControllerFilename($paths))) {
+    /**
+     * Get the controller in the parsed request URI or IndexController if it is empty.
+     * @param array $parsedRequest Parsed request URI
+     * @return Controller
+     */
+    private static function getController(array $parsedRequest) {
+        $controllerName = self::getControllerName($parsedRequest);
+        $controllerClassName = self::getControllerClassName($parsedRequest);
+        if (!stream_resolve_include_path(self::getControllerFilename($parsedRequest))) {
             header("HTTP/1.1 404 Not Found");
             exit();
         }
@@ -53,21 +79,37 @@ class Router {
         return self::$controllers[$controllerName];
     }
 
-    private static function parseMethodName(array $paths) {
-        if (!isset($paths[1])) {
+    /**
+     * Get the method name in the parsed request URI or defaultAction.
+     * @param array $parsedRequest Parsed request URI
+     * @return string
+     */
+    private static function getMethodName(array $parsedRequest) {
+        if (!isset($parsedRequest[1])) {
             return 'defaultAction';
         }
-        return $paths[1];
+        return $parsedRequest[1];
     }
 
-    private static function parseArgs(array $paths) {
-        if (!isset($paths[0]) && !isset($paths[1])) {
+    /**
+     * Get the arguments in the parsed request URI or NULL.
+     * @param array $parsedRequest Parsed request URI
+     * @return array
+     */
+    private static function getArgs(array $parsedRequest) {
+        if (!isset($parsedRequest[0]) && !isset($parsedRequest[1])) {
             return NULL;
         }
-        array_slice($paths, 2);
-        return $paths;
+        array_slice($parsedRequest, 2);
+        return $parsedRequest;
     }
 
+    /**
+     * Execute a method of a controller
+     * @param Controller $controller
+     * @param string $method_name
+     * @param array $args
+     */
     private static function executeMethod($controller, $method_name, array $args = NULL) {
         if (empty($method_name)) {
             $controller->defaultAction();
@@ -82,21 +124,24 @@ class Router {
         }
     }
 
-    // Définition d'une constante nommée root permettant de reconnaître
-    // la racine de l'application. Ceci est pratique dans les vues lors
-    // de l'appel de contrôleurs.
+    /**
+     * Set a root constant that defines the root of the application.
+     */
     public static function setRootWebApp() {
         $matches = array();
         preg_match('@/[^/]+@', filter_input(INPUT_SERVER, "PHP_SELF"), $matches);
         defined('root') || define('root', $matches[0]);
     }
 
+    /**
+     * Route the current request URI.
+     */
     public static function route() {
         self::setRootWebApp();
-        $paths = self::parseUriPath();
-        $controller = self::parseController($paths);
-        $method = self::parseMethodName($paths);
-        $args = self::parseArgs($paths);
+        $parsedRequest = self::parseRequestUri();
+        $controller = self::getController($parsedRequest);
+        $method = self::getMethodName($parsedRequest);
+        $args = self::getArgs($parsedRequest);
         self::executeMethod($controller, $method, $args);
     }
 

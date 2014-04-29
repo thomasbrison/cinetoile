@@ -3,42 +3,67 @@
 require_once 'Lib/Rights.class.php';
 require_once 'Lib/Routes.class.php';
 require_once 'Lib/functions.php';
+require_once 'Lib/files.php';
 
 abstract class Controller {
 
+    /**
+     * Start the session.
+     * Define default rigths.
+     */
     public function __construct() {
         session_start();
         $this->setDefaultSessionRights();
     }
 
-    private function root() {
-        return dirname(__FILE__) . '/..';
-    }
-
-    protected function render($view, $js_array = array(), $var_array = null) {
+    /**
+     * Render a view with the default template.
+     * @param string $view Path to the view file without the extension view.php
+     * @param array $js_array js files to include
+     * @param array $var_array Vars to keep. A key represents the var name
+     */
+    protected function render($view, array $js_array = array(), array $var_array = null) {
         if ($var_array) {
             extract($var_array);
         }
-        include($this->root() . '/Layouts/template.php');
+        include('Layouts/template.php');
     }
 
-    protected function renderAjax($file_name, $var_array = null) {
-        if ($var_array)
+    /**
+     * Render a view without template.
+     * @param string $file_name Path to the view file without the extension view.php
+     * @param array $var_array Vars to keep. A key represents the var name
+     */
+    protected function renderAjax($file_name, array $var_array = null) {
+        if ($var_array) {
             extract($var_array);
-        require($this->root() . '/Views/' . $file_name . '.php');
+        }
+        include('Views/' . $file_name . '.php');
     }
 
+    /**
+     * Default action when the controller is called without method.
+     */
     abstract function defaultAction();
 
-    // Appel à un contrôleur avec une action qui n'existe pas
+    /**
+     * Call to a controller with a non existing method
+     */
     public function __call($name, $arguments) {
-        //echo "<b>Erreur : </b> L'action $name n'est pas d&eacute;finie";
-        header("HTTP/1.0 404 Not Found");
+        header("HTTP/1.1 404 Not Found");
         exit;
     }
 
-    protected function checkRights($droits, $levelmin, $levelmax) {
-        if ($droits >= $levelmin && $droits <= $levelmax) {
+    /**
+     * Check if the rights are between a min level and a max level.
+     * If not, render a "not authorized" page.
+     * @param int $rights Rights to check
+     * @param int $levelmin Min level
+     * @param int $levelmax Max level
+     * @return boolean
+     */
+    protected function checkRights($rights, $levelmin, $levelmax) {
+        if ($rights >= $levelmin && $rights <= $levelmax) {
             return true;
         } else {
             $this->render('autorisations');
@@ -46,29 +71,44 @@ abstract class Controller {
         }
     }
 
+    /**
+     * Set the rights of the session to simple user if rights are not yet defined.
+     */
     private function setDefaultSessionRights() {
         if (!isset($_SESSION['droits'])) {
             $_SESSION['droits'] = Rights::$USER;
         }
     }
 
-    protected function uploadFile($form_file_name, $sizemax, $valid_extensions, $final_dir) {
-        require_once 'Lib/files.php';
+    /**
+     * Upload a file.
+     * @param string $form_file_name Name of the form file input
+     * @param int $sizemax Max size that the file should be
+     * @param array $valid_extensions Array of valid extensions without dot
+     * @param string $final_dir Directory where to stock the uploaded file
+     * @return string Path to the created file of NULL if there is an error.
+     */
+    protected function uploadFile($form_file_name, $sizemax, array $valid_extensions, $final_dir) {
         $upload = file_upload($form_file_name, $sizemax, $valid_extensions, $final_dir);
-        $success = $upload['success'];
-        $error = $upload['error'];
-        $message = $upload['message'];
-        if ($success) {
+        if ($upload['success']) {
             $path = $final_dir . $upload['file_name'];
         } else {
             $path = NULL;
         }
-        if ($error !== UPLOAD_ERR_NO_FILE) {
-            create_message($message);
+        if ($upload['error'] !== UPLOAD_ERR_NO_FILE) {
+            create_message($upload['message']);
         }
         return $path;
     }
 
+    /**
+     * Upload a poster.
+     * Form input name must be "affiche".
+     * Valid extensions are jpg, jpeg, gif and png.
+     * @param string $poster_state
+     * @param type $final_dir
+     * @return null
+     */
     protected function uploadPoster($poster_state, $final_dir) {
         if (!isset($poster_state)) {
             $poster_state = '1';
