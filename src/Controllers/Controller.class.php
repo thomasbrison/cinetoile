@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Lib/Rights.class.php';
+require_once 'Lib/Routes.class.php';
 require_once 'Lib/functions.php';
 
 abstract class Controller {
@@ -9,8 +10,6 @@ abstract class Controller {
         session_start();
         $this->setRootWebApp();
         $this->setDefaultSessionRights();
-        //Exécution de l'action demandée du contrôleur
-        $this->executeAction();
     }
 
     private function root() {

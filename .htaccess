@@ -2,4 +2,7 @@ DirectoryIndex public/index.php
 php_value include_path ".;C:\wamp\www\cinetoile\src"
 RewriteEngine On
 RewriteBase /cinetoile/
+RewriteCond %{REQUEST_URI} .*(Images|Ressources|js|css).*
 RewriteRule ^((?!public/).*)$ public/$1
+RewriteCond %{REQUEST_URI} !.*(Images|Ressources|js|css).*
+RewriteRule .* public/index.php

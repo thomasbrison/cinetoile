@@ -77,9 +77,9 @@ class IndexController extends Controller {
                     $_SESSION['login'] = $login;
                     $_SESSION['droits'] = $droits;
                     if ($_SESSION['droits'] === Rights::$ADMIN) {
-                        header('Location: ' . root . '/admin.php');
+                        header('Location: ' . root . '/' . Routes::$admin);
                     } else {
-                        header('Location: ' . root . '/index.php');
+                        header('Location: ' . root . '/' . Routes::$index);
                     }
                 }
             }
@@ -90,7 +90,7 @@ class IndexController extends Controller {
 
     public function deconnexion() {
         session_destroy();
-        header('Location: ' . root . '/index.php/connexion');
+        header('Location: ' . root . '/' . Routes::$connection);
     }
 
 }
