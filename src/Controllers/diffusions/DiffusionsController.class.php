@@ -1,7 +1,6 @@
 <?php
 
-require_once 'Controller.class.php';
-require_once 'Editable.interface.php';
+require_once 'Controllers/Editable.interface.php';
 require_once 'Beans/Film.class.php';
 require_once 'Beans/Diffusion.class.php';
 require_once 'Tables/TableFilm.php';

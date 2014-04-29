@@ -1,6 +1,5 @@
 <?php
 
-require_once 'Controller.class.php';
 require_once 'Beans/Diffusion.class.php';
 require_once 'Tables/TableMembre.php';
 require_once 'Tables/TableFilm.php';

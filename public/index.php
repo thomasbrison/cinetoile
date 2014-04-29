@@ -1,33 +1,31 @@
 <?php
 
+require_once 'Controllers/Controller.class.php';
+
 function parse_uri_path() {
-    $paths = array();
-    $website_folder = 'cinetoile'; // Set it to empty string if the folder is at the document root
+    $website_folder = '/cinetoile/'; // Set it to / if the folder is at the document root
     $request_uri = parse_url(filter_input(INPUT_SERVER, 'REQUEST_URI'), PHP_URL_PATH);
     $request = substr($request_uri, strpos($request_uri, $website_folder) + strlen($website_folder));
-    parse_uri_path_rec($request, $paths);
+    $paths = explode('/', $request);
+    // Remove last element if empty
+    $nb_paths = count($paths);
+    if (empty($paths[$nb_paths - 1])) {
+        unset($paths[$nb_paths - 1]);
+    }
     return $paths;
 }
 
-function parse_uri_path_rec($request_uri, array &$res_array) {
-    $uri_pattern = '(/([^/]+)(/.*)?)';
-    $matches = array();
-    preg_match($uri_pattern, $request_uri, $matches);
-    if (empty($matches[0]) || empty($matches[1])) {
-        return;
-    }
-    $res_array[] = $matches[1];
-    if (isset($matches[2])) {
-        parse_uri_path_rec($matches[2], $res_array);
+function parse_uri_folder_name($paths) {
+    if (empty($paths)) {
+        return 'index';
+    } else {
+        return $paths[0];
     }
 }
 
 function parse_uri_controller_name($paths) {
-    if (empty($paths)) {
-        return 'IndexController';
-    } else {
-        return ucfirst($paths[0]) . 'Controller';
-    }
+    $folder = parse_uri_folder_name($paths);
+    return ucfirst($folder) . 'Controller';
 }
 
 function parse_uri_method_name($paths) {
@@ -53,7 +51,8 @@ function execute_method($controller, $method_name, $args) {
             $controller->$method_name($args);
         } else {
             // Error : method does not exist
-            $controller->defaultAction();
+            header("HTTP/1.1 404 Not Found");
+            exit();
         }
     }
 }
@@ -61,7 +60,14 @@ function execute_method($controller, $method_name, $args) {
 $paths = parse_uri_path();
 
 $controllerName = parse_uri_controller_name($paths);
-require_once 'Controllers/' . $controllerName . '.class.php';
+$controllerFile = 'Controllers/' . parse_uri_folder_name($paths) . '/' . $controllerName . '.class.php';
+
+if (stream_resolve_include_path($controllerFile)) {
+    require_once $controllerFile;
+} else {
+    header("HTTP/1.1 404 Not Found");
+    exit();
+}
 
 $controller = new $controllerName();
 $method = parse_uri_method_name($paths);

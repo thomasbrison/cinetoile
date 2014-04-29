@@ -15,5 +15,5 @@ class Routes {
     static $films = 'films';
     static $members = 'membres';
     static $diffusions = 'diffusions';
-    static $profile = 'profile';
+    static $profile = 'profil';
 }

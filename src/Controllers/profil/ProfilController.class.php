@@ -1,6 +1,6 @@
 <?php
 
-require_once 'AbstractMembreController.class.php';
+require_once 'Controllers/AbstractMembreController.class.php';
 
 class ProfilController extends AbstractMembreController {
 

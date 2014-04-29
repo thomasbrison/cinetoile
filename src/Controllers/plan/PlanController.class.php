@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Controller.class.php';
-
 /**
  * Description of PlanController
  *

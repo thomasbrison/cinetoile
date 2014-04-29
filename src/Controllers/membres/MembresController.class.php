@@ -1,7 +1,7 @@
 <?php
 
-require_once 'AbstractMembreController.class.php';
-require_once 'Editable.interface.php';
+require_once 'Controllers/AbstractMembreController.class.php';
+require_once 'Controllers/Editable.interface.php';
 
 class MembresController extends AbstractMembreController implements Editable {
 
