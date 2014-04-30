@@ -7,12 +7,23 @@ require_once 'Lib/files.php';
 abstract class Controller {
 
     /**
+     * @var int User current rights
+     */
+    protected $userRights;
+
+    /**
+     * @var int User current rights
+     */
+    protected $userLogin;
+
+    /**
      * Start the session.
      * Define default rigths.
      */
     public function __construct() {
         session_start();
         $this->setDefaultSessionRights();
+        $this->setSessionLogin();
     }
 
     /**
@@ -71,12 +82,22 @@ abstract class Controller {
     }
 
     /**
+     * Set the login of the session to NULL if not yet defined.
+     */
+    private function setSessionLogin() {
+        if (isset($_SESSION['login'])) {
+            $this->userLogin = $_SESSION['login'];
+        }
+    }
+
+    /**
      * Set the rights of the session to simple user if rights are not yet defined.
      */
     private function setDefaultSessionRights() {
         if (!isset($_SESSION['droits'])) {
             $_SESSION['droits'] = Rights::USER;
         }
+        $this->userRights = $_SESSION['droits'];
     }
 
     /**

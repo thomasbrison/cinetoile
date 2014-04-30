@@ -18,7 +18,7 @@
     <?php if (isset($droits)) : ?>
         <p>
             <label>Droits : </label>
-            <?php include 'selection_droits.php'; ?>
+            <?php include 'selection_droits.view.php'; ?>
         </p>
     <?php else : ?>
         <input type="hidden" name="droits" value="<?php echo Rights::BASIC; ?>"/>

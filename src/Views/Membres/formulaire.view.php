@@ -1,6 +1,24 @@
+<?php
+if (isset($membre)) {
+    $login = $membre->getLogin();
+    $prenom = $membre->getPrenom();
+    $nom = $membre->getNom();
+    $email = $membre->getEmail();
+    $tel = $membre->getTelephone();
+    $tel1 = substr($tel, 0, 2);
+    $tel2 = substr($tel, 2, 2);
+    $tel3 = substr($tel, 4, 2);
+    $tel4 = substr($tel, 6, 2);
+    $tel5 = substr($tel, 8, 2);
+    $ecole = $membre->getEcole();
+    $annee = $membre->getAnnee();
+    $droits = $membre->getDroits();
+}
+?>
+
 <form class="formulaire" name="<?php echo $form_name; ?>" method="post" action="<?php echo $form_target; ?>" <?php if ('ajouter' === $form_action) echo 'onsubmit="return !loginExists;"'; ?>>
 
-    <?php include $_SESSION['droits'] === Rights::ADMIN ? 'infos_principales_admin.php' : 'infos_principales_membre.php'; ?>
+    <?php include $infos_principales_view; ?>
 
     <br/>
     <fieldset>
@@ -27,11 +45,11 @@
         <legend>&Eacute;tudes</legend>
         <p>
             <label>&Eacute;cole : </label>
-            <?php include 'selection_ecole.php'; ?>
+            <?php include 'selection_ecole.view.php'; ?>
         </p>
         <p>
             <label>Ann&eacute;e : </label>
-            <?php include 'selection_annee.php'; ?>
+            <?php include 'selection_annee.view.php'; ?>
         </p>
     </fieldset>
 

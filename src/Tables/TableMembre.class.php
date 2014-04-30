@@ -215,22 +215,14 @@ class TableMembre extends Table {
     }
 
     /**
-     * Function to call before calling getLogins
-     * @return PDOStatement
-     */
-    public function prepareLogin() {
-        $query = "SELECT login FROM $this->name WHERE login = ?";
-        return $this->dbh->prepare($query);
-    }
-
-    /**
      * Return an array containing all the login corresponding to a login
      * Should return one or zero result
-     * @param PDOStatement $sth should be returned by prepareLogin
      * @param String $login
      * @return array
      */
-    public function getLogins($sth, $login) {
+    public function getLogins($login) {
+        $query = "SELECT login FROM $this->name WHERE login = ?";
+        $sth = $this->dbh->prepare($query);
         $sth->execute(array($login));
         return $sth->fetchAll(PDO::FETCH_COLUMN);
     }
