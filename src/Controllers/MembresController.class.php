@@ -78,7 +78,7 @@ class MembresController extends AbstractMembreController implements Editable {
         } elseif (isset($_POST['annuler'])) {
             $this->updateCancel();
         } elseif (isset($_GET['login'])) {
-            $this->updateView($this->userRights);
+            $this->updateView();
         } else {
             $this->updateDefault();
         }
@@ -89,9 +89,9 @@ class MembresController extends AbstractMembreController implements Editable {
         $membre = $this->tableMembre->getAttributes($login);
         $form_name = "modification_membre";
         $form_action = "modifier";
-        $form_base = $rights === Rights::MEMBER ? Routes::profile : Routes::members;
-        $form_target = $rights === Rights::MEMBER ? Routes::profileUpdate : Routes::membersUpdate;
-        $infos_principales_view = $rights === Rights::ADMIN ? 'infos_principales_admin.view.php' : 'infos_principales_membre.view.php';
+        $form_base = Routes::members;
+        $form_target = Routes::membersUpdate;
+        $infos_principales_view = 'infos_principales_admin.view.php';
         $this->render('Membres/formulaire', compact('membre', 'form_name', 'form_action', 'form_base', 'form_target', 'infos_principales_view'));
     }
 
