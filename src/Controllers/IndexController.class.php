@@ -33,8 +33,8 @@ class IndexController extends Controller {
     public function defaultAction() {
         $table_film = $this->tableFilm;
 
-        if (isset($_SESSION['login'])) {
-            $prenom = $this->tableMembre->getFirstName($_SESSION['login']);
+        if (isset($this->userLogin)) {
+            $prenom = $this->tableMembre->getFirstName($this->userLogin);
         }
 
         if (isset($_GET['date'])) {
