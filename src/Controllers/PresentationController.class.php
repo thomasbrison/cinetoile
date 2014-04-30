@@ -21,13 +21,17 @@ class PresentationController extends Controller {
         $text = "";
         if (is_file($filename)) {
             $tab_fichier = file($filename);
-            if ($tab_fichier) {
-                for ($i = 0; $i < count($tab_fichier); $i++) {
-                    $text .= $tab_fichier[$i];
-                }
-            }
+            $this->readFile($tab_fichier, $text);
         }
         return $text;
+    }
+
+    private function readFile(array $file, &$result) {
+        if ($file) {
+            for ($i = 0; $i < count($file); $i++) {
+                $result .= $file[$i];
+            }
+        }
     }
 
 }
