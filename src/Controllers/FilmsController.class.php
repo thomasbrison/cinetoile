@@ -30,28 +30,28 @@ class FilmsController extends Controller implements Editable {
     public function ajouter() {
         $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         if (isset($_POST['ajouter'])) {
-            $this->addSubmit();
+            $this->createSubmit();
         } elseif (isset($_POST['annuler'])) {
-            $this->addCancel();
+            $this->createCancel();
         } else {
-            $this->addView();
+            $this->createView();
         }
     }
 
-    private function addView() {
+    private function createView() {
         $form_name = "ajout_film";
         $form_action = "ajouter";
         $form_target = Routes::filmsCreate;
         $this->render('Films/formulaire', array(), compact('form_name', 'form_action', 'form_target'));
     }
 
-    private function addSubmit() {
+    private function createSubmit() {
         $film = $this->getInfos(null);
         $this->tableFilm->add($film);
         header('Location: ' . Routes::getRoute(Routes::films));
     }
 
-    private function addCancel() {
+    private function createCancel() {
         header('Location: ' . Routes::getRoute(Routes::films));
     }
 

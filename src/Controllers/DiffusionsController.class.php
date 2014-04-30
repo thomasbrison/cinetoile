@@ -27,15 +27,15 @@ class DiffusionsController extends Controller implements Editable {
     public function ajouter() {
         $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         if (isset($_POST['ajouter'])) {
-            $this->addSubmit();
+            $this->createSubmit();
         } elseif (isset($_POST['annuler'])) {
-            $this->addCancel();
+            $this->createCancel();
         } else {
-            $this->addView();
+            $this->createView();
         }
     }
 
-    private function addView() {
+    private function createView() {
         $films = $this->tableFilm->consultAsAMember();
         $form_name = "ajout_diffusion";
         $form_action = "ajouter";
@@ -43,13 +43,13 @@ class DiffusionsController extends Controller implements Editable {
         $this->render('Diffusions/formulaire', array(), compact('films', 'form_name', 'form_action', 'form_target'));
     }
 
-    private function addSubmit() {
+    private function createSubmit() {
         $diffusion = $this->getInfos(null);
         $this->tableDiffusion->add($diffusion);
         header('Location: ' . Routes::getRoute(Routes::diffusions));
     }
 
-    private function addCancel() {
+    private function createCancel() {
         header('Location: ' . Routes::getRoute(Routes::diffusions));
     }
 

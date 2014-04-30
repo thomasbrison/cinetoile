@@ -42,15 +42,15 @@ class MembresController extends AbstractMembreController implements Editable {
     public function ajouter() {
         $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         if (isset($_POST['ajouter'])) {
-            $this->addSubmit();
+            $this->createSubmit();
         } elseif (isset($_POST['annuler'])) {
-            $this->addCancel();
+            $this->createCancel();
         } else {
-            $this->addView($this->userRights);
+            $this->createView($this->userRights);
         }
     }
 
-    private function addView($rights) {
+    private function createView($rights) {
         $form_name = "ajout_membre";
         $form_action = "ajouter";
         $form_base = Routes::members;
@@ -59,7 +59,7 @@ class MembresController extends AbstractMembreController implements Editable {
         $this->render('Membres/formulaire', array('login'), compact('form_name', 'form_action', 'form_base', 'form_target', 'infos_principales_view'));
     }
 
-    private function addSubmit() {
+    private function createSubmit() {
         $password = htmlentities($_POST['login']);
         $membre = $this->parseInputs($_POST);
         $membre->setPassword($password);
@@ -67,7 +67,7 @@ class MembresController extends AbstractMembreController implements Editable {
         header('Location: ' . Routes::getRoute(Routes::members));
     }
 
-    private function addCancel() {
+    private function createCancel() {
         header('Location: ' . Routes::getRoute(Routes::members));
     }
 
@@ -124,13 +124,7 @@ class MembresController extends AbstractMembreController implements Editable {
     }
 
     public function modifierDroits() {
-        if (!$this->checkRights($this->userRights, Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
-        $this->modifierDroitsImpl();
-    }
-
-    private function modifierDroitsImpl() {
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         if (isset($_GET['login']) && isset($_GET['droits'])) {
             $login = htmlentities($_GET['login']);
             $droits = htmlentities($_GET['droits']);
