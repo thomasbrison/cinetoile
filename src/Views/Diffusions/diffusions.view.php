@@ -30,7 +30,7 @@ foreach ($diffusions as $numero => $diffusion) :
         $realisateur = $film->getRealisateur();
     }
 
-    include 'Templates/diffusion.php';
+    include 'diffusion.view.php';
 
 endforeach;
 ?>

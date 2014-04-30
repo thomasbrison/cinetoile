@@ -18,7 +18,7 @@ if (isset($diffusion)) {
 }
 ?>
 
-<form class="formulaire" name="<?php echo $form_name; ?>" method="post" action="<?php echo $form_route; ?>" enctype="multipart/form-data">
+<form class="formulaire" name="<?php echo $form_name; ?>" method="post" action="<?php echo $form_target; ?>" enctype="multipart/form-data">
 
     <fieldset>
         <legend></legend>

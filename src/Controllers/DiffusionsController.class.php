@@ -18,75 +18,90 @@ class DiffusionsController extends Controller implements Editable {
     }
 
     public function consulter() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
-
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         $diffusions = $this->tableDiffusion->consult();
         $table_film = $this->tableFilm;
         $this->render('Diffusions/diffusions', array('effets'), compact('diffusions', 'table_film'));
     }
 
     public function ajouter() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
-
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         if (isset($_POST['ajouter'])) {
-            $diffusion = $this->getInfos(null);
-            $this->tableDiffusion->add($diffusion);
-            header('Location: ' . Routes::getRoute(Routes::diffusions));
+            $this->addSubmit();
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . Routes::getRoute(Routes::diffusions));
+            $this->addCancel();
         } else {
-            $films = $this->tableFilm->consultAsAMember();
-            $this->render('Diffusions/ajout_diffusion', array(), compact('films'));
+            $this->addView();
         }
+    }
+
+    private function addView() {
+        $films = $this->tableFilm->consultAsAMember();
+        $form_name = "ajout_diffusion";
+        $form_action = "ajouter";
+        $form_target = Routes::diffusionsCreate;
+        $this->render('Diffusions/formulaire', array(), compact('films', 'form_name', 'form_action', 'form_target'));
+    }
+
+    private function addSubmit() {
+        $diffusion = $this->getInfos(null);
+        $this->tableDiffusion->add($diffusion);
+        header('Location: ' . Routes::getRoute(Routes::diffusions));
+    }
+
+    private function addCancel() {
+        header('Location: ' . Routes::getRoute(Routes::diffusions));
     }
 
     public function modifier() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
-
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         if (isset($_POST['modifier'])) {
-            $id = (int) htmlentities($_POST['id']);
-            $diffusion = $this->getInfos($id);
-            $this->tableDiffusion->update($diffusion);
-            header('Location: ' . Routes::getRoute(Routes::diffusions));
+            $this->updateSubmit();
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . Routes::getRoute(Routes::diffusions));
+            $this->updateCancel();
         } elseif (isset($_GET['id'])) {
-            $diffusion = $this->tableDiffusion->getAttributes((int) $_GET['id']);
-            $_SESSION['affiche'] = $diffusion->getAffiche();
-            $films = $this->tableFilm->consultAsAMember();
-            $this->render('Diffusions/modification_diffusion', array('effets'), compact('diffusion', 'films'));
+            $this->updateView();
         } else {
-            header('Location: ' . Routes::getRoute(Routes::diffusions));
+            $this->updateDefault();
         }
     }
 
-    public function supprimer() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
+    private function updateView() {
+        $diffusion = $this->tableDiffusion->getAttributes((int) $_GET['id']);
+        $_SESSION['affiche'] = $diffusion->getAffiche();
+        $films = $this->tableFilm->consultAsAMember();
+        $form_name = "modification_diffusion";
+        $form_action = "modifier";
+        $form_target = Routes::diffusionsUpdate;
+        $this->render('Diffusions/formulaire', array('effets'), compact('diffusion', 'films', 'form_name', 'form_action', 'form_target'));
+    }
 
+    private function updateSubmit() {
+        $id = (int) htmlentities($_POST['id']);
+        $diffusion = $this->getInfos($id);
+        $this->tableDiffusion->update($diffusion);
+        header('Location: ' . Routes::getRoute(Routes::diffusions));
+    }
+
+    private function updateCancel() {
+        header('Location: ' . Routes::getRoute(Routes::diffusions));
+    }
+
+    private function updateDefault() {
+        $this->updateCancel();
+    }
+
+    public function supprimer() {
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         $removed = FALSE;
         $message = "";
         if (isset($_GET['id'])) {
             $id = (int) htmlentities($_GET['id']);
             $nbDelLines = $this->tableDiffusion->remove($id);
-            $removed = $this->checkRemoved($nbDelLines);
+            $removed = !!$nbDelLines;
             $message = $this->writeRemovedMessage($removed);
         }
-        echo json_encode(array(
-            "success" => $removed,
-            "message" => $message
-        ));
-    }
-
-    private function checkRemoved($nbDelLines) {
-        return (!!$nbDelLines);
+        echo json_encode(array("success" => $removed, "message" => $message));
     }
 
     private function writeRemovedMessage($removed) {
