@@ -1,7 +1,6 @@
 <?php
 
 require_once 'Lib/Rights.class.php';
-require_once 'Lib/Routes.class.php';
 require_once 'Lib/functions.php';
 require_once 'Lib/files.php';
 
