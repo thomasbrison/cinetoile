@@ -8,21 +8,21 @@
 
 <ul class="liste-admin">
     <li>
-        <a class='button' href="membres.php">Les membres</a>
+        <a class='button' href="<?php echo Routes::members;?>">Les membres</a>
     </li>
     <li>
-        <a class='button' href="films.php">Les films</a>
+        <a class='button' href="<?php echo Routes::films;?>">Les films</a>
     </li>
     <li>
-        <a class='button' href="diffusions.php">Les séances</a>
+        <a class='button' href="<?php echo Routes::diffusions;?>">Les séances</a>
     </li>
     <li>
-        <a class='button' href="profil.php">Mon profil</a>
+        <a class='button' href="<?php echo Routes::profile;?>">Mon profil</a>
     </li>
     <li>
-        <a class='button' href="plan.php">Le plan d'accès</a>
+        <a class='button' href="<?php echo Routes::map;?>">Le plan d'accès</a>
     </li>
     <li>
-        <a class='button' href="presentation.php">L'association</a>
+        <a class='button' href="<?php echo Routes::presentation;?>">L'association</a>
     </li>
 </ul>

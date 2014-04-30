@@ -16,7 +16,7 @@
             <?php endif; ?>
             <?php if ($_SESSION['droits'] <= Rights::$MEMBER) : ?>
                 <li>
-                    <a class="button" href="<?php echo Routes::plan; ?>">Plan</a>
+                    <a class="button" href="<?php echo Routes::map; ?>">Plan</a>
                 </li>
                 <li>
                     <a class="button" href="<?php echo Routes::presentation; ?>">L'association</a>

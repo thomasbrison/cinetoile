@@ -2,3 +2,4 @@ votes
 case commentaire "des anciens"
 chercher par genre ou par mot-clé
 présélection pour les votes
+bug modification login

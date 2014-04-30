@@ -61,7 +61,7 @@ function loadPage(currentPageNumber, pageNumber, nbPages) {
         }
     };
 
-    xmlhttp.open("GET", "index.php?page=" + pageNumber + "&isajax=1", true);
+    xmlhttp.open("GET", "index?page=" + pageNumber + "&isajax=1", true);
     xmlhttp.send(null);
 }
 

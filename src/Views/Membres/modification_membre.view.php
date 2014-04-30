@@ -18,9 +18,11 @@ $form_name = "modification_membre";
 $form_action = "modifier";
 
 if ($_SESSION['droits'] === Rights::$MEMBER) {
-    $form_target = "profil.php";
+    $form_base = Routes::profile;
+    $form_target = Routes::profileUpdate;
 } else {
-    $form_target = "membres.php";
+    $form_base = Routes::members;
+    $form_target = Routes::membersUpdate;
 }
 
 include 'Templates/formulaire.php';

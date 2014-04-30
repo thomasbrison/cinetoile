@@ -1,4 +1,4 @@
-<form class="formulaire" name="<?php echo $form_name; ?>" method="post" action="films.php/<?php echo $form_action; ?>" enctype="multipart/form-data">
+<form class="formulaire" name="<?php echo $form_name; ?>" method="post" action="<?php echo $form_route; ?>" enctype="multipart/form-data">
 
     <fieldset>
         <legend>Informations obligatoires sur le film</legend>
@@ -20,9 +20,9 @@
             <select name="annee">
                 <option value=-1 <?php if (!isset($annee)) echo "selected"; ?>>Ann&eacute;e</option>
                 <?php for ($i = 1930; $i <= 2010; $i++) : ?>
-                <option value=<?php echo $i; ?> <?php if (isset($annee) && $i === $annee) echo "selected"; ?>>
-                    <?php echo $i; ?>
-                </option>
+                    <option value=<?php echo $i; ?> <?php if (isset($annee) && $i === $annee) echo "selected"; ?>>
+                        <?php echo $i; ?>
+                    </option>
                 <?php endfor; ?>
             </select>
         </p>
@@ -56,18 +56,18 @@
                 <select name="heures_duree">
                     <option value=-1 <?php if (isset($array_duration) && !$array_duration['hours']) echo "selected"; ?>>Heures</option>
                     <?php for ($i = 0; $i <= 3; $i++) : ?>
-                    <option value=<?php echo $i; ?> <?php if (isset($array_duration) && $i === $array_duration['hours']) echo "selected"; ?>>
-                        <?php echo $i; ?>
-                    </option>
-                        <?php endfor; ?>
+                        <option value=<?php echo $i; ?> <?php if (isset($array_duration) && $i === $array_duration['hours']) echo "selected"; ?>>
+                            <?php echo $i; ?>
+                        </option>
+                    <?php endfor; ?>
                 </select>
                 :
                 <select name="minutes_duree">
                     <option value=-1 <?php if (isset($array_duration) && !$array_duration['minutes']) echo "selected"; ?>>Minutes</option>
                     <?php for ($i = 0; $i <= 59; $i++) : ?>
-                    <option value=<?php echo $i; ?> <?php if (isset($array_duration) && $i === $array_duration['minutes']) echo "selected"; ?>>
-                        <?php echo $i; ?>
-                    </option>
+                        <option value=<?php echo $i; ?> <?php if (isset($array_duration) && $i === $array_duration['minutes']) echo "selected"; ?>>
+                            <?php echo $i; ?>
+                        </option>
                     <?php endfor; ?>
                 </select>
             </span>
@@ -84,33 +84,35 @@
             <label>Affiche : </label><br/>
             <input type="hidden" name="MAX_FILE_SIZE" value="100000"/>
             <?php if (isset($affiche) && $affiche) : ?>
-            <br/>
-            <img class="affiche" name="affiche" src="<?php echo $affiche; ?>" alt=""/>
-            <br/>
-            <span id="buttons">
-                <input type="hidden" name="etat_affiche" value="0"/>
-                <button onclick="modifier_affiche(); return false;">Modifier l'affiche</button>
-                <button onclick="supprimer_affiche(); return false;">Supprimer l'affiche</button>
-            </span>
+                <br/>
+                <img class="affiche" name="affiche" src="<?php echo $affiche; ?>" alt=""/>
+                <br/>
+                <span id="buttons">
+                    <input type="hidden" name="etat_affiche" value="0"/>
+                    <button onclick="modifier_affiche();
+                            return false;">Modifier l'affiche</button>
+                    <button onclick="supprimer_affiche();
+                            return false;">Supprimer l'affiche</button>
+                </span>
             <?php else : ?>
-            <input type="file" name="affiche"/>
+                <input type="file" name="affiche"/>
             <?php endif; ?>
         </p>
         <p>
             <label>Bande-annonce : </label>
             <input type="text" name="bande_annonce" value="<?php if (isset($bande_annonce)) echo $bande_annonce; ?>" placeholder="Lien à insérer"/>
         </p>
-            <?php if (isset($bande_annonce) && $bande_annonce) : ?>
-        <p>
-            <a class="button big-button" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir la bande-annonce Allociné </a>
-        </p>
-            <?php endif; ?>
+        <?php if (isset($bande_annonce) && $bande_annonce) : ?>
+            <p>
+                <a class="button big-button" onclick="afficheBandeAnnonce(this);" data-ba="<?php echo $bande_annonce; ?>"> Voir la bande-annonce Allociné </a>
+            </p>
+        <?php endif; ?>
     </fieldset>
-    
+
     <p id="boutons">
         <input type="submit" name="<?php echo $form_action; ?>" value="Valider" />
         <input type="reset" name="reset" value="Reset"/>
-        <button type='button' onclick='window.location.href = "films.php";'>Annuler</button>
+        <button type='button' onclick='window.location.href = "<?php echo Routes::films; ?>";'>Annuler</button>
     </p>
 
 </form>

@@ -15,13 +15,13 @@
     <?php endif; ?>
     <div class="buttons">
         <div class="inline-block invisible">
-            <form name="modifier_diffusion" method="GET" action="diffusions.php/modifier">
+            <form name="modifier_diffusion" method="GET" action="<?php echo Routes::diffusionsUpdate;?>">
                 <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                 <input type="submit" value="Modifier"/>
             </form>
         </div>
         <div class="inline-block invisible">
-            <form name="supprimer_diffusion" method="GET" action="diffusions.php/supprimer" onsubmit="return removeDiffusion(this);">
+            <form name="supprimer_diffusion" method="GET" action="<?php echo Routes::diffusionsDelete;?>" onsubmit="return removeDiffusion(this);">
                 <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                 <input type="button" value="Supprimer" onclick="confirm(this);"/>
             </form>

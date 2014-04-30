@@ -73,7 +73,7 @@ require_once 'Lib/telephone.php';
                     <td class="annee"> <?php echo $annee; ?> </td>
                     <td class="droits lien">
                         <span class="js-el" onclick="displaySelections(this);"> <?php echo $droit; ?> </span>
-                        <form method="GET" action="membres.php/modifierDroits" class="hidden" onsubmit="return changerDroits(this);">
+                        <form method="GET" action="<?php echo Routes::membersUpdateRights; ?>" class="hidden" onsubmit="return changerDroits(this);">
                             <input type="hidden" name="login" value="<?php echo $login; ?>">
                             <?php include 'Templates/selection_droits.php'; ?>
                             <input type="submit">
@@ -81,13 +81,13 @@ require_once 'Lib/telephone.php';
                     </td>
                     <td class="modif-suppr">
                         <div class="inline invisible">
-                            <form class="inline" name="modifier_membre" method="GET" action="membres.php/modifier">
+                            <form class="inline" name="modifier_membre" method="GET" action="<?php echo Routes::membersUpdate; ?>">
                                 <input type="hidden" name="login" value="<?php echo $login; ?>"/>
                                 <input type="submit" value="Modifier"/>
                             </form>
                         </div>
                         <div class="inline invisible">
-                            <form class="inline" name="supprimer_membre" method="GET" action="membres.php/supprimer" onsubmit="return removeMembre(this);">
+                            <form class="inline" name="supprimer_membre" method="GET" action="<?php echo Routes::membersDelete; ?>" onsubmit="return removeMembre(this);">
                                 <input type="hidden" name="login" value="<?php echo $login; ?>"/>
                                 <input type="button" value="Supprimer" onclick="confirm(this);"/>
                             </form>
@@ -103,5 +103,5 @@ require_once 'Lib/telephone.php';
 <br/><a href="mailto:?bcc=<?php echo $membersEmails; ?>">Envoyer un email aux membres</a>
 
 <div class="options">
-    <a class="button" href="membres.php/ajouter">Ajouter un membre</a>
+    <a class="button" href="<?php echo Routes::membersCreate; ?>">Ajouter un membre</a>
 </div>

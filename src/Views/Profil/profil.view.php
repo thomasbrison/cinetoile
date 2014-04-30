@@ -27,7 +27,7 @@ require_once 'Lib/telephone.php';
 </dl>
 
 <div class="options">
-    <a class="button" href="profil.php/modifier">Modifier le profil</a>
-    <a class="button" href="profil.php/supprimer" onclick="return confirmLink(this);">Supprimer le profil</a>
+    <a class="button" href="<?php echo Routes::profileUpdate; ?>">Modifier le profil</a>
+    <a class="button" href="<?php echo Routes::profileDelete; ?>" onclick="return confirmLink(this);">Supprimer le profil</a>
 </div>
 

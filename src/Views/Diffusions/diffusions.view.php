@@ -7,7 +7,7 @@ require_once 'Lib/dates.php';
 ?>
 
 <div class="options">
-    <a class="button" href="diffusions.php/ajouter">Nouvelle séance</a>
+    <a class="button" href="<?php echo Routes::diffusionsCreate;?>">Nouvelle séance</a>
 </div>
 
 <?php

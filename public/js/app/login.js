@@ -19,7 +19,7 @@ function checkLogin(login) {
         }
     };
 
-    request.open("GET", "membres.php/loginExists?login=" + login, true);
+    request.open("GET", "membres/loginExists?login=" + login, true);
     request.send(null);
 
     return loginExists;

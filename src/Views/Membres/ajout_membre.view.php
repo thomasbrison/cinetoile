@@ -2,7 +2,8 @@
 
 $form_name = "ajout_membre";
 $form_action = "ajouter";
-$form_target = "membres.php";
+$form_base = Routes::members;
+$form_target = Routes::membersCreate;
 
 include 'Templates/formulaire.php';
 ?>

@@ -88,13 +88,13 @@ function taille($droits, $width_admin, $width_membre) {
                         <td class="duree"> <?php echo $duree; ?> </td>
                         <td class="modif-suppr">
                             <div class="inline invisible">
-                                <form name="modifier_film" method="GET" action="films.php/modifier">
+                                <form name="modifier_film" method="GET" action="<?php echo Routes::filmsUpdate;?>">
                                     <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                                     <input type="submit" value="Modifier"/>
                                 </form>
                             </div>
                             <div class="inline invisible">
-                                <form name="supprimer_film" method="GET" action="films.php/supprimer" onsubmit="return removeFilm(this);">
+                                <form name="supprimer_film" method="GET" action="<?php echo Routes::filmsDelete;?>" onsubmit="return removeFilm(this);">
                                     <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                                     <input type="button" value="Supprimer" onclick="confirm(this);"/>
                                 </form>
@@ -114,10 +114,10 @@ function taille($droits, $width_admin, $width_membre) {
 
 <?php if ($droits === Rights::$ADMIN) : ?>
     <div class="options">
-        <a class="button" href="films.php/ajouter">Ajouter un film</a>
+        <a class="button" href="<?php echo Routes::filmsCreate;?>">Ajouter un film</a>
     </div>
 <?php elseif ($droits === Rights::$MEMBER) : ?>
-    <form name="voter" id="form-vote" method="POST" action="films.php/voter">
+    <form name="voter" id="form-vote" method="POST" action="<?php echo Routes::vote;?>">
         <input name="voter" type="submit" id="soumettre_vote" form="form-vote" value="Voter"/>
     </form>
 <?php endif; ?>
