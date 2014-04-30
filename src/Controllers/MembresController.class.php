@@ -9,13 +9,7 @@ class MembresController extends AbstractMembreController implements Editable {
     }
 
     public function consulter() {
-        if (!$this->checkRights($this->userRights, Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
-        $this->consulterImpl();
-    }
-
-    private function consulterImpl() {
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         $titre_page = "Membres";
         $membres = $this->tableMembre->consult();
         $emails = $this->getAllEmails();
@@ -46,13 +40,7 @@ class MembresController extends AbstractMembreController implements Editable {
     }
 
     public function ajouter() {
-        if (!$this->checkRights($this->userRights, Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
-        $this->ajouterImpl();
-    }
-
-    private function ajouterImpl() {
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         if (isset($_POST['ajouter'])) {
             $this->addSubmit();
         } elseif (isset($_POST['annuler'])) {
@@ -84,13 +72,7 @@ class MembresController extends AbstractMembreController implements Editable {
     }
 
     public function modifier() {
-        if (!$this->checkRights($this->userRights, Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
-        $this->modifierImpl();
-    }
-
-    private function modifierImpl() {
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         if (isset($_POST['modifier'])) {
             $this->updateSubmit();
         } elseif (isset($_POST['annuler'])) {
@@ -157,13 +139,7 @@ class MembresController extends AbstractMembreController implements Editable {
     }
 
     public function supprimer() {
-        if (!$this->checkRights($this->userRights, Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
-        $this->supprimerImpl();
-    }
-
-    private function supprimerImpl() {
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         $removed = FALSE;
         $message = "";
         if (isset($_GET['login'])) {

@@ -16,11 +16,8 @@ class FilmsController extends Controller implements Editable {
     }
 
     public function consulter() {
-        $droits = $_SESSION['droits'];
-        if (!$this->checkRights($droits, Rights::MEMBER, Rights::ADMIN)) {
-            return;
-        }
-
+        $this->checkUserRights(Rights::MEMBER, Rights::ADMIN);
+        $droits = $this->userRights;
         if ($droits == Rights::ADMIN) {
             $films = $this->tableFilm->consult();
         } else if ($droits == Rights::MEMBER) {
@@ -31,43 +28,71 @@ class FilmsController extends Controller implements Editable {
     }
 
     public function ajouter() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
-
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         if (isset($_POST['ajouter'])) {
-            $film = $this->getInfos(null);
-            $this->tableFilm->add($film);
-            header('Location: ' . Routes::getRoute(Routes::films));
+            $this->addSubmit();
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . Routes::getRoute(Routes::films));
+            $this->addCancel();
         } else {
-            $this->render('Films/ajout_film');
+            $this->addView();
         }
     }
 
-    public function modifier() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
-            return;
-        }
+    private function addView() {
+        $form_name = "ajout_film";
+        $form_action = "ajouter";
+        $form_target = Routes::filmsCreate;
+        $this->render('Films/formulaire', array(), compact('form_name', 'form_action', 'form_target'));
+    }
 
+    private function addSubmit() {
+        $film = $this->getInfos(null);
+        $this->tableFilm->add($film);
+        header('Location: ' . Routes::getRoute(Routes::films));
+    }
+
+    private function addCancel() {
+        header('Location: ' . Routes::getRoute(Routes::films));
+    }
+
+    public function modifier() {
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         if (isset($_POST['modifier'])) {
-            $id = (int) htmlentities($_POST['id']);
-            $film = $this->getInfos($id);
-            $this->tableFilm->update($film);
-            header('Location: ' . Routes::getRoute(Routes::films));
+            $this->updateSubmit();
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . Routes::getRoute(Routes::films));
+            $this->updateCancel();
         } elseif (isset($_GET['id'])) {
-            $id = (int) htmlentities($_GET['id']);
-            $film = $this->tableFilm->getAttributes($id);
-            $array_duration = $this->arrayDuration($film->getDuree());
-            $_SESSION['affiche'] = $film->getAffiche();
-            extract($film->arrayInfos());
-            $this->render('Films/modification_film', array('effets', 'lightbox'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'array_duration', 'synopsis', 'affiche', 'bande_annonce'));
+            $this->updateView();
         } else {
-            header('Location: ' . Routes::getRoute(Routes::films));
+            $this->updateDefault();
         }
+    }
+
+    private function updateView() {
+        $id = (int) htmlentities($_GET['id']);
+        $film = $this->tableFilm->getAttributes($id);
+        $array_duration = $this->arrayDuration($film->getDuree());
+        $_SESSION['affiche'] = $film->getAffiche();
+        extract($film->arrayInfos());
+        $form_name = "modification_film";
+        $form_action = "modifier";
+        $form_target = Routes::filmsUpdate;
+        $this->render('Films/formulaire', array('effets', 'lightbox'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'array_duration', 'synopsis', 'affiche', 'bande_annonce', 'form_name', 'form_action', 'form_target'));
+    }
+
+    private function updateSubmit() {
+        $id = (int) htmlentities($_POST['id']);
+        $film = $this->getInfos($id);
+        $this->tableFilm->update($film);
+        header('Location: ' . Routes::getRoute(Routes::films));
+    }
+
+    private function updateCancel() {
+        header('Location: ' . Routes::getRoute(Routes::films));
+    }
+
+    private function updateDefault() {
+        $this->updateCancel();
     }
 
     private function formatDuration($hours, $minutes) {
@@ -89,26 +114,16 @@ class FilmsController extends Controller implements Editable {
     }
 
     public function supprimer() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
-            return;
-        }
-
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         $removed = FALSE;
         $message = "";
         if (isset($_GET['id'])) {
             $id = (int) htmlentities($_GET['id']);
             $nbDelLines = $this->tableFilm->remove($id);
-            $removed = $this->checkRemoved($nbDelLines);
+            $removed = !!$nbDelLines;
             $message = $this->writeRemovedMessage($removed);
         }
-        echo json_encode(array(
-            "success" => $removed,
-            "message" => $message
-        ));
-    }
-
-    private function checkRemoved($nbDelLines) {
-        return (!!$nbDelLines);
+        echo json_encode(array("success" => $removed, "message" => $message));
     }
 
     private function writeRemovedMessage($removed) {
@@ -120,10 +135,7 @@ class FilmsController extends Controller implements Editable {
     }
 
     public function voter() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$MEMBER)) {
-            return;
-        }
-
+        $this->checkUserRights(Rights::MEMBER, Rights::MEMBER);
         if (isset($_POST['voter'])) {
             $ids = array();
             foreach ($_POST as $post_name => $post_value) {

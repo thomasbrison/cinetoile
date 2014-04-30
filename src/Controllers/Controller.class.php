@@ -82,6 +82,18 @@ abstract class Controller {
     }
 
     /**
+     * Check if the current user session rights are between a min level and a max level.
+     * If not, render a "not authorized" page and exit.
+     * @param min $min Min rights level
+     * @param max $max Max rights level
+     */
+    protected function checkUserRights($min, $max) {
+        if (!$this->checkRights($this->userRights, $min, $max)) {
+            exit();
+        }
+    }
+
+    /**
      * Set the login of the session to NULL if not yet defined.
      */
     private function setSessionLogin() {
