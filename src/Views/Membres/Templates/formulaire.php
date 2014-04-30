@@ -1,6 +1,6 @@
 <form class="formulaire" name="<?php echo $form_name; ?>" method="post" action="<?php echo $form_target; ?>" <?php if ('ajouter' === $form_action) echo 'onsubmit="return !loginExists;"'; ?>>
 
-    <?php include $_SESSION['droits'] === Rights::$ADMIN ? 'infos_principales_admin.php' : 'infos_principales_membre.php'; ?>
+    <?php include $_SESSION['droits'] === Rights::ADMIN ? 'infos_principales_admin.php' : 'infos_principales_membre.php'; ?>
 
     <br/>
     <fieldset>

@@ -21,7 +21,7 @@ class VoteController extends Controller implements Editable {
     }
 
     public function ajouter() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$MEMBER)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::MEMBER, Rights::MEMBER)) {
             return;
         }
 
@@ -36,7 +36,7 @@ class VoteController extends Controller implements Editable {
     }
 
     public function consulter() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::MEMBER, Rights::ADMIN)) {
             return;
         }
 
@@ -57,7 +57,7 @@ class VoteController extends Controller implements Editable {
     }
 
     public function supprimer() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::MEMBER, Rights::ADMIN)) {
             return;
         }
 

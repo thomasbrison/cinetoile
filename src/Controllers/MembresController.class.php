@@ -9,7 +9,7 @@ class MembresController extends AbstractMembreController implements Editable {
     }
 
     public function consulter() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
             return;
         }
 
@@ -33,7 +33,7 @@ class MembresController extends AbstractMembreController implements Editable {
     }
 
     public function ajouter() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
             return;
         }
 
@@ -51,7 +51,7 @@ class MembresController extends AbstractMembreController implements Editable {
     }
 
     public function modifier() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
             return;
         }
 
@@ -74,7 +74,7 @@ class MembresController extends AbstractMembreController implements Editable {
     public function loginExists() {
         $msgUsed = "Le login est déjà utilisé !";
         $msgAvailable = "Le login est disponible !";
-        if ($this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN) AND isset($_GET['login'])) {
+        if ($this->checkRights($_SESSION['droits'], Rights::MEMBER, Rights::ADMIN) AND isset($_GET['login'])) {
             $sth = $this->tableMembre->prepareLogin();
             $row = $this->tableMembre->getLogins($sth, $_GET['login']);
             if (count($row)) {
@@ -88,7 +88,7 @@ class MembresController extends AbstractMembreController implements Editable {
     }
 
     public function modifierDroits() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
             return;
         }
 
@@ -100,7 +100,7 @@ class MembresController extends AbstractMembreController implements Editable {
     }
 
     public function supprimer() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
             return;
         }
 

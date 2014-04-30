@@ -17,13 +17,13 @@ class FilmsController extends Controller implements Editable {
 
     public function consulter() {
         $droits = $_SESSION['droits'];
-        if (!$this->checkRights($droits, Rights::$MEMBER, Rights::$ADMIN)) {
+        if (!$this->checkRights($droits, Rights::MEMBER, Rights::ADMIN)) {
             return;
         }
 
-        if ($droits == Rights::$ADMIN) {
+        if ($droits == Rights::ADMIN) {
             $films = $this->tableFilm->consult();
-        } else if ($droits == Rights::$MEMBER) {
+        } else if ($droits == Rights::MEMBER) {
             $films = $this->tableFilm->consultAsAMember();
         }
         $titre_page = "Films";
@@ -31,7 +31,7 @@ class FilmsController extends Controller implements Editable {
     }
 
     public function ajouter() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
             return;
         }
 
@@ -47,7 +47,7 @@ class FilmsController extends Controller implements Editable {
     }
 
     public function modifier() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$ADMIN, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
             return;
         }
 

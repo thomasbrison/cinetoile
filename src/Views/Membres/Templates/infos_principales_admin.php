@@ -21,7 +21,7 @@
             <?php include 'selection_droits.php'; ?>
         </p>
     <?php else : ?>
-        <input type="hidden" name="droits" value="<?php echo Rights::$BASIC; ?>"/>
+        <input type="hidden" name="droits" value="<?php echo Rights::BASIC; ?>"/>
     <?php endif; ?>
     <p>
         <label>Pr&eacute;nom : </label>

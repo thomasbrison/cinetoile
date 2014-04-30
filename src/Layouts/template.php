@@ -6,12 +6,12 @@ if (!isset($titre_page)) {
 }
 
 switch ($_SESSION['droits']) {
-    case Rights::$MEMBER:
+    case Rights::MEMBER:
         $class_links_header = "one-third";
         $class_links_nav = "two-thirds";
         $class_nav = "six-items";
         break;
-    case Rights::$ADMIN:
+    case Rights::ADMIN:
         $class_links_header = "one-third";
         $class_links_nav = "two-thirds";
         $class_nav = "six-items";

@@ -7,7 +7,7 @@ class ProfilController extends AbstractMembreController {
     }
 
     public function consulter() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::MEMBER, Rights::ADMIN)) {
             return;
         }
 
@@ -17,7 +17,7 @@ class ProfilController extends AbstractMembreController {
     }
 
     public function modifier() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::MEMBER, Rights::ADMIN)) {
             return;
         }
 
@@ -28,7 +28,7 @@ class ProfilController extends AbstractMembreController {
             $login = $membre->getLogin();
             $current_passwd = $_POST['current_password'];
             if (!empty($current_passwd)) {
-                if ($this->tableMembre->authenticate($login, $current_passwd) >= Rights::$MEMBER) {
+                if ($this->tableMembre->authenticate($login, $current_passwd) >= Rights::MEMBER) {
                     $this->updatePassword($login, $_POST['password1'], $_POST['password2'], "Mot de passe modifié !", "Les mots de passe sont différents. Le mot de passe n'a pas été modifié.");
                 } else {
                     create_message("Le mot de passe actuel est erroné.");
@@ -47,7 +47,7 @@ class ProfilController extends AbstractMembreController {
     }
 
     public function supprimer() {
-        if (!$this->checkRights($_SESSION['droits'], Rights::$MEMBER, Rights::$ADMIN)) {
+        if (!$this->checkRights($_SESSION['droits'], Rights::MEMBER, Rights::ADMIN)) {
             return;
         }
 

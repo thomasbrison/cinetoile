@@ -41,13 +41,13 @@ require_once 'Lib/telephone.php';
                 $annee = annee_format($membre->getAnnee());
                 $droits = $membre->getDroits();
                 switch ($droits) {
-                    case Rights::$BASIC:
+                    case Rights::BASIC:
                         $droit = "Étudiant";
                         break;
-                    case Rights::$MEMBER:
+                    case Rights::MEMBER:
                         $droit = "Membre";
                         break;
-                    case Rights::$ADMIN:
+                    case Rights::ADMIN:
                         $droit = "Admin";
                         break;
                 }

@@ -75,7 +75,7 @@ abstract class Controller {
      */
     private function setDefaultSessionRights() {
         if (!isset($_SESSION['droits'])) {
-            $_SESSION['droits'] = Rights::$USER;
+            $_SESSION['droits'] = Rights::USER;
         }
     }
 

@@ -206,7 +206,8 @@ class TableMembre extends Table {
         require_once 'Lib/Rights.class.php';
         $query = "SELECT email FROM $this->name WHERE droits = :droits;";
         $sth = $this->dbh->prepare($query);
-        $sth->bindParam(':droits', Rights::$MEMBER, PDO::PARAM_STR);
+        $rights = Rights::MEMBER;
+        $sth->bindParam(':droits', $rights, PDO::PARAM_STR);
         if ($sth->execute()) {
             return $sth->fetchAll(PDO::FETCH_COLUMN);
         }

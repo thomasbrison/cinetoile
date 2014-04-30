@@ -4,17 +4,17 @@
             <li>
                 <a class="button" href="">Accueil</a>
             </li>
-            <?php if ($_SESSION['droits'] >= Rights::$MEMBER) : ?>
+            <?php if ($_SESSION['droits'] >= Rights::MEMBER) : ?>
                 <li>
                     <a class="button" href="<?php echo Routes::films; ?>">Films</a>
                 </li>
             <?php endif; ?>
-            <?php if ($_SESSION['droits'] === Rights::$MEMBER) : ?>
+            <?php if ($_SESSION['droits'] === Rights::MEMBER) : ?>
                 <li>
                     <a class="button" href="<?php echo Routes::profile; ?>">Mon profil</a>
                 </li>
             <?php endif; ?>
-            <?php if ($_SESSION['droits'] <= Rights::$MEMBER) : ?>
+            <?php if ($_SESSION['droits'] <= Rights::MEMBER) : ?>
                 <li>
                     <a class="button" href="<?php echo Routes::map; ?>">Plan</a>
                 </li>
@@ -22,7 +22,7 @@
                     <a class="button" href="<?php echo Routes::presentation; ?>">L'association</a>
                 </li>
             <?php endif; ?>
-            <?php if ($_SESSION['droits'] === Rights::$ADMIN) : ?>
+            <?php if ($_SESSION['droits'] === Rights::ADMIN) : ?>
                 <li>
                     <a class="button" href="<?php echo Routes::members; ?>">Membres</a>
                 </li>

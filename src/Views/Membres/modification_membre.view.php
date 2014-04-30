@@ -17,7 +17,7 @@ $droits = $membre->getDroits();
 $form_name = "modification_membre";
 $form_action = "modifier";
 
-if ($_SESSION['droits'] === Rights::$MEMBER) {
+if ($_SESSION['droits'] === Rights::MEMBER) {
     $form_base = Routes::profile;
     $form_target = Routes::profileUpdate;
 } else {
