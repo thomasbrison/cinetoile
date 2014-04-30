@@ -10,8 +10,8 @@ final class Routes {
     const map = 'plan';
     const presentation = 'presentation';
     const admin = 'admin';
-    const connection = 'index/connexion';
-    const deconnection = 'index/deconnexion';
+    const connection = 'connexion';
+    const deconnection = 'deconnexion';
     const films = 'films';
     const filmsCreate = 'films/ajouter';
     const filmsUpdate = 'films/modifier';
