@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of Connexion
+ * Description of ConnexionController
  *
  * @author Thomas Brison <thomas.brison@grenoble-inp.org>
  */
@@ -18,31 +18,54 @@ class ConnexionController extends Controller {
     }
 
     public function defaultAction() {
-        // Verifie si l'utilisateur n'etait pas deja connecté
-        if (!isset($this->userLogin)) {
-            $droits = Rights::USER;
-            if (!isset($_POST['connexion'])) {
-                $this->render('authentification');
-            } else {
-                $login = htmlentities($_POST['login']);
-                $password = htmlentities($_POST['password']);
-                $droits = $this->tableMembre->authenticate($login, $password);
-                if ($droits < Rights::MEMBER) {
-                    create_message("Nom d'utilisateur ou mot de passe incorrect !");
-                    $this->render('authentification');
-                } else {
-                    $_SESSION['login'] = $login;
-                    $_SESSION['droits'] = $droits;
-                    if ($_SESSION['droits'] === Rights::ADMIN) {
-                        header('Location: ' . Routes::getRoute(Routes::admin));
-                    } else {
-                        header('Location: ' . Routes::getRoute(Routes::index));
-                    }
-                }
-            }
-        } else {
-            $this->defaultAction();
+        // Check if the user is already authenticated
+        if (isset($this->userLogin)) {
+            $this->redirectAlreadyAuthenticated();
+            return;
         }
+        if (isset($_POST['connexion'])) {
+            $this->connectionSubmit();
+        } else {
+            $this->connectionView();
+        }
+    }
+
+    private function connectionView() {
+        $this->render('authentification');
+    }
+
+    private function connectionSubmit() {
+        $login = htmlentities(filter_input(INPUT_POST, 'login'));
+        $password = htmlentities(filter_input(INPUT_POST, 'password'));
+        $rights = $this->tableMembre->authenticate($login, $password);
+        if ($rights < Rights::MEMBER) {
+            $this->invalidAuthentication();
+        } else {
+            $this->rememberMember($login, $rights);
+            $this->redirectAuthenticated($rights);
+        }
+    }
+
+    private function rememberMember($login, $rights) {
+        $_SESSION['login'] = $login;
+        $_SESSION['droits'] = $rights;
+    }
+
+    private function invalidAuthentication() {
+        create_message("Nom d'utilisateur ou mot de passe incorrect !");
+        $this->connectionView();
+    }
+
+    private function redirectAuthenticated($rights) {
+        if ($rights === Rights::ADMIN) {
+            header('Location: ' . Routes::getRoute(Routes::admin));
+        } else {
+            header('Location: ' . Routes::getRoute(Routes::index));
+        }
+    }
+
+    private function redirectAlreadyAuthenticated() {
+        header('Location: ' . Routes::index);
     }
 
 }
