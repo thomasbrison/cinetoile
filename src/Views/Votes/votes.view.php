@@ -1,6 +1,6 @@
 <?php
 
 foreach ($votes as $vote) {
-    include 'Templates/vote.php';
+    include 'vote.view.php';
 }
 ?>
