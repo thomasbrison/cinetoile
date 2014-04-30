@@ -47,7 +47,7 @@ switch ($_SESSION['droits']) {
         <?php include 'header.php'; ?>
 
         <section id="main">
-            <?php include 'Views/' . $view . '.view.php'; ?>
+            <?php include $view; ?>
         </section>
 
         <?php

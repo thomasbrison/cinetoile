@@ -21,7 +21,7 @@ class DiffusionsController extends Controller implements Editable {
         $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
         $diffusions = $this->tableDiffusion->consult();
         $table_film = $this->tableFilm;
-        $this->render('Diffusions/diffusions', array('effets'), compact('diffusions', 'table_film'));
+        $this->render('Diffusions/diffusions', compact('diffusions', 'table_film'));
     }
 
     public function ajouter() {
@@ -40,7 +40,7 @@ class DiffusionsController extends Controller implements Editable {
         $form_name = "ajout_diffusion";
         $form_action = "ajouter";
         $form_target = Routes::diffusionsCreate;
-        $this->render('Diffusions/formulaire', array(), compact('films', 'form_name', 'form_action', 'form_target'));
+        $this->render('Diffusions/formulaire', compact('films', 'form_name', 'form_action', 'form_target'));
     }
 
     private function createSubmit() {
@@ -73,7 +73,7 @@ class DiffusionsController extends Controller implements Editable {
         $form_name = "modification_diffusion";
         $form_action = "modifier";
         $form_target = Routes::diffusionsUpdate;
-        $this->render('Diffusions/formulaire', array('effets'), compact('diffusion', 'films', 'form_name', 'form_action', 'form_target'));
+        $this->render('Diffusions/formulaire', compact('diffusion', 'films', 'form_name', 'form_action', 'form_target'));
     }
 
     private function updateSubmit() {

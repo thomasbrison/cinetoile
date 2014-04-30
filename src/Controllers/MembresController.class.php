@@ -14,7 +14,7 @@ class MembresController extends AbstractMembreController implements Editable {
         $membres = $this->tableMembre->consult();
         $emails = $this->getAllEmails();
         $membersEmails = $this->getMembersEmails();
-        $this->render('Membres/membres', array('effets'), compact('titre_page', 'membres', 'emails', 'membersEmails'));
+        $this->render('Membres/membres', compact('titre_page', 'membres', 'emails', 'membersEmails'));
     }
 
     private function getAllEmails() {
@@ -56,7 +56,7 @@ class MembresController extends AbstractMembreController implements Editable {
         $form_base = Routes::members;
         $form_target = Routes::membersCreate;
         $infos_principales_view = $rights === Rights::ADMIN ? 'infos_principales_admin.view.php' : 'infos_principales_membre.view.php';
-        $this->render('Membres/formulaire', array('login'), compact('form_name', 'form_action', 'form_base', 'form_target', 'infos_principales_view'));
+        $this->render('Membres/formulaire', compact('form_name', 'form_action', 'form_base', 'form_target', 'infos_principales_view'));
     }
 
     private function createSubmit() {
@@ -92,7 +92,7 @@ class MembresController extends AbstractMembreController implements Editable {
         $form_base = $rights === Rights::MEMBER ? Routes::profile : Routes::members;
         $form_target = $rights === Rights::MEMBER ? Routes::profileUpdate : Routes::membersUpdate;
         $infos_principales_view = $rights === Rights::ADMIN ? 'infos_principales_admin.view.php' : 'infos_principales_membre.view.php';
-        $this->render('Membres/formulaire', array('login'), compact('membre', 'form_name', 'form_action', 'form_base', 'form_target', 'infos_principales_view'));
+        $this->render('Membres/formulaire', compact('membre', 'form_name', 'form_action', 'form_base', 'form_target', 'infos_principales_view'));
     }
 
     private function updateSubmit() {

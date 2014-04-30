@@ -45,7 +45,7 @@ class VoteController extends Controller implements Editable {
         $votes = $this->tableVote->selectVotes('avenelt');
         $table_film = $this->tableFilm;
         $table_membre = $this->tableMembre;
-        $this->render('Votes/votes', array(), compact('titre_page', 'votes', 'table_film', 'table_membre'));
+        $this->render('Votes/votes', compact('titre_page', 'votes', 'table_film', 'table_membre'));
     }
 
     public function defaultAction() {

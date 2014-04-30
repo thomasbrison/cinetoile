@@ -2,6 +2,9 @@
 
 class AdminController extends Controller {
 
+    /**
+     * @var TableMembre
+     */
     private $tableMembre;
 
     public function __construct() {
@@ -10,10 +13,9 @@ class AdminController extends Controller {
     }
 
     public function defaultAction() {
-        if ($this->checkRights($_SESSION['droits'], Rights::ADMIN, Rights::ADMIN)) {
-            $prenom = $this->tableMembre->getFirstName($_SESSION['login']);
-            $this->render('admin', array(), compact('prenom'));
-        }
+        $this->checkUserRights(Rights::ADMIN, Rights::ADMIN);
+        $prenom = $this->tableMembre->getFirstName($this->userLogin);
+        $this->render('admin', compact('prenom'));
     }
 
 }

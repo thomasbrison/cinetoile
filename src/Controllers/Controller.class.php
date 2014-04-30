@@ -29,14 +29,15 @@ abstract class Controller {
     /**
      * Render a view with the default template.
      * @param string $view Path to the view file without the extension view.php
-     * @param array $js_array js files to include
      * @param array $var_array Vars to keep. A key represents the var name
+     * @param string $template Template to use to render the view
      */
-    protected function render($view, array $js_array = array(), array $var_array = null) {
+    protected function render($view_file, array $var_array = null, $template = 'Layouts/template.php') {
         if ($var_array) {
             extract($var_array);
         }
-        include('Layouts/template.php');
+        $view = 'Views/' . $view_file . '.view.php';
+        include($template);
     }
 
     /**

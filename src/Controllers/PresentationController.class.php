@@ -5,7 +5,8 @@
  *
  * @author thomas.brison@grenoble-inp.org
  */
-class PresentationController extends Controller  {
+class PresentationController extends Controller {
+
     public function defaultAction() {
         $fichier_association = "Ressources/Textes/" . "association.txt";
         $fichier_equipe = "Ressources/Textes/" . "equipe.txt";
@@ -13,9 +14,9 @@ class PresentationController extends Controller  {
         $texte_association = $this->getTextFromFile($fichier_association);
         $texte_equipe = $this->getTextFromFile($fichier_equipe);
 
-        $this->render('presentation', array('facebook'), compact('texte_association', 'texte_equipe'));
+        $this->render('presentation', compact('texte_association', 'texte_equipe'));
     }
-    
+
     private function getTextFromFile($filename) {
         $text = "";
         if (is_file($filename)) {
@@ -28,6 +29,7 @@ class PresentationController extends Controller  {
         }
         return $text;
     }
+
 }
 
 ?>

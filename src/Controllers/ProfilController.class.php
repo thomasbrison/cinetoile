@@ -11,9 +11,9 @@ class ProfilController extends AbstractMembreController {
             return;
         }
 
-        $membre = $this->tableMembre->getAttributes($_SESSION['login']);
-        $titre_page = "Profil de " . $_SESSION['login'];
-        $this->render('Profil/profil', array('effets'), compact('membre', 'titre_page'));
+        $membre = $this->tableMembre->getAttributes($this->userLogin);
+        $titre_page = "Profil de " . $this->userLogin;
+        $this->render('Profil/profil', compact('membre', 'titre_page'));
     }
 
     public function modifier() {

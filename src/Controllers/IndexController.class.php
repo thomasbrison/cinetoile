@@ -32,7 +32,6 @@ class IndexController extends Controller {
 
     public function defaultAction() {
         $table_film = $this->tableFilm;
-        $js_array = array('effets', 'pages', 'lightbox', 'facebook');
 
         if (isset($_SESSION['login'])) {
             $prenom = $this->tableMembre->getFirstName($_SESSION['login']);
@@ -41,7 +40,7 @@ class IndexController extends Controller {
         if (isset($_GET['date'])) {
             $diffusion = $this->tableDiffusion->getAttributes($_GET['date']);
             $var_array = compact('diffusion', 'table_film');
-            return $this->render('index', $js_array, $var_array);
+            return $this->render('index', $var_array);
         }
 
         if (isset($_GET['page'])) {
@@ -66,7 +65,7 @@ class IndexController extends Controller {
             $this->renderAjax('Templates/seance', $var_array);
         } else {
             $var_array = compact('prenom', 'diffusion', 'table_film', 'page', 'nb_pages');
-            $this->render('index', $js_array, $var_array);
+            $this->render('index', $var_array);
         }
     }
 

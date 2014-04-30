@@ -24,7 +24,7 @@ class FilmsController extends Controller implements Editable {
             $films = $this->tableFilm->consultAsAMember();
         }
         $titre_page = "Films";
-        $this->render('Films/films', array('effets', 'lightbox'), compact('films', 'droits', 'titre_page'));
+        $this->render('Films/films', compact('films', 'droits', 'titre_page'));
     }
 
     public function ajouter() {
@@ -42,7 +42,7 @@ class FilmsController extends Controller implements Editable {
         $form_name = "ajout_film";
         $form_action = "ajouter";
         $form_target = Routes::filmsCreate;
-        $this->render('Films/formulaire', array(), compact('form_name', 'form_action', 'form_target'));
+        $this->render('Films/formulaire', compact('form_name', 'form_action', 'form_target'));
     }
 
     private function createSubmit() {
@@ -77,7 +77,7 @@ class FilmsController extends Controller implements Editable {
         $form_name = "modification_film";
         $form_action = "modifier";
         $form_target = Routes::filmsUpdate;
-        $this->render('Films/formulaire', array('effets', 'lightbox'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'array_duration', 'synopsis', 'affiche', 'bande_annonce', 'form_name', 'form_action', 'form_target'));
+        $this->render('Films/formulaire', compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'array_duration', 'synopsis', 'affiche', 'bande_annonce', 'form_name', 'form_action', 'form_target'));
     }
 
     private function updateSubmit() {
