@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Description of EquipeController
+ * Description of PresentationController
  *
- * @author thomas
+ * @author thomas.brison@grenoble-inp.org
  */
 class PresentationController extends Controller  {
     public function defaultAction() {

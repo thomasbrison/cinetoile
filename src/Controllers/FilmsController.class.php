@@ -1,8 +1,6 @@
 <?php
 
 require_once 'Controllers/Editable.interface.php';
-require_once 'Beans/Film.class.php';
-require_once 'Tables/TableFilm.php';
 
 class FilmsController extends Controller implements Editable {
 
@@ -40,9 +38,9 @@ class FilmsController extends Controller implements Editable {
         if (isset($_POST['ajouter'])) {
             $film = $this->getInfos(null);
             $this->tableFilm->add($film);
-            header('Location: ' . root . '/films.php');
+            header('Location: ' . Routes::getRoute(Routes::films));
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . root . '/films.php');
+            header('Location: ' . Routes::getRoute(Routes::films));
         } else {
             $this->render('Films/ajout_film');
         }
@@ -57,9 +55,9 @@ class FilmsController extends Controller implements Editable {
             $id = (int) htmlentities($_POST['id']);
             $film = $this->getInfos($id);
             $this->tableFilm->update($film);
-            header('Location: ' . root . '/films.php');
+            header('Location: ' . Routes::getRoute(Routes::films));
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . root . '/films.php');
+            header('Location: ' . Routes::getRoute(Routes::films));
         } elseif (isset($_GET['id'])) {
             $id = (int) htmlentities($_GET['id']);
             $film = $this->tableFilm->getAttributes($id);
@@ -68,7 +66,7 @@ class FilmsController extends Controller implements Editable {
             extract($film->arrayInfos());
             $this->render('Films/modification_film', array('effets', 'lightbox'), compact('id', 'titre', 'realisateur', 'annee', 'pays', 'acteurs', 'genre', 'support', 'array_duration', 'synopsis', 'affiche', 'bande_annonce'));
         } else {
-            header('Location: ' . root . '/films.php');
+            header('Location: ' . Routes::getRoute(Routes::films));
         }
     }
 

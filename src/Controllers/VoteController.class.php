@@ -1,11 +1,6 @@
 <?php
 
 require_once 'Controllers/Editable.interface.php';
-require_once 'Beans/Vote.class.php';
-require_once 'Beans/Film.class.php';
-require_once 'Tables/TableVote.php';
-require_once 'Tables/TableFilm.php';
-require_once 'Tables/TableMembre.php';
 
 /**
  * Description of VoteController

@@ -5,15 +5,24 @@
  *
  * @author Thomas Brison <thomas.brison@grenoble-inp.org>
  */
-class Routes {
-    static $index = 'index';
-    static $plan = 'plan';
-    static $presentation = 'presentation';
-    static $admin = 'admin';
-    static $connection = 'index/connexion';
-    static $deconnection = 'index/deconnexion';
-    static $films = 'films';
-    static $members = 'membres';
-    static $diffusions = 'diffusions';
-    static $profile = 'profil';
+final class Routes {
+    const index = 'index';
+    const plan = 'plan';
+    const presentation = 'presentation';
+    const admin = 'admin';
+    const connection = 'index/connexion';
+    const deconnection = 'index/deconnexion';
+    const films = 'films';
+    const members = 'membres';
+    const diffusions = 'diffusions';
+    const profile = 'profil';
+
+    /**
+     * Get absolute route. Usefull for views.
+     * @param string $route
+     * @return string
+     */
+    final static function getRoute($route) {
+        return root . '/' . $route;
+    }
 }

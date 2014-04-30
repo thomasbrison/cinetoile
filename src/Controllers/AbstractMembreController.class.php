@@ -1,9 +1,5 @@
 <?php
 
-require_once 'Controller.class.php';
-require_once 'Beans/Membre.class.php';
-require_once 'Tables/TableMembre.php';
-
 /**
  * Common controller AbstractMembreController for MembresController and ProfilController
  *

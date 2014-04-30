@@ -1,7 +1,5 @@
 <?php
 
-require_once('Table.php');
-
 /**
  * API pour accéder à la table des sélections de films
  *

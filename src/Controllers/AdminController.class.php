@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Tables/TableMembre.php';
-
 class AdminController extends Controller {
 
     private $tableMembre;

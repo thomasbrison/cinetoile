@@ -5,7 +5,7 @@
  *
  * @author Thomas Brison <thomas.brison@grenoble-inp.org>
  */
-class Router {
+final class Router {
 
     /**
      * @var array Keep controllers in cache

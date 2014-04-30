@@ -1,8 +1,5 @@
 <?php
 
-require_once('Table.php');
-require_once('Beans/Film.class.php');
-
 /**
  * API pour accéder à la table des films
  *

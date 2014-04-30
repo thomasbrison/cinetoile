@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Controllers/AbstractMembreController.class.php';
-
 class ProfilController extends AbstractMembreController {
 
     public function defaultAction() {
@@ -36,15 +34,15 @@ class ProfilController extends AbstractMembreController {
                     create_message("Le mot de passe actuel est erroné.");
                 }
             }
-            header('Location: ' . root . '/profil.php');
+            header('Location: ' . Routes::getRoute(Routes::profile));
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . root . '/profil.php');
+            header('Location: ' . Routes::getRoute(Routes::profile));
         } elseif (isset($_SESSION['login'])) {
             $login = $_SESSION['login'];
             $membre = $this->tableMembre->getAttributes($login);
             $this->render('Membres/modification_membre', array(), compact('membre'));
         } else {
-            header('Location: ' . root . '/profil.php');
+            header('Location: ' . Routes::getRoute(Routes::profile));
         }
     }
 
@@ -59,7 +57,7 @@ class ProfilController extends AbstractMembreController {
             unset($_SESSION['login']);
             unset($_SESSION['droits']);
         }
-        header('Location: ' . root . '/index.php');
+        header('Location: ' .Routes::getRoute(Routes::index));
     }
 
 }

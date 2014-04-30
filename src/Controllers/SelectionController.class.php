@@ -1,10 +1,6 @@
 <?php
 
 require_once 'Controllers/Editable.interface.php';
-require_once 'Beans/Selection.class.php';
-require_once 'Beans/Film.class.php';
-require_once 'Tables/TableSelection.php';
-require_once 'Tables/TableFilm.php';
 
 /**
  * Description of SelectionController

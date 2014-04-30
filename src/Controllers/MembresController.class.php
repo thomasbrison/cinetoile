@@ -1,6 +1,5 @@
 <?php
 
-require_once 'Controllers/AbstractMembreController.class.php';
 require_once 'Controllers/Editable.interface.php';
 
 class MembresController extends AbstractMembreController implements Editable {
@@ -43,9 +42,9 @@ class MembresController extends AbstractMembreController implements Editable {
             $membre = $this->parseInputs($_POST);
             $membre->setPassword($password);
             $this->tableMembre->add($membre);
-            header('Location: ' . root . '/membres.php');
+            header('Location: ' . Routes::getRoute(Routes::members));
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . root . '/membres.php');
+            header('Location: ' . Routes::getRoute(Routes::members));
         } else {
             $this->render('Membres/ajout_membre', array('login'));
         }
@@ -60,15 +59,15 @@ class MembresController extends AbstractMembreController implements Editable {
             $membre = $this->parseInputs($_POST);
             $this->tableMembre->update($membre);
             $this->updatePassword($membre->getLogin(), $_POST['password1'], $_POST['password2'], "Mot de passe modifié !", "Les mots de passe sont différents. Le mot de passe n'a pas été modifié.");
-            header('Location: ' . root . '/membres.php');
+            header('Location: ' . Routes::getRoute(Routes::members));
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . root . '/membres.php');
+            header('Location: ' . Routes::getRoute(Routes::members));
         } elseif (isset($_GET['login'])) {
             $login = htmlentities($_GET['login']);
             $membre = $this->tableMembre->getAttributes($login);
             $this->render('Membres/modification_membre', array('login'), compact('membre'));
         } else {
-            header('Location: ' . root . '/membres.php');
+            header('Location: ' . Routes::getRoute(Routes::members));
         }
     }
 

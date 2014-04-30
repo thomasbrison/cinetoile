@@ -1,10 +1,6 @@
 <?php
 
 require_once 'Controllers/Editable.interface.php';
-require_once 'Beans/Film.class.php';
-require_once 'Beans/Diffusion.class.php';
-require_once 'Tables/TableFilm.php';
-require_once 'Tables/TableDiffusion.php';
 
 class DiffusionsController extends Controller implements Editable {
 
@@ -39,9 +35,9 @@ class DiffusionsController extends Controller implements Editable {
         if (isset($_POST['ajouter'])) {
             $diffusion = $this->getInfos(null);
             $this->tableDiffusion->add($diffusion);
-            header('Location: ' . root . '/diffusions.php');
+            header('Location: ' . Routes::getRoute(Routes::diffusions));
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . root . '/diffusions.php');
+            header('Location: ' . Routes::getRoute(Routes::diffusions));
         } else {
             $films = $this->tableFilm->consultAsAMember();
             $this->render('Diffusions/ajout_diffusion', array(), compact('films'));
@@ -57,16 +53,16 @@ class DiffusionsController extends Controller implements Editable {
             $id = (int) htmlentities($_POST['id']);
             $diffusion = $this->getInfos($id);
             $this->tableDiffusion->update($diffusion);
-            header('Location: ' . root . '/diffusions.php');
+            header('Location: ' . Routes::getRoute(Routes::diffusions));
         } elseif (isset($_POST['annuler'])) {
-            header('Location: ' . root . '/diffusions.php');
+            header('Location: ' . Routes::getRoute(Routes::diffusions));
         } elseif (isset($_GET['id'])) {
             $diffusion = $this->tableDiffusion->getAttributes((int) $_GET['id']);
             $_SESSION['affiche'] = $diffusion->getAffiche();
             $films = $this->tableFilm->consultAsAMember();
             $this->render('Diffusions/modification_diffusion', array('effets'), compact('diffusion', 'films'));
         } else {
-            header('Location: ' . root . '/diffusions.php');
+            header('Location: ' . Routes::getRoute(Routes::diffusions));
         }
     }
 

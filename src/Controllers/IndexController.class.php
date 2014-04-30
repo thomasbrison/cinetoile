@@ -1,10 +1,5 @@
 <?php
 
-require_once 'Beans/Diffusion.class.php';
-require_once 'Tables/TableMembre.php';
-require_once 'Tables/TableFilm.php';
-require_once 'Tables/TableDiffusion.php';
-
 class IndexController extends Controller {
 
     private $tableMembre;
@@ -76,9 +71,9 @@ class IndexController extends Controller {
                     $_SESSION['login'] = $login;
                     $_SESSION['droits'] = $droits;
                     if ($_SESSION['droits'] === Rights::$ADMIN) {
-                        header('Location: ' . root . '/' . Routes::$admin);
+                        header('Location: ' . Routes::getRoute(Routes::admin));
                     } else {
-                        header('Location: ' . root . '/' . Routes::$index);
+                        header('Location: ' . Routes::getRoute(Routes::index));
                     }
                 }
             }
@@ -89,7 +84,7 @@ class IndexController extends Controller {
 
     public function deconnexion() {
         session_destroy();
-        header('Location: ' . root . '/' . Routes::$connection);
+        header('Location: ' . Routes::getRoute(Routes::connection));
     }
 
 }
