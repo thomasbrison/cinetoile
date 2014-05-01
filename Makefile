@@ -1,3 +1,3 @@
 all: js
 
-js: uglify-js -o js/cinetoile.js js/app/*.js
+js: uglify-js -o public/js/cinetoile.js public/js/app/*.js -c -m
