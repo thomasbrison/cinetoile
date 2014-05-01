@@ -74,7 +74,7 @@ class TableDiffusion extends Table {
      * @return Diffusion
      */
     private function parseRow($row) {
-        $id = (int) $row['id'];
+        $id = isset($row['id']) ? (int) $row['id'] : -1;
         $dateDiffusion = $row['date_diffusion'];
         $idFilm = (int) $row['id_film'];
         $cycle = $row['cycle'];
