@@ -20,13 +20,7 @@ final class Router {
         $website_folder = root . '/';
         $request_uri = parse_url(filter_input(INPUT_SERVER, 'REQUEST_URI'), PHP_URL_PATH);
         $request = substr($request_uri, strpos($request_uri, $website_folder) + strlen($website_folder));
-        $paths = explode('/', $request);
-        // Remove last element if empty
-        $nb_paths = count($paths);
-        if (empty($paths[$nb_paths - 1])) {
-            unset($paths[$nb_paths - 1]);
-        }
-        return $paths;
+        return preg_split('/\//', $request, -1, PREG_SPLIT_NO_EMPTY);
     }
 
     /**
