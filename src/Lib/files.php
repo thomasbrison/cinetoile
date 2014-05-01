@@ -5,7 +5,7 @@ function file_upload($file, $sizemax, $valid_extensions, $final_dir) {
     $file_name_without_accents = strtr($array_file['name'], 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
     $formatted_file_name = preg_replace('/([^.-a-z0-9]+)/i', '_', $file_name_without_accents);
     if (isset($array_file) AND $array_file['error'] === UPLOAD_ERR_OK) {
-        $upload = file_upload_success($array_file, $sizemax, $valid_extensions, __DIR__ . "/../" . $final_dir, $formatted_file_name);
+        $upload = file_upload_success($array_file, $sizemax, $valid_extensions, __DIR__ . "/../../public/" . $final_dir, $formatted_file_name);
     } else {
         $message = file_upload_error_message($array_file, $formatted_file_name);
         $upload = file_upload_summary(FALSE, $array_file, $message, $formatted_file_name);
