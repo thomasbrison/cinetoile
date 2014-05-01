@@ -1,0 +1,1 @@
+<h1 class="error">Page non trouvée</h1>

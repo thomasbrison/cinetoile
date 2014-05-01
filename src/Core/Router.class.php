@@ -64,8 +64,7 @@ final class Router {
         $controllerName = self::getControllerName($parsedRequest);
         $controllerClassName = self::getControllerClassName($parsedRequest);
         if (!stream_resolve_include_path(self::getControllerFilename($parsedRequest))) {
-            header("HTTP/1.1 404 Not Found");
-            exit();
+            ErrorController::error(404);
         }
         if (!isset(self::$controllers[$controllerName])) {
             self::$controllers[$controllerName] = new $controllerClassName();
@@ -112,8 +111,7 @@ final class Router {
                 $controller->$method_name($args);
             } else {
                 // Error : method does not exist
-                header("HTTP/1.1 404 Not Found");
-                exit();
+                ErrorController::error(404);
             }
         }
     }
