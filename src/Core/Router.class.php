@@ -129,8 +129,8 @@ final class Router {
      */
     public static function setRootWebApp() {
         $matches = array();
-        preg_match('@/[^/]+@', filter_input(INPUT_SERVER, "PHP_SELF"), $matches);
-        defined('root') || define('root', $matches[0]);
+        preg_match('((.*)/public.*)', filter_input(INPUT_SERVER, "PHP_SELF"), $matches);
+        defined('root') || define('root', $matches[1]);
     }
 
     /**
