@@ -31,8 +31,12 @@ class IndexController extends Controller {
     }
 
     public function defaultAction() {
-        if (isset($_GET['id'])) {
-            $this->displaySingleDiffusion($_GET['id']);
+        $this->voir();
+    }
+
+    public function voir(array $args = NULL) {
+        if (isset($args, $args[0])) {
+            $this->displaySingleDiffusion((int) $args[0]);
         } else {
             $this->displayAllDiffusions();
         }

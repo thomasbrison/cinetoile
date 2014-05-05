@@ -93,8 +93,7 @@ final class Router {
         if (!isset($parsedRequest[0]) && !isset($parsedRequest[1])) {
             return NULL;
         }
-        array_slice($parsedRequest, 2);
-        return $parsedRequest;
+        return array_slice($parsedRequest, 2);
     }
 
     /**

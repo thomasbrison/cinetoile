@@ -7,6 +7,7 @@
  */
 final class Routes {
     const index = 'index';
+    const seeDiffusion = 'index/voir';
     const map = 'plan';
     const presentation = 'presentation';
     const admin = 'admin';
@@ -33,9 +34,14 @@ final class Routes {
     /**
      * Get absolute route. Usefull for views.
      * @param string $route
+     * @param array $args
      * @return string
      */
-    final static function getRoute($route) {
-        return root . '/' . $route;
+    final static function getRoute($route, array $args = NULL) {
+        $abs_route = root . '/' . $route;
+        if (isset($args)) {
+            $abs_route .= '/' . implode('/', $args);
+        }
+        return $abs_route;
     }
 }
