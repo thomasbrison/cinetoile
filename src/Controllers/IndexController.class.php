@@ -31,41 +31,61 @@ class IndexController extends Controller {
     }
 
     public function defaultAction() {
-        $table_film = $this->tableFilm;
-
-        if (isset($this->userLogin)) {
-            $prenom = $this->tableMembre->getFirstName($this->userLogin);
-        }
-
-        if (isset($_GET['date'])) {
-            $diffusion = $this->tableDiffusion->getAttributes($_GET['date']);
-            $var_array = compact('diffusion', 'table_film');
-            return $this->render('index', $var_array);
-        }
-
-        if (isset($_GET['page'])) {
-            $page = $_GET['page'];
+        if (isset($_GET['id'])) {
+            $this->displaySingleDiffusion($_GET['id']);
         } else {
-            $page = $this->tableDiffusion->pageOfNextDiffusion();
+            $this->displayAllDiffusions();
         }
+    }
 
+    private function displaySingleDiffusion($id) {
+        $table_film = $this->tableFilm;
+        $diffusion = $this->tableDiffusion->getAttributes($id);
+        $this->render('index', compact('diffusion', 'table_film'));
+    }
+
+    private function displayAllDiffusions() {
+        $this->setDiffusions();
+        $page = $this->getCurrentPage();
+        $nb_pages = count($this->diffusions);
+        $diffusion = $this->getDiffusion($page, $nb_pages);
+        if ($diffusion) {
+            $this->renderDiffusion($diffusion, $page, $nb_pages);
+        } else {
+            $this->render('no-diffusion');
+        }
+    }
+
+    private function getCurrentPage() {
+        if (isset($_GET['page'])) {
+            return $_GET['page'];
+        }
+        return $this->tableDiffusion->pageOfNextDiffusion();
+    }
+
+    private function setDiffusions() {
         if (!$this->diffusions) {
             $reverse_diffusions = $this->tableDiffusion->consult();
             $this->diffusions = array_reverse($reverse_diffusions);
         }
-        $nb_pages = count($this->diffusions);
-        if ($nb_pages) {
-            $diffusion = $this->diffusions[$page];
-        } else {
-            return $this->render('no-diffusion');
-        }
+    }
 
+    private function getDiffusion($page, $nb_pages) {
+        if ($page >= 0 && $page < $nb_pages) {
+            return $this->diffusions[$page];
+        }
+        return NULL;
+    }
+
+    private function renderDiffusion($diffusion, $page, $nb_pages) {
+        $table_film = $this->tableFilm;
         if (isset($_GET['isajax']) && (int) $_GET['isajax'] == 1) {
-            $var_array = compact('diffusion', 'table_film', 'page', 'nb_pages');
-            $this->renderAjax('Templates/seance', $var_array);
+            $this->renderAjax('Templates/seance', compact('diffusion', 'table_film', 'page', 'nb_pages'));
         } else {
-            $var_array = compact('prenom', 'diffusion', 'table_film', 'page', 'nb_pages');
-            $this->render('index', $var_array);
+            if (isset($this->userLogin)) {
+                $prenom = $this->tableMembre->getFirstName($this->userLogin);
+            }
+            $this->render('index', compact('prenom', 'diffusion', 'table_film', 'page', 'nb_pages'));
         }
     }
 

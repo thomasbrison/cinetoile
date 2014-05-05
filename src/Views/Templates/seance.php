@@ -18,7 +18,7 @@ if (isset($table_film)) {
 }
 ?>
 
-<article class="seance" id="seance<?php echo $page; ?>">
+<article class="seance" id="seance<?php if (isset($page)) {echo $page;} ?>">
     <div id="fb-root"></div>
 
     <h2>
